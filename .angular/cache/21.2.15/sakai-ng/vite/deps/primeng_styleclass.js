@@ -20,11 +20,11 @@ import {
   ɵɵdefineNgModule,
   ɵɵdirectiveInject,
   ɵɵlistener
-} from "./chunk-XGI5745C.js";
-import "./chunk-HWYXSU2G.js";
+} from "./chunk-GUUYGOTV.js";
 import "./chunk-JRFR6BLO.js";
+import "./chunk-HWYXSU2G.js";
 import "./chunk-MARUHEWW.js";
-import "./chunk-GOMI4DH3.js";
+import "./chunk-H2SRQSE4.js";
 
 // node_modules/primeng/fesm2022/primeng-styleclass.mjs
 var StyleClass = class _StyleClass {

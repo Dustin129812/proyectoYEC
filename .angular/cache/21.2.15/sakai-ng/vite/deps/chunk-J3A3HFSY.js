@@ -1,12 +1,12 @@
 import {
   BaseComponent
-} from "./chunk-BIPM2FJY.js";
+} from "./chunk-QPKWJL5C.js";
 import {
   E
 } from "./chunk-LPIFQPJX.js";
 import {
   isPlatformBrowser
-} from "./chunk-QNRWE5RM.js";
+} from "./chunk-REWUQQ4O.js";
 import {
   DOCUMENT,
   Directive,
@@ -21,7 +21,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵgetInheritedFactory
-} from "./chunk-XGI5745C.js";
+} from "./chunk-GUUYGOTV.js";
 
 // node_modules/primeng/fesm2022/primeng-dom.mjs
 var DomHandler = class _DomHandler {
@@ -833,4 +833,4 @@ export {
   ConnectedOverlayScrollHandler,
   AutoFocus
 };
-//# sourceMappingURL=chunk-WDMIPMLO.js.map
+//# sourceMappingURL=chunk-J3A3HFSY.js.map

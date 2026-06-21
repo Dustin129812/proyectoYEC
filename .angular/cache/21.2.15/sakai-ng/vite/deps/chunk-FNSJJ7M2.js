@@ -1,9 +1,9 @@
 import {
   BaseComponent
-} from "./chunk-BIPM2FJY.js";
+} from "./chunk-QPKWJL5C.js";
 import {
   BaseStyle
-} from "./chunk-7ULBRMLB.js";
+} from "./chunk-TAZJH7LG.js";
 import {
   f
 } from "./chunk-LPIFQPJX.js";
@@ -26,7 +26,7 @@ import {
   ɵɵnamespaceSVG,
   ɵɵprojection,
   ɵɵprojectionDef
-} from "./chunk-XGI5745C.js";
+} from "./chunk-GUUYGOTV.js";
 
 // node_modules/primeng/fesm2022/primeng-icons-baseicon.mjs
 var _c0 = ["*"];
@@ -252,4 +252,4 @@ export {
   CheckIcon,
   MinusIcon
 };
-//# sourceMappingURL=chunk-QXM2AZUP.js.map
+//# sourceMappingURL=chunk-FNSJJ7M2.js.map

@@ -1,6 +1,6 @@
 import {
   BaseComponent
-} from "./chunk-BIPM2FJY.js";
+} from "./chunk-QPKWJL5C.js";
 import {
   s
 } from "./chunk-LPIFQPJX.js";
@@ -12,7 +12,7 @@ import {
   ɵɵInheritDefinitionFeature,
   ɵɵdefineDirective,
   ɵɵgetInheritedFactory
-} from "./chunk-XGI5745C.js";
+} from "./chunk-GUUYGOTV.js";
 
 // node_modules/primeng/fesm2022/primeng-basemodelholder.mjs
 var BaseModelHolder = class _BaseModelHolder extends BaseComponent {
@@ -54,4 +54,4 @@ var BaseModelHolder = class _BaseModelHolder extends BaseComponent {
 export {
   BaseModelHolder
 };
-//# sourceMappingURL=chunk-GKHIPCCI.js.map
+//# sourceMappingURL=chunk-IHPE2XIB.js.map
