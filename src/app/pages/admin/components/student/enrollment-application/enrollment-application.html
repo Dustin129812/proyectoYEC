@@ -1,0 +1,26 @@
+<div>
+    <p-stepper [value]="pageActual()" [linear]="true">
+        <p-step-list>
+            <p-step [value]="1">Datos Personales</p-step>
+            <p-step [value]="2">Solicitud de Matricula</p-step>
+            <p-step [value]="3">Subir Archivos</p-step>
+        </p-step-list>
+        <p-step-panels>
+            <p-step-panel [value]="1">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <app-personal-data-form />
+                </ng-template>
+            </p-step-panel>
+            <p-step-panel [value]="2">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <app-application />
+                </ng-template>
+            </p-step-panel>
+            <p-step-panel [value]="3">
+                <ng-template #content let-activateCallback="activateCallback">
+                    -<app-enrollment-attachment />
+                </ng-template>
+            </p-step-panel>
+        </p-step-panels>
+    </p-stepper>
+</div>
