@@ -322,6 +322,12 @@ function Z(t2, e) {
 function bt(t2, e) {
   t2 && document.activeElement !== t2 && t2.focus(e);
 }
+function Q(t2, e) {
+  if (p2(t2)) {
+    let o = t2.getAttribute(e);
+    return isNaN(o) ? o === "true" || o === "false" ? o === "true" : o : +o;
+  }
+}
 function Tt(t2) {
   if (t2) {
     let e = t2.offsetHeight, o = getComputedStyle(t2);
@@ -485,6 +491,7 @@ export {
   Y2,
   Z,
   bt,
+  Q,
   Tt,
   _,
   L,
@@ -496,4 +503,4 @@ export {
   w,
   s2
 };
-//# sourceMappingURL=chunk-LPIFQPJX.js.map
+//# sourceMappingURL=chunk-65EU4ZHL.js.map

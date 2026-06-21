@@ -2,7 +2,7 @@ import {
   BaseStyle,
   PrimeNG,
   base
-} from "./chunk-TAZJH7LG.js";
+} from "./chunk-I4LX7IJG.js";
 import {
   R,
   a,
@@ -14,7 +14,7 @@ import {
   s,
   s2,
   w
-} from "./chunk-LPIFQPJX.js";
+} from "./chunk-65EU4ZHL.js";
 import {
   N,
   S
@@ -607,4 +607,4 @@ export {
   PARENT_INSTANCE,
   BaseComponent
 };
-//# sourceMappingURL=chunk-QPKWJL5C.js.map
+//# sourceMappingURL=chunk-JZHYJC4U.js.map

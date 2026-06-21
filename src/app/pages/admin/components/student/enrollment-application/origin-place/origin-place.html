@@ -1,72 +1,171 @@
-<div class="card">
-    <h3>Lugar de Origen y Dirección</h3>
+<h3>Lugar de Origen y Dirección</h3>
 
-    <p-floatLabel variant="on">
-        <input id="country" pInputText [formField]="form.country" fluid
-            (input)="enrollmentApplicationStore.updateOriginPlace({ country: $any($event.target).value })" />
-        <label for="country">País</label>
-    </p-floatLabel>
+<div>
+  <p-floatLabel variant="on">
+    <input
+      id="country"
+      pInputText
+      [formField]="form.country"
+      fluid
+      (input)="enrollmentApplicationStore.updateOriginPlace({ country: $any($event.target).value })"
+    />
+    <label for="country">País</label>
+  </p-floatLabel>
 
-    <br />
-
-    <p-floatLabel variant="on">
-        <input id="province" pInputText [formField]="form.province" fluid
-            (input)="enrollmentApplicationStore.updateOriginPlace({ province: $any($event.target).value })" />
-        <label for="province">Provincia</label>
-    </p-floatLabel>
-
-    <br />
-
-    <p-floatLabel variant="on">
-        <input id="canton" pInputText [formField]="form.canton" fluid
-            (input)="enrollmentApplicationStore.updateOriginPlace({ canton: $any($event.target).value })" />
-        <label for="canton">Cantón</label>
-    </p-floatLabel>
-
-    <br />
-
-    <p-floatLabel variant="on">
-        <input id="parish" pInputText [formField]="form.parish" fluid
-            (input)="enrollmentApplicationStore.updateOriginPlace({ parish: $any($event.target).value })" />
-        <label for="parish">Parroquia</label>
-    </p-floatLabel>
-
-    <br />
-
-    <p-floatLabel variant="on">
-        <input id="mainStreet" pInputText [formField]="form.mainStreet" fluid
-            (input)="enrollmentApplicationStore.updateOriginPlace({ mainStreet: $any($event.target).value })" />
-        <label for="mainStreet">Calle principal</label>
-    </p-floatLabel>
-
-    <br />
-
-    <p-floatLabel variant="on">
-        <input id="number" pInputText [formField]="form.number" fluid
-            (input)="enrollmentApplicationStore.updateOriginPlace({ number: $any($event.target).value })" />
-        <label for="number">Número</label>
-    </p-floatLabel>
-
-    <br />
-
-    <p-floatLabel variant="on">
-        <input id="secondaryStreet" pInputText [formField]="form.secondaryStreet" fluid
-            (input)="enrollmentApplicationStore.updateOriginPlace({ secondaryStreet: $any($event.target).value })" />
-        <label for="secondaryStreet">Calle secundaria</label>
-    </p-floatLabel>
-
-    <br />
-
-    <p-floatLabel variant="on">
-        <input id="reference" pInputText [formField]="form.reference" fluid
-            (input)="enrollmentApplicationStore.updateOriginPlace({ reference: $any($event.target).value })" />
-        <label for="reference">Referencia</label>
-    </p-floatLabel>
-
-    <br />
-
-    <div id="map"
-        style="height: 400px; width: 100%; display: block; margin-top: 1rem;">
-    </div>
-
+  @if(form.country().touched() || form.country().dirty()){
+    @for (error of form.country().errors(); track error) {
+      <p-message severity="error" text="{{error.message}}" />
+    }
+  }
 </div>
+
+<br />
+
+<div>
+  <p-floatLabel variant="on">
+    <input
+      id="province"
+      pInputText
+      [formField]="form.province"
+      fluid
+      (input)="enrollmentApplicationStore.updateOriginPlace({ province: $any($event.target).value })"
+    />
+    <label for="province">Provincia</label>
+  </p-floatLabel>
+
+  @if(form.province().touched() || form.province().dirty()){
+    @for (error of form.province().errors(); track error) {
+      <p-message severity="error" text="{{error.message}}" />
+    }
+  }
+</div>
+
+<br />
+
+<div>
+  <p-floatLabel variant="on">
+    <input
+      id="canton"
+      pInputText
+      [formField]="form.canton"
+      fluid
+      (input)="enrollmentApplicationStore.updateOriginPlace({ canton: $any($event.target).value })"
+    />
+    <label for="canton">Cantón</label>
+  </p-floatLabel>
+
+  @if(form.canton().touched() || form.canton().dirty()){
+    @for (error of form.canton().errors(); track error) {
+      <p-message severity="error" text="{{error.message}}" />
+    }
+  }
+</div>
+
+<br />
+
+<div>
+  <p-floatLabel variant="on">
+    <input
+      id="parish"
+      pInputText
+      [formField]="form.parish"
+      fluid
+      (input)="enrollmentApplicationStore.updateOriginPlace({ parish: $any($event.target).value })"
+    />
+    <label for="parish">Parroquia</label>
+  </p-floatLabel>
+
+  @if(form.parish().touched() || form.parish().dirty()){
+    @for (error of form.parish().errors(); track error) {
+      <p-message severity="error" text="{{error.message}}" />
+    }
+  }
+</div>
+
+<br />
+
+<div>
+  <p-floatLabel variant="on">
+    <input
+      id="mainStreet"
+      pInputText
+      [formField]="form.mainStreet"
+      fluid
+      (input)="enrollmentApplicationStore.updateOriginPlace({ mainStreet: $any($event.target).value })"
+    />
+    <label for="mainStreet">Calle principal</label>
+  </p-floatLabel>
+
+  @if(form.mainStreet().touched() || form.mainStreet().dirty()){
+    @for (error of form.mainStreet().errors(); track error) {
+      <p-message severity="error" text="{{error.message}}" />
+    }
+  }
+</div>
+
+<br />
+
+<div>
+  <p-floatLabel variant="on">
+    <input
+      id="number"
+      pInputText
+      [formField]="form.number"
+      fluid
+      (input)="enrollmentApplicationStore.updateOriginPlace({ number: $any($event.target).value })"
+    />
+    <label for="number">Número</label>
+  </p-floatLabel>
+
+  @if(form.number().touched() || form.number().dirty()){
+    @for (error of form.number().errors(); track error) {
+      <p-message severity="error" text="{{error.message}}" />
+    }
+  }
+</div>
+
+<br />
+
+<div>
+  <p-floatLabel variant="on">
+    <input
+      id="secondaryStreet"
+      pInputText
+      [formField]="form.secondaryStreet"
+      fluid
+      (input)="enrollmentApplicationStore.updateOriginPlace({ secondaryStreet: $any($event.target).value })"
+    />
+    <label for="secondaryStreet">Calle secundaria</label>
+  </p-floatLabel>
+
+  @if(form.secondaryStreet().touched() || form.secondaryStreet().dirty()){
+    @for (error of form.secondaryStreet().errors(); track error) {
+      <p-message severity="error" text="{{error.message}}" />
+    }
+  }
+</div>
+
+<br />
+
+<div>
+  <p-floatLabel variant="on">
+    <input
+      id="reference"
+      pInputText
+      [formField]="form.reference"
+      fluid
+      (input)="enrollmentApplicationStore.updateOriginPlace({ reference: $any($event.target).value })"
+    />
+    <label for="reference">Referencia</label>
+  </p-floatLabel>
+
+  @if(form.reference().touched() || form.reference().dirty()){
+    @for (error of form.reference().errors(); track error) {
+      <p-message severity="error" text="{{error.message}}" />
+    }
+  }
+</div>
+
+<br />
+
+<div #mapContainer style="min-height: 400px; height: 400px; width: 100%; display: block; background: #eee; z-index: 1;"></div>

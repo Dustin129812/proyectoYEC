@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, signal ,inject,untracked} from '@angular/core';
+import { AfterViewInit, Component, signal, inject, untracked, ViewChild, ElementRef } from '@angular/core'; // 🔥 Añadido ViewChild y ElementRef
 import { EnrollmentAplicationStore } from "@/pages/admin/work-flows/enrollment-application/enrollment-application.store";
 import * as L from 'leaflet';
 import { validateOriginPlace } from '../validators/validate-origin-place';
@@ -6,72 +6,63 @@ import { FieldTree, form, FormField } from "@angular/forms/signals";
 import { InputText } from "primeng/inputtext";
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { MessageModule } from 'primeng/message';
-import { LocationData } from '@/pages/admin/work-flows/enrollment-application/enrollment-application.state'; // Asegúrate de que esta ruta sea la correcta
+import { LocationData } from '@/pages/admin/work-flows/enrollment-application/enrollment-application.state';
 import { FormRegistryService } from '@/pages/admin/services/form-registry.service';
 
 @Component({
   selector: "app-origin-place",
-  // 🔥 2. DECLARAMOS LOS IMPORTS EN EL COMPONENTE PARA QUITAR LOS ERRORES DEL HTML
   imports: [FormField, InputText, FloatLabelModule, MessageModule],
   templateUrl: "./origin-place.html",
   styleUrl: "./origin-place.scss",
 })
 export class OriginPlace implements AfterViewInit {
-public enrollmentApplicationStore = inject(EnrollmentAplicationStore);
-private readonly formRegistryService = inject(FormRegistryService);
+  public enrollmentApplicationStore = inject(EnrollmentAplicationStore);
+  private readonly formRegistryService = inject(FormRegistryService);
 
-
+  // 🔥 1. ATRAPAMOS EL CONTENEDOR DEL MAPA DIRECTO DEL HTML
+  @ViewChild('mapContainer', { static: false }) mapContainer!: ElementRef;
 
   private map!: L.Map;
   private marker!: L.Marker;
 
-  // 🔥 2. Ahora sí, 'this.store' ya existe cuando se crea esta señal
   protected form$ = signal<LocationData>(
     structuredClone(this.enrollmentApplicationStore.originPlace())
   );
 
-  protected form: FieldTree<LocationData> = this.buildForm;
+  public form: FieldTree<LocationData> = this.buildForm;
 
-    get buildForm() {
-      return form(this.form$, (schema) => {
-        //Usamos untracked para obtener los valores reales sin crear el bucle infinito que causaba al enviar el signal , toca probar ahora que estan sin las condicionales en las validaciones
-        const deconstrucedValues = untracked(() => this.form$());
-        validateOriginPlace(schema, deconstrucedValues);
-      });
-    }
-
-
-  onSubmit() {
-    if (this.form().valid()) {
-      // 1. Nos aseguramos de actualizar el Store por última vez
-      this.enrollmentApplicationStore.updateOriginPlace(this.form$());
-
-      // 2. Ordenamos al Store avanzar al paso 2
-      this.enrollmentApplicationStore.setStep(2);
-    } else {
-      // Si usas el FormRegistryService para manejar errores globales:
-      console.log('El formulario tiene errores:', this.form().errors());
-    }
+  get buildForm() {
+    return form(this.form$, (schema) => {
+      const deconstrucedValues = untracked(() => this.form$());
+      validateOriginPlace(schema, deconstrucedValues);
+    });
   }
 
-  // Toda tu lógica del mapa está intacta
   ngAfterViewInit() {
-    const mapEl = document.getElementById('map') as HTMLElement;
+    // Le damos 300ms para asegurar que el padre terminó de dibujar la tarjeta
+    setTimeout(() => {
+      // 🔥 2. Usamos nativeElement en lugar de getElementById
+      if (!this.mapContainer || !this.mapContainer.nativeElement) {
+        console.error("El contenedor del mapa no está listo aún");
+        return;
+      }
 
-    this.map = L.map(mapEl, {
-      center: [-0.18, -78.47],
-      zoom: 13
-    });
+      // 🔥 3. Le pasamos el contenedor nativo directamente a Leaflet
+      this.map = L.map(this.mapContainer.nativeElement, {
+        center: [-0.18, -78.47],
+        zoom: 13
+      });
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'OSM'
-    }).addTo(this.map);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'OSM'
+      }).addTo(this.map);
 
-    this.map.invalidateSize();
+      this.map.invalidateSize();
 
-    this.map.on('click', (e: any) => {
-      this.setMarker(e.latlng.lat, e.latlng.lng);
-    });
+      this.map.on('click', (e: any) => {
+        this.setMarker(e.latlng.lat, e.latlng.lng);
+      });
+    }, 300);
   }
 
   setMarker(lat: number, lng: number) {
