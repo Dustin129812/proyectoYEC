@@ -1,0 +1,18 @@
+app-origin-place {
+    display: block;
+    width: 100%;
+}
+
+:host {
+    display: block;
+    width: 100%;
+}
+
+// Forzamos dimensiones reales y físicas sobre el contenedor del mapa
+#map {
+    height: 400px !important;
+    width: 100% !important;
+    display: block !important;
+    visibility: visible !important;
+    position: relative !important;
+}

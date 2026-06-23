@@ -1,0 +1,14 @@
+.grid {
+  width: 100%;
+  display: grid;
+  // si usas grid, asegura que #map ocupe toda la fila:
+  grid-template-columns: 1fr 1fr; // o las columnas que tengas
+  // ...
+}
+
+#map {
+  grid-column: 1 / -1;   // ← ocupa toda la fila
+  width: 100% !important; // ← forzar ancho completo
+  height: 400px;
+  display: block;
+}

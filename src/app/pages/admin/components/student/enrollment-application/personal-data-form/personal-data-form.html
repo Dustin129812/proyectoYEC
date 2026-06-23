@@ -1,246 +1,306 @@
 <form>
+  <p-accordion value="1">
 
-    <div class="card">
-        <h3>Contacto de Emergencia</h3>
+    <!-- 1. Contacto de Emergencia -->
+    <p-accordion-panel value="contacto-emergencia">
+      <p-accordion-header>
+        Contacto de Emergencia
+      </p-accordion-header>
 
-        <p-floatLabel variant="on">
+      <p-accordion-content>
+
+        <div class="card">
+          <p-floatLabel variant="on">
             <input id="contactEmergencyName" pInputText [formField]="form.contactEmergencyName" fluid />
             <label for="contactEmergencyName">Nombre del Contacto</label>
-        </p-floatLabel>
-        @if(form.contactEmergencyName().touched() || form.contactEmergencyName().dirty()){
-        @for (error of form.contactEmergencyName().errors(); track $index) {
-        <p-message severity="error" text={{error.message}} />
-        }
-        }
-        <br />
-        <p-floatLabel variant="on">
+          </p-floatLabel>
+
+          @if(form.contactEmergencyName().touched() || form.contactEmergencyName().dirty()){
+            @for (error of form.contactEmergencyName().errors(); track error) {
+              <p-message severity="error" text="{{error.message}}" />
+            }
+          }
+
+          <br />
+
+          <p-floatLabel variant="on">
             <input id="contactEmergencyPhone" pInputText [formField]="form.contactEmergencyPhone" fluid />
             <label for="contactEmergencyPhone">Contacto</label>
-        </p-floatLabel>
-        @if(form.contactEmergencyPhone().touched() || form.contactEmergencyPhone().dirty()){
-        @for (error of form.contactEmergencyPhone().errors(); track $index) {
-        <p-message severity="error" text={{error.message}} />
-        }
-        }
-        <br />
+          </p-floatLabel>
 
-        <p-floatLabel variant="on">
+          @if(form.contactEmergencyPhone().touched() || form.contactEmergencyPhone().dirty()){
+            @for (error of form.contactEmergencyPhone().errors(); track error) {
+              <p-message severity="error" text="{{error.message}}" />
+            }
+          }
+
+          <br />
+
+          <p-floatLabel variant="on">
             <input id="contactEmergencyKinship" pInputText [formField]="form.contactEmergencyKinship" fluid />
             <label for="contactEmergencyKinship">Parentesco</label>
-        </p-floatLabel>
-        @if(form.contactEmergencyKinship().touched() || form.contactEmergencyKinship().dirty()){
-        @for (error of form.contactEmergencyKinship().errors(); track $index) {
-        <p-message severity="error" text={{error.message}} />
-        }
+          </p-floatLabel>
 
-        }
-
-    </div>
-
-    <div class="card">
-        <h3>Inclusión y Salud</h3>
-        <div>
-            <p-checkbox [binary]="true" [formField]="form.isDisability" inputId="isDisability" class="ml-2" />
-            <label for="isDisability"> ¿Tiene alguna discapacidad? </label>
+          @if(form.contactEmergencyKinship().touched() || form.contactEmergencyKinship().dirty()){
+            @for (error of form.contactEmergencyKinship().errors(); track error) {
+              <p-message severity="error" text="{{error.message}}" />
+            }
+          }
         </div>
 
-        @if (form.isDisability().value()) {
-        <br />
-        <p-floatLabel variant="on">
-            <input id="disabilityType" pInputText [formField]="form.disabilityType" fluid />
-            <label for="disabilityType">Tipo de Discapacidad</label>
-        </p-floatLabel>
-        @if(form.disabilityType().touched() || form.disabilityType().dirty()){
-        @for (error of form.disabilityType().errors(); track $index) {
-        <p-message severity="error" text={{error.message}} />
-        }
-        }
-        <br />
+      </p-accordion-content>
+    </p-accordion-panel>
+<br />
+    <!-- 2. Inclusión y Salud -->
+    <p-accordion-panel value="salud">
+      <p-accordion-header>Inclusión y Salud</p-accordion-header>
 
-        <p-floatLabel variant="on">
-            <input id="disabilityPercentage" pInputText [formField]="form.disabilityPercentage" fluid />
-            <label for="disabilityPercentage">Porcentaje (%)</label>
-        </p-floatLabel>
-        @if(form.disabilityPercentage().touched() || form.disabilityPercentage().dirty()){
-        @for (error of form.disabilityPercentage().errors(); track $index) {
-        <p-message severity="error" text={{error.message}} />
-        }
-        }
-        }
-        <hr>
+      <p-accordion-content>
+        <div class="card">
 
-        <div>
+          <div>
+            <p-checkbox [binary]="true" [formField]="form.isDisability" inputId="isDisability" />
+            <label for="isDisability"> ¿Tiene alguna discapacidad? </label>
+          </div>
+
+          @if (form.isDisability().value()) {
+
+            <br />
+
+            <p-floatLabel variant="on">
+              <input id="disabilityType" pInputText [formField]="form.disabilityType" fluid />
+              <label for="disabilityType">Tipo de Discapacidad</label>
+            </p-floatLabel>
+
+            @if(form.disabilityType().touched() || form.disabilityType().dirty()){
+              @for (error of form.disabilityType().errors(); track error) {
+                <p-message severity="error" text="{{error.message}}" />
+              }
+            }
+
+            <br />
+
+            <p-floatLabel variant="on">
+              <input id="disabilityPercentage" pInputText [formField]="form.disabilityPercentage" fluid />
+              <label for="disabilityPercentage">Porcentaje (%)</label>
+            </p-floatLabel>
+
+            @if(form.disabilityPercentage().touched() || form.disabilityPercentage().dirty()){
+              @for (error of form.disabilityPercentage().errors(); track error) {
+                <p-message severity="error" text="{{error.message}}" />
+              }
+            }
+          }
+
+          <hr />
+
+          <div>
             <p-checkbox [binary]="true" [formField]="form.isCatastrophicIllness" inputId="isCatastrophicIllness" />
             <label for="isCatastrophicIllness"> ¿Padece una enfermedad catastrófica? </label>
+          </div>
+
+          @if (form.isCatastrophicIllness().value()) {
+
+            <br />
+
+            <p-floatLabel variant="on">
+              <input id="catastrophicIllness" pInputText [formField]="form.catastrophicIllness" fluid />
+              <label for="catastrophicIllness">Especifique la Enfermedad</label>
+            </p-floatLabel>
+
+            @if(form.catastrophicIllness().touched() || form.catastrophicIllness().dirty()){
+              @for (error of form.catastrophicIllness().errors(); track error) {
+                <p-message severity="error" text="{{error.message}}" />
+              }
+            }
+          }
+
         </div>
+      </p-accordion-content>
+    </p-accordion-panel>
+<br />
+    <!-- 3. Cultura e Idiomas -->
+    <p-accordion-panel value="cultura">
+      <p-accordion-header>Cultura e Idiomas</p-accordion-header>
 
-        @if (form.isCatastrophicIllness().value()) {
-        <br />
-        <p-floatLabel variant="on">
-            <input id="catastrophicIllness" pInputText [formField]="form.catastrophicIllness" fluid />
-            <label for="catastrophicIllness">Especifique la Enfermedad</label>
-        </p-floatLabel>
-        @if(form.catastrophicIllness().touched() || form.catastrophicIllness().dirty()){
-        @for (error of form.catastrophicIllness().errors(); track $index) {
-        <p-message severity="error" text={{error.message}} />
-        }
-        }
+      <p-accordion-content>
+        <div class="card">
 
-        }
-    </div>
-
-    <div class="card">
-        <h5>Cultura e Idiomas</h5>
-        <p-floatLabel variant="on">
+          <p-floatLabel variant="on">
             <input id="town" pInputText [formField]="form.town" fluid />
             <label for="town">Pueblo / Comunidad (Ciudad)</label>
-        </p-floatLabel>
-        @if(form.town().touched() || form.town().dirty()){
-        @for (error of form.town().errors(); track $index) {
-        <p-message severity="error" text={{error.message}} />
-        }
-        }
-        <br />
-        <p-floatLabel variant="on">
+          </p-floatLabel>
+
+          @if(form.town().touched() || form.town().dirty()){
+            @for (error of form.town().errors(); track error) {
+              <p-message severity="error" text="{{error.message}}" />
+            }
+          }
+
+          <br />
+
+          <p-floatLabel variant="on">
             <input id="indigenousNationality" pInputText [formField]="form.indigenousNationality" fluid />
             <label for="indigenousNationality">Nacionalidad Indígena</label>
-        </p-floatLabel>
-        <br />
-        <div>
+          </p-floatLabel>
+
+          <br />
+
+          <div>
             <p-checkbox [binary]="true" [formField]="form.isAncestralLanguage" inputId="isAncestralLanguage" />
             <label for="isAncestralLanguage"> ¿Habla un idioma ancestral? </label>
-        </div>
+          </div>
 
-        @if (form.isAncestralLanguage().value()) {
-        <br />
-        <p-floatLabel variant="on">
-            <input id="ancestralLanguageName" pInputText [formField]="form.ancestralLanguageName" fluid />
-            <label for="ancestralLanguageName">Idioma Ancestral</label>
-        </p-floatLabel>
-        @if(form.town().touched() || form.town().dirty()){
-        @for (error of form.ancestralLanguageName().errors(); track $index) {
-        <p-message severity="error" text={{error.message}} />
-        }
-        }
-        }
-        <hr>
+          @if (form.isAncestralLanguage().value()) {
 
-        <div>
+            <br />
+
+            <p-floatLabel variant="on">
+              <input id="ancestralLanguageName" pInputText [formField]="form.ancestralLanguageName" fluid />
+              <label for="ancestralLanguageName">Idioma Ancestral</label>
+            </p-floatLabel>
+
+            @if(form.ancestralLanguageName().touched() || form.ancestralLanguageName().dirty()){
+              @for (error of form.ancestralLanguageName().errors(); track error) {
+                <p-message severity="error" text="{{error.message}}" />
+              }
+            }
+          }
+
+          <hr />
+
+          <div>
             <p-checkbox [binary]="true" [formField]="form.isForeignLanguage" inputId="isForeignLanguage" />
             <label for="isForeignLanguage"> ¿Habla un idioma extranjero? </label>
+          </div>
+
+          @if (form.isForeignLanguage().value()) {
+
+            <br />
+
+            <p-floatLabel variant="on">
+              <input id="foreignLanguageName" pInputText [formField]="form.foreignLanguageName" fluid />
+              <label for="foreignLanguageName">Idioma Extranjero</label>
+            </p-floatLabel>
+
+            @if(form.foreignLanguageName().touched() || form.foreignLanguageName().dirty()){
+              @for (error of form.foreignLanguageName().errors(); track error) {
+                <p-message severity="error" text="{{error.message}}" />
+              }
+            }
+          }
+
         </div>
-        @if (form.isForeignLanguage().value()) {
-        <br />
-        <p-floatLabel variant="on">
-            <input id="foreignLanguageName" pInputText [formField]="form.foreignLanguageName" fluid />
-            <label for="foreignLanguageName">Idioma Extranjero</label>
-        </p-floatLabel>
-        @if(form.foreignLanguageName().touched() || form.foreignLanguageName().dirty()){
+      </p-accordion-content>
+    </p-accordion-panel>
+<br />
+    <!-- 4. Situación Familiar y Laboral -->
+    <p-accordion-panel value="familiar">
+      <p-accordion-header>Situación Familiar y Laboral</p-accordion-header>
 
-        @for (error of form.foreignLanguageName().errors(); track $index) {
-        <p-message severity="error" text={{error.message}} />
-        }
-        }
+      <p-accordion-content>
+        <div class="card">
 
-        }
-    </div>
-
-    <div class="card">
-        <h5>Situación Familiar y Laboral</h5>
-        <div>
+          <div>
             <p-checkbox [binary]="true" [formField]="form.isHouseHead" inputId="isHouseHead" />
             <label for="isHouseHead"> ¿Es jefe de hogar? </label>
-        </div>
-        <br />
+          </div>
 
-        <div>
+          <br />
+
+          <div>
             <p-checkbox [binary]="true" [formField]="form.isHasChildren" inputId="isHasChildren" />
             <label for="isHasChildren"> ¿Tiene hijos? </label>
-        </div>
-        @if (form.isHasChildren().value()) {
-        <br />
-        <p-floatLabel variant="on">
-            <input id="childrenTotal" pInputText [formField]="form.childrenTotal" fluid />
-            <label for="childrenTotal">Total de Hijos</label>
-        </p-floatLabel>
-        @if(form.childrenTotal().touched() || form.childrenTotal().dirty()){
-        @for (error of form.childrenTotal().errors(); track $index) {
-        <p-message severity="error" text={{error.message}} />
-        }
-        }
-        <hr>
-        } @else { <br /> }
+          </div>
 
-        <div>
+          @if (form.isHasChildren().value()) {
+
+            <br />
+
+            <p-floatLabel variant="on">
+              <input id="childrenTotal" pInputText [formField]="form.childrenTotal" fluid />
+              <label for="childrenTotal">Total de Hijos</label>
+            </p-floatLabel>
+
+            @if(form.childrenTotal().touched() || form.childrenTotal().dirty()){
+              @for (error of form.childrenTotal().errors(); track error) {
+                <p-message severity="error" text="{{error.message}}" />
+              }
+            }
+          }
+
+          <hr />
+
+          <div>
             <p-checkbox [binary]="true" [formField]="form.isWork" inputId="isWork" />
             <label for="isWork"> ¿Actualmente trabaja? </label>
-        </div>
+          </div>
 
-        @if (form.isWork().value()) {
-        <br />
-        <p-floatLabel variant="on">
-            <input id="workPosition" pInputText [formField]="form.workPosition" fluid />
-            <label for="workPosition">Cargo / Puesto</label>
-        </p-floatLabel>
-        @if(form.workPosition().touched() || form.workPosition().dirty()){
-        @for (error of form.workPosition().errors(); track $index) {
-        <p-message severity="error" text={{error.message}} />
-        }
-        }
+          @if (form.isWork().value()) {
 
-        <br />
+            <br />
 
-        <p-floatLabel variant="on">
-            <input id="monthlySalary" pInputText [formField]="form.monthlySalary" fluid />
-            <label for="monthlySalary">Salario Mensual</label>
-        </p-floatLabel>
-        @if(form.monthlySalary().touched() || form.monthlySalary().dirty()){
-        @for (error of form.monthlySalary().errors(); track $index) {
-        <p-message severity="error" text={{error.message}} />
-        }
+            <p-floatLabel variant="on">
+              <input id="workPosition" pInputText [formField]="form.workPosition" fluid />
+              <label for="workPosition">Cargo / Puesto</label>
+            </p-floatLabel>
 
-        }
+            <br />
 
-        <br />
+            <p-floatLabel variant="on">
+              <input id="monthlySalary" pInputText [formField]="form.monthlySalary" fluid />
+              <label for="monthlySalary">Salario Mensual</label>
+            </p-floatLabel>
 
-        <p-floatLabel variant="on">
-            <input id="workingHours" pInputText [formField]="form.workingHours" fluid />
-            <label for="workingHours">Horas semanales</label>
-        </p-floatLabel>
-        @if(form.workingHours().touched() || form.workingHours().dirty()){
-        @for (error of form.workingHours().errors(); track $index) {
-        <p-message severity="error" text={{error.message}} />
-        }
-        }
+            <br />
 
-        <br />
+            <p-floatLabel variant="on">
+              <input id="workingHours" pInputText [formField]="form.workingHours" fluid />
+              <label for="workingHours">Horas semanales</label>
+            </p-floatLabel>
 
-        <p-floatLabel variant="on">
-            <input id="workAddress" pInputText [formField]="form.workAddress" fluid />
-            <label for="workAddress">Dirección del Trabajo</label>
-        </p-floatLabel>
-        @if(form.workAddress().touched() || form.workAddress().dirty()){
-        @for (error of form.workAddress().errors(); track $index) {
-        <p-message severity="error" text={{error.message}} />
-        }
+            <br />
 
-        }
-        <hr>
-        } @else { <br /> }
+            <p-floatLabel variant="on">
+              <input id="workAddress" pInputText [formField]="form.workAddress" fluid />
+              <label for="workAddress">Dirección del Trabajo</label>
+            </p-floatLabel>
+          }
 
-        <div>
+          <hr />
+
+          <div>
             <p-checkbox [binary]="true" [formField]="form.isSocialSecurity" inputId="isSocialSecurity" />
             <label for="isSocialSecurity"> ¿Posee Seguro Social (IESS)? </label>
-        </div>
-        <br />
+          </div>
 
-        <div>
+          <br />
+
+          <div>
             <p-checkbox [binary]="true" [formField]="form.isPrivateSecurity" inputId="isPrivateSecurity" />
             <label for="isPrivateSecurity"> ¿Posee Seguro Privado? </label>
-        </div>
-    </div>
-    <p-button [disabled]="form().invalid()" (onClick)="onSubmit()">
-        Sigiente =>
-    </p-button>
+          </div>
 
+        </div>
+      </p-accordion-content>
+    </p-accordion-panel>
+<br />
+    <!-- 5. Datos de Ubicación -->
+    <p-accordion-panel value="ubicacion">
+      <p-accordion-header>Datos de Ubicación</p-accordion-header>
+
+      <p-accordion-content>
+        <div class="card">
+          <app-origin-place #originComponent></app-origin-place>
+        </div>
+      </p-accordion-content>
+    </p-accordion-panel>
+
+  </p-accordion>
+<br />
+  <p-button
+    [disabled]="form().invalid() || originComponent.form().invalid()"
+    (onClick)="onSubmit()">
+    Siguiente =>
+  </p-button>
 </form>
