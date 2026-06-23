@@ -2,11 +2,7 @@ import {
   BaseStyle,
   PrimeNG,
   base
-} from "./chunk-7ULBRMLB.js";
-import {
-  N,
-  S
-} from "./chunk-Z4TEE3MD.js";
+} from "./chunk-I4LX7IJG.js";
 import {
   R,
   a,
@@ -18,10 +14,14 @@ import {
   s,
   s2,
   w
-} from "./chunk-LPIFQPJX.js";
+} from "./chunk-65EU4ZHL.js";
+import {
+  N,
+  S
+} from "./chunk-Z4TEE3MD.js";
 import {
   isPlatformServer
-} from "./chunk-QNRWE5RM.js";
+} from "./chunk-REWUQQ4O.js";
 import {
   ChangeDetectorRef,
   DOCUMENT,
@@ -44,11 +44,11 @@ import {
   ɵɵdefineDirective,
   ɵɵdefineInjectable,
   ɵɵgetInheritedFactory
-} from "./chunk-XGI5745C.js";
+} from "./chunk-GUUYGOTV.js";
 import {
   __spreadProps,
   __spreadValues
-} from "./chunk-GOMI4DH3.js";
+} from "./chunk-H2SRQSE4.js";
 
 // node_modules/primeng/fesm2022/primeng-basecomponent.mjs
 var BaseComponentStyle = class _BaseComponentStyle extends BaseStyle {
@@ -607,4 +607,4 @@ export {
   PARENT_INSTANCE,
   BaseComponent
 };
-//# sourceMappingURL=chunk-BIPM2FJY.js.map
+//# sourceMappingURL=chunk-JZHYJC4U.js.map

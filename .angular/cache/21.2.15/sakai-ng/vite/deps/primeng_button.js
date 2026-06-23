@@ -1,32 +1,31 @@
 import {
   AutoFocus
-} from "./chunk-WDMIPMLO.js";
-import {
-  SpinnerIcon
-} from "./chunk-IJFPZZAG.js";
+} from "./chunk-3XBR4KKC.js";
 import {
   Fluid
-} from "./chunk-OKNRXXOW.js";
+} from "./chunk-KZS5UIMP.js";
+import {
+  SpinnerIcon
+} from "./chunk-BTPZ767O.js";
+import "./chunk-72GXRAD4.js";
 import {
   Ripple
-} from "./chunk-QFNDLDWE.js";
-import "./chunk-QXM2AZUP.js";
+} from "./chunk-K4HOZDP3.js";
 import {
   BaseComponent,
   PARENT_INSTANCE
-} from "./chunk-BIPM2FJY.js";
+} from "./chunk-JZHYJC4U.js";
 import {
   BaseStyle
-} from "./chunk-7ULBRMLB.js";
-import "./chunk-Z4TEE3MD.js";
-import {
-  PrimeTemplate,
-  SharedModule
-} from "./chunk-ZQH7XEBW.js";
+} from "./chunk-I4LX7IJG.js";
 import {
   Bind,
   BindModule
-} from "./chunk-RF27XQGW.js";
+} from "./chunk-3OF44FIQ.js";
+import {
+  PrimeTemplate,
+  SharedModule
+} from "./chunk-W35AWZWQ.js";
 import {
   M,
   P,
@@ -36,15 +35,16 @@ import {
   q2 as q,
   s,
   s2
-} from "./chunk-LPIFQPJX.js";
+} from "./chunk-65EU4ZHL.js";
+import "./chunk-Z4TEE3MD.js";
 import {
   CommonModule,
   NgIf,
   NgStyle,
   NgTemplateOutlet,
   isPlatformBrowser
-} from "./chunk-QNRWE5RM.js";
-import "./chunk-6BP5VLDC.js";
+} from "./chunk-REWUQQ4O.js";
+import "./chunk-OWYWUSX2.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -102,14 +102,14 @@ import {
   ɵɵtemplate,
   ɵɵtext,
   ɵɵtextInterpolate
-} from "./chunk-XGI5745C.js";
+} from "./chunk-GUUYGOTV.js";
 import "./chunk-HWYXSU2G.js";
 import "./chunk-JRFR6BLO.js";
 import "./chunk-MARUHEWW.js";
 import {
   __spreadProps,
   __spreadValues
-} from "./chunk-GOMI4DH3.js";
+} from "./chunk-H2SRQSE4.js";
 
 // node_modules/@primeuix/styles/dist/badge/index.mjs
 var style = "\n    .p-badge {\n        display: inline-flex;\n        border-radius: dt('badge.border.radius');\n        align-items: center;\n        justify-content: center;\n        padding: dt('badge.padding');\n        background: dt('badge.primary.background');\n        color: dt('badge.primary.color');\n        font-size: dt('badge.font.size');\n        font-weight: dt('badge.font.weight');\n        min-width: dt('badge.min.width');\n        height: dt('badge.height');\n    }\n\n    .p-badge-dot {\n        width: dt('badge.dot.size');\n        min-width: dt('badge.dot.size');\n        height: dt('badge.dot.size');\n        border-radius: 50%;\n        padding: 0;\n    }\n\n    .p-badge-circle {\n        padding: 0;\n        border-radius: 50%;\n    }\n\n    .p-badge-secondary {\n        background: dt('badge.secondary.background');\n        color: dt('badge.secondary.color');\n    }\n\n    .p-badge-success {\n        background: dt('badge.success.background');\n        color: dt('badge.success.color');\n    }\n\n    .p-badge-info {\n        background: dt('badge.info.background');\n        color: dt('badge.info.color');\n    }\n\n    .p-badge-warn {\n        background: dt('badge.warn.background');\n        color: dt('badge.warn.color');\n    }\n\n    .p-badge-danger {\n        background: dt('badge.danger.background');\n        color: dt('badge.danger.color');\n    }\n\n    .p-badge-contrast {\n        background: dt('badge.contrast.background');\n        color: dt('badge.contrast.color');\n    }\n\n    .p-badge-sm {\n        font-size: dt('badge.sm.font.size');\n        min-width: dt('badge.sm.min.width');\n        height: dt('badge.sm.height');\n    }\n\n    .p-badge-lg {\n        font-size: dt('badge.lg.font.size');\n        min-width: dt('badge.lg.min.width');\n        height: dt('badge.lg.height');\n    }\n\n    .p-badge-xl {\n        font-size: dt('badge.xl.font.size');\n        min-width: dt('badge.xl.min.width');\n        height: dt('badge.xl.height');\n    }\n";

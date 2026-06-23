@@ -9,10 +9,13 @@ import { InputText } from "primeng/inputtext";
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { MessageModule } from 'primeng/message';
 import { Button } from "primeng/button";
+import {OriginPlace} from "../origin-place/origin-place";
+import { AccordionModule } from 'primeng/accordion';
+
 
 @Component({
   selector: "app-personal-data-form",
-  imports: [FormField, Checkbox, InputText, FloatLabelModule, MessageModule, Button],
+  imports: [FormField, Checkbox, InputText, FloatLabelModule, MessageModule, Button, OriginPlace, AccordionModule],
   templateUrl: "./personal-data-form.html",
   styleUrl: "./personal-data-form.scss",
 })
