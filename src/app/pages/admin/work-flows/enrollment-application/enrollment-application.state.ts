@@ -3,6 +3,7 @@ export interface EnrollmentAplicationState {
     personalData: PersonalData,
     originPlace: LocationData,
     residencePlace: LocationData,
+    application: ApplicationData
 }
 
 export interface PersonalData {
@@ -44,6 +45,18 @@ export interface LocationData {
     reference: string,
     secondaryStreet: string
 }
+
+export interface ApplicationData {
+    student: string,
+    academicPeriod: string,
+    career: string,
+    enrollmentDetails: string[],
+    parallel: string,
+    schoolPeriod: string,
+    workday: string,
+}
+
+
 
 export const INITIAL_ENROLLMENT_APPLICATION_STATE: EnrollmentAplicationState = {
     personalData: {
@@ -95,5 +108,14 @@ export const INITIAL_ENROLLMENT_APPLICATION_STATE: EnrollmentAplicationState = {
         number: '',
         reference: '',
         secondaryStreet: ''
+    },
+    application: {
+        student: '',
+        academicPeriod: '',
+        career: '',
+        enrollmentDetails:[],
+        parallel: '',
+        schoolPeriod: '',
+        workday:'',
     }
 }

@@ -1,7 +1,7 @@
 //signals    
 
 import { computed, effect, Injectable, signal } from "@angular/core";
-import { EnrollmentAplicationState, INITIAL_ENROLLMENT_APPLICATION_STATE, LocationData, PersonalData } from "./enrollment-application.state";
+import { ApplicationData, EnrollmentAplicationState, INITIAL_ENROLLMENT_APPLICATION_STATE, LocationData, PersonalData } from "./enrollment-application.state";
 
 
 const FORM_STATE_KEY = 'formState';
@@ -15,6 +15,7 @@ export class EnrollmentAplicationStore {
     readonly personalData = computed(() => this.formState().personalData);
     readonly originPlace = computed(() => this.formState().originPlace);
     readonly residencePlace = computed(() => this.formState().residencePlace);
+    readonly application = computed(() => this.formState().application);
 
     readonly pasoActual = signal<number>(Number(sessionStorage.getItem(CURRENT_STEP_KEY)) || 1);
 
@@ -52,6 +53,15 @@ constructor() {
             ...state,
             residencePlace: {
                 ...state.residencePlace,
+                ...data
+            }
+        }));
+    }
+    updateApplication(data: Partial<ApplicationData>) {
+        this.formState.update(state => ({
+            ...state,
+            application: {
+                ...state.application,
                 ...data
             }
         }));

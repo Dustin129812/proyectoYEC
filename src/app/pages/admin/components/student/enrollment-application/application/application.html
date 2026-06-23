@@ -1,1 +1,72 @@
-<p>application works!</p>
+<form>
+    <div>
+        <p-select class="ml-3" [options]="careers" [(ngModel)]="form.career().value"
+            [ngModelOptions]="{standalone: true}" optionLabel="name" optionValue="id" pTooltip="Carreras"
+            filterBy="name" placeholder="Seleccione una carrera...">
+        </p-select>
+
+        <p-select class="ml-3" [options]="curriculums" [ngModel]="selectedCurriculum()"
+            (ngModelChange)="onCurriculumChange($event)" [ngModelOptions]="{standalone: true}" optionLabel="name"
+            pTooltip="Mallas Curriculares" filterBy="name" placeholder="Seleccione una malla curricular...">
+        </p-select>
+        <p-select [options]="academicPeriods" [(ngModel)]="form.academicPeriod().value"
+            [ngModelOptions]="{standalone: true}" optionLabel="name" optionValue="id" pTooltip="Semestre"
+            filterBy="name" placeholder="Seleccione un semestre...">
+        </p-select>
+    
+        <p-select [options]="workdays()" [(ngModel)]="form.workday().value" [ngModelOptions]="{standalone: true}"
+            optionLabel="name" optionValue="id" pTooltip="Horario" filterBy="name"
+            placeholder="Seleccione un horario...">
+        </p-select>
+    
+        <p-select [options]="parallels()" [(ngModel)]="form.parallel().value" [ngModelOptions]="{standalone: true}"
+            optionLabel="name" optionValue="id" pTooltip="Paralelo" filterBy="name"
+            placeholder="Seleccione un paralelo...">
+        </p-select>
+    </div>
+    
+    <div>
+        <h3>Total Asignaturas: {{ selectedItems.length }}</h3>
+    </div>
+    <div>
+        <i [class]="PrimeIcons.SEARCH" class="space-y-20" [style]="{ margin: '1rem' }"></i>
+        <input #search optionValue="id" pInputText type="text" placeholder="Buscar..."
+            (input)="dt1.filterGlobal(search.value, 'contains')" />
+    </div>
+
+    <p-table #dt1 dataKey="id" [value]="subjects" [columns]="columns" [paginator]="true" paginatorPosition="both"
+        [rows]="40" [globalFilterFields]="['code', 'name', 'academicPeriod.name']" [(selection)]="selectedItems">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:4rem">
+                    <p-tableHeaderCheckbox />
+                </th>
+                <th>Código</th>
+                <th>Asignatura</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-subject>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="subject" />
+                </td>
+                <td>{{ subject.code }}</td>
+                <td>{{ subject.name }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <br />
+    <div class="formgrid grid">
+        <div class="field xl:col-4 lg:col-4 md:col-4 sm:col-12">
+            <p-button label="Regresar" [icon]="PrimeIcons.ARROW_LEFT" (click)="previous()">
+            </p-button>
+        </div>
+        <br />
+        <div class="field xl:col-4 lg:col-4 md:col-4 sm:col-12">
+            <p-button type="submit" label="Guardar y Continuar" [icon]="PrimeIcons.SAVE" (onClick)="onSubmit()">
+            </p-button>
+        </div>
+    </div>
+</form>

@@ -4,7 +4,7 @@ import {
     required,
 } from '@angular/forms/signals';
 
-export function validatePersonalData(schema: any, values: any): void {
+export function validatePersonalData(schema: any,values: any ): void {
     const siTieneDiscapacidad = ({ valueOf }: any) => !!valueOf(schema.isDisability);
     const siTieneEnfermedad = ({ valueOf }: any) => !!valueOf(schema.isCatastrophicIllness);
     const siTieneIdiomaAncestral = ({ valueOf }: any) => !!valueOf(schema.isAncestralLanguage);
