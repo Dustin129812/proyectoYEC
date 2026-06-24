@@ -49,8 +49,8 @@ export class Application implements OnInit, OnDestroy {
 
   careerParallels: {
     academicPeriodId: number;
-    workday: {id:string,name:string};
-    parallel: {id:string,name:string};
+    workday: { id: string, name: string };
+    parallel: { id: string, name: string };
   }[] = [];
 
   selectedItems: any[] = [];
@@ -70,35 +70,40 @@ export class Application implements OnInit, OnDestroy {
     });
   }
 
- protected workdays = computed(() => {
-  // LLAMADA DIRECTA: El campo en sí es el Signal del valor
-  const academicPeriod = this.form.academicPeriod(); 
-  if (!academicPeriod) return [];
+  protected workdays = computed(() => {
+    const academicPeriod = this.form.academicPeriod().value();
+    if (!academicPeriod) return [];
 
-  const unique = new Map<string | number, { name: string; id: string }>();
-  
-  this.careerParallels.forEach(cp => {
-    if (cp.academicPeriodId === Number(academicPeriod)) {
-      unique.set(cp.workday.id, { name: cp.workday.name, id: cp.workday.id });
-    }
+    const unique = new Map<string, { name: string; id: string }>();
+
+    this.careerParallels.forEach(cp => {
+      if (cp.academicPeriodId === Number(academicPeriod)) {
+        unique.set(cp.workday.id, {
+          name: cp.workday.name,
+          id: cp.workday.id
+        });
+      }
+    });
+
+    return Array.from(unique.values());
   });
-  
-  return Array.from(unique.values());
-});
 
-protected parallels = computed(() => {
-  // LLAMADA DIRECTA
-  const academicPeriod = this.form.academicPeriod();
-  const workday = this.form.workday();
-  if (!academicPeriod || !workday) return [];
+  protected parallels = computed(() => {
+    const academicPeriod = this.form.academicPeriod().value();
+    const workday = this.form.workday().value();
 
-  return this.careerParallels
-    .filter(cp =>
-      cp.academicPeriodId === Number(academicPeriod) &&
-      Number(cp.workday.id) === Number(workday)
-    )
-    .map(cp => ({ name: cp.parallel.name, id: cp.parallel.id }));
-});
+    if (!academicPeriod || !workday) return [];
+
+    return this.careerParallels
+      .filter(cp =>
+        cp.academicPeriodId === Number(academicPeriod) &&
+        cp.workday.id === workday
+      )
+      .map(cp => ({
+        name: cp.parallel.name,
+        id: cp.parallel.id
+      }));
+  });
 
   ngOnInit(): void {
     this.formRegistryService.register(
@@ -169,32 +174,32 @@ protected parallels = computed(() => {
     ];
 
     this.careerParallels = [
-  {
-    academicPeriodId: 1,
-    workday: { id: 'MAT', name: 'Matutina' },
-    parallel: { id: 'A', name: 'Paralelo A' }
-  },
-  {
-    academicPeriodId: 1,
-    workday: { id: 'MAT', name: 'Matutina' },
-    parallel: { id: 'B', name: 'Paralelo B' }
-  },
-  {
-    academicPeriodId: 1,
-    workday: { id: 'NOC', name: 'Nocturna' },
-    parallel: { id: 'A', name: 'Paralelo A' }
-  },
-  {
-    academicPeriodId: 2,
-    workday: { id: 'VES', name: 'Vespertina' },
-    parallel: { id: 'A', name: 'Paralelo A' }
-  },
-  {
-    academicPeriodId: 2,
-    workday: { id: 'VES', name: 'Vespertina' },
-    parallel: { id: 'B', name: 'Paralelo B' }
-  }
-];
+      {
+        academicPeriodId: 1,
+        workday: { id: 'MAT', name: 'Matutina' },
+        parallel: { id: 'A', name: 'Paralelo A' }
+      },
+      {
+        academicPeriodId: 1,
+        workday: { id: 'MAT', name: 'Matutina' },
+        parallel: { id: 'B', name: 'Paralelo B' }
+      },
+      {
+        academicPeriodId: 1,
+        workday: { id: 'NOC', name: 'Nocturna' },
+        parallel: { id: 'A', name: 'Paralelo A' }
+      },
+      {
+        academicPeriodId: 2,
+        workday: { id: 'VES', name: 'Vespertina' },
+        parallel: { id: 'A', name: 'Paralelo A' }
+      },
+      {
+        academicPeriodId: 2,
+        workday: { id: 'VES', name: 'Vespertina' },
+        parallel: { id: 'B', name: 'Paralelo B' }
+      }
+    ];
   }
 
   ngOnDestroy(): void {
@@ -203,17 +208,20 @@ protected parallels = computed(() => {
 
   constructor() {
     effect(() => {
-      const academicPeriod = this.form.academicPeriod().value;
+      const academicPeriod = this.form.academicPeriod().value();
       if (!academicPeriod) return;
-
+      console.log('1effect:', this.form.academicPeriod().value());
       this.form.workday().reset();
       this.form.parallel().reset();
     });
-
+    effect(() => {
+      console.log('Periodo:', this.form.academicPeriod().value());
+    });
     effect(() => {
       const workday = this.form.workday().value;
       if (!workday) return;
       this.form.parallel().reset();
+      console.log('workday:', this.form.academicPeriod());
     });
   }
 

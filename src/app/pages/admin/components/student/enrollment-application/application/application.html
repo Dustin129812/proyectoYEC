@@ -13,18 +13,18 @@
             [ngModelOptions]="{standalone: true}" optionLabel="name" optionValue="id" pTooltip="Semestre"
             filterBy="name" placeholder="Seleccione un semestre...">
         </p-select>
-    
+
         <p-select [options]="workdays()" [(ngModel)]="form.workday().value" [ngModelOptions]="{standalone: true}"
             optionLabel="name" optionValue="id" pTooltip="Horario" filterBy="name"
             placeholder="Seleccione un horario...">
         </p-select>
-    
+
         <p-select [options]="parallels()" [(ngModel)]="form.parallel().value" [ngModelOptions]="{standalone: true}"
             optionLabel="name" optionValue="id" pTooltip="Paralelo" filterBy="name"
             placeholder="Seleccione un paralelo...">
         </p-select>
     </div>
-    
+
     <div>
         <h3>Total Asignaturas: {{ selectedItems.length }}</h3>
     </div>
