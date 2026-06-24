@@ -8,7 +8,7 @@
         <p-step-panels>
             <p-step-panel [value]="1">
                 <ng-template #content let-activateCallback="activateCallback">
-                    <app-personal-data-form />
+                    <app-personal-information />
                 </ng-template>
             </p-step-panel>
             <p-step-panel [value]="2">
@@ -18,7 +18,7 @@
             </p-step-panel>
             <p-step-panel [value]="3">
                 <ng-template #content let-activateCallback="activateCallback">
-                    -<app-enrollment-attachment />
+                    <app-enrollment-attachment />
                 </ng-template>
             </p-step-panel>
         </p-step-panels>

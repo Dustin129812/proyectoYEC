@@ -32,7 +32,7 @@ import { validateApplicationData } from "../validators/validate-application-data
   styleUrl: "./application.scss",
 })
 export class Application implements OnInit, OnDestroy {
-  private readonly enrollmentApplication = inject(EnrollmentAplicationStore);
+  private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
   private readonly formRegistryService = inject(FormRegistryService);
 
   PrimeIcons = PrimeIcons;
@@ -58,7 +58,7 @@ export class Application implements OnInit, OnDestroy {
 
   protected form$ = signal(
     structuredClone(
-      this.enrollmentApplication.application()
+      this.enrollmentApplicationStore.application()
     )
   );
 
@@ -111,8 +111,8 @@ export class Application implements OnInit, OnDestroy {
       this.form,
       this.form$()
     );
-    const data = this.enrollmentApplication.application();
-    this.enrollmentApplication.updateApplication(data);
+    const data = this.enrollmentApplicationStore.application();
+    this.enrollmentApplicationStore.updateApplication(data);
     this.selectedItems = [...(data.enrollmentDetails || [])];
 
     // TODO: Aquí deberías cargar los datos reales desde tus servicios
@@ -236,29 +236,19 @@ export class Application implements OnInit, OnDestroy {
 
 
   previous() {
-    this.enrollmentApplication.setStep(1);
-    console.log('regresando ....')
+    this.enrollmentApplicationStore.setStep(1);
   }
 
   onSubmit() {
-    if (this.form().valid()) {
+    if (!this.form().valid()) {
       const data: ApplicationData = {
         ...this.form().value(),
-        enrollmentDetails: this.selectedItems
+        enrollmentDetails: this.selectedItems,student:'1',schoolPeriod:'1'
       };
-      this.enrollmentApplication.updateApplication(data);
-      console.log('aplication: ', data)
-      const aplic = this.enrollmentApplication.application()
-      console.log('aplication:signal -> ', aplic)
+      this.enrollmentApplicationStore.updateApplication(data);
+      console.log('application : ',data)
+      this.enrollmentApplicationStore.setStep(3)
     } else {
-      // const data: ApplicationData = {
-      //   ...this.form().value(),
-      //   enrollmentDetails: this.selectedItems
-      // };
-      // console.log('aplication: ',data)
-      // this.enrollmentApplication.updateApplication(data);
-      // const aplic=this.enrollmentApplication.application()
-      // console.log('aplication:signal -> ',aplic)
       console.log(this.form().errors());
     }
   }

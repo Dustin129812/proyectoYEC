@@ -77,8 +77,8 @@ constructor() {
 
     readonly paso2Completo = computed(() => {
         if (!this.paso1Completo()) return false;
-        const origin = this.originPlace();
-        return !!(origin && origin.province && origin.canton);
+        const application = this.application();
+        return !!(application && application.career && application.parallel);
     });
     setStep(step: number) {
         if (step === 2 && !this.paso1Completo()) return;

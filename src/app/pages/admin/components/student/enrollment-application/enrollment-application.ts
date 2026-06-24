@@ -1,13 +1,13 @@
 import { Component, inject } from "@angular/core";
-import { PersonalDataForm } from "./personal-data-form/personal-data-form";
 import { Application } from "./application/application";
 import { EnrollmentAttachment } from "./enrollment-attachment/enrollment-attachment";
 import { StepperModule } from 'primeng/stepper';
 import { EnrollmentAplicationStore } from "@/pages/admin/work-flows/enrollment-application/enrollment-application.store";
+import { PersonalInformation } from "./personal-information/personal-information";
 
 @Component({
   selector: "app-enrollment-application",
-  imports: [PersonalDataForm, Application, EnrollmentAttachment, StepperModule],
+  imports: [Application, EnrollmentAttachment, StepperModule, PersonalInformation],
   templateUrl: "./enrollment-application.html",
   styleUrl: "./enrollment-application.scss",
 })
