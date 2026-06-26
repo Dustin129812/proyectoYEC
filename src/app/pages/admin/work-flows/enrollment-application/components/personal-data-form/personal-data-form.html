@@ -1,0 +1,202 @@
+<div class="custom-form-card">
+
+    <form class="custom-form-grid md:grid-cols-12">
+
+        <div class="custom-form-section md:col-span-12">
+            <h4>Información Academica</h4>
+        </div>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="career" label="Carrera" [field]="career"></label>
+            <p-select class="ml-3" [options]="careers" [(ngModel)]="career"
+                [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Carreras"
+                filterBy="name" placeholder="Seleccione una carrera...">
+            </p-select>
+            <small [appErrorMessage]="$any(career.id)"></small>
+        </div>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="semester" label="Semestre" [field]="semester"></label>
+            <p-select class="ml-3" [options]="semesters" [(ngModel)]="semester"
+                [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Semestres"
+                filterBy="name" placeholder="Seleccione un Semestre...">
+            </p-select>
+        </div>
+
+        <div class="custom-form-section md:col-span-12">
+            <h4>Contacto de Emergencia</h4>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="contactEmergencyName" label="Nombre del Contacto" [field]="contactEmergencyName">
+            </label>
+            <input id="contactEmergencyName" pInputText [formField]="contactEmergencyName" />
+            <small [appErrorMessage]="$any(contactEmergencyName)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="contactEmergencyPhone" label="Contacto" [field]="contactEmergencyPhone"></label>
+            <input id="contactEmergencyPhone" pInputText [formField]="contactEmergencyPhone" />
+            <small [appErrorMessage]="$any(contactEmergencyPhone)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="contactEmergencyKinship" label="Parentesco" [field]="contactEmergencyKinship"></label>
+            <input id="contactEmergencyKinship" pInputText [formField]="contactEmergencyKinship" />
+
+            <small [appErrorMessage]="$any(contactEmergencyKinship)"></small>
+        </div>
+
+        <div class="custom-form-section md:col-span-12">
+            <h4>Inclusión y Salud</h4>
+        </div>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="isDisability" label="¿Tiene alguna discapacidad?" [field]="isDisability"></label>
+            <p-checkbox [binary]="true" [formField]="isDisability" inputId="isDisability" />
+        </div>
+
+        @if (isDisability().value()) {
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="disabilityType" label="Tipo de Discapacidad" [field]="disabilityType"></label>
+            <input id="disabilityType" pInputText [formField]="disabilityType" />
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="disabilityPercentage" label="Porcentaje (%)" [field]="disabilityPercentage"></label>
+            <input id="disabilityPercentage" pInputText [formField]="disabilityPercentage" />
+        </div>
+
+        }
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="isCatastrophicIllness" label="¿Padece una enfermedad catastrófica?"
+                [field]="isCatastrophicIllness"></label>
+            <p-checkbox [binary]="true" [formField]="isCatastrophicIllness" inputId="isCatastrophicIllness" />
+        </div>
+
+        @if (isCatastrophicIllness().value()) {
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="catastrophicIllness" label="Especifique la Enfermedad"
+                [field]="catastrophicIllness"></label>
+            <input id="catastrophicIllness" pInputText [formField]="catastrophicIllness" />
+            <small [appErrorMessage]="$any(isCatastrophicIllness)"></small>
+        </div>
+
+        }
+
+        <div class="custom-form-section md:col-span-12">
+            <h4>Cultura e Idiomas</h4>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="town" label="Pueblo / Comunidad (Ciudad)" [field]="town"></label>
+            <input id="town" pInputText [formField]="town" />
+            <small [appErrorMessage]="$any(town)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="indigenousNationality" label="Nacionalidad Indígena"
+                [field]="indigenousNationality"></label>
+            <input id="indigenousNationality" pInputText [formField]="indigenousNationality" />
+            <small [appErrorMessage]="$any(indigenousNationality)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="isAncestralLanguage" label="¿Habla un idioma ancestral?"
+                [field]="isAncestralLanguage"></label>
+            <p-checkbox [binary]="true" [formField]="isAncestralLanguage" inputId="isAncestralLanguage" />
+        </div>
+
+        @if (isAncestralLanguage().value()) {
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="ancestralLanguageName" label="Idioma Ancestral"
+                [field]="ancestralLanguageName"></label>
+            <input id="ancestralLanguageName" pInputText [formField]="ancestralLanguageName" />
+            <small [appErrorMessage]="$any(ancestralLanguageName)"></small>
+        </div>
+        }
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="isForeignLanguage" label="¿Habla un idioma extranjero?"
+                [field]="isForeignLanguage"></label>
+            <p-checkbox [binary]="true" [formField]="isForeignLanguage" inputId="isForeignLanguage" />
+        </div>
+
+        @if (isForeignLanguage().value()) {
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="foreignLanguageName" label="Idioma Extranjero" [field]="foreignLanguageName"></label>
+            <input id="foreignLanguageName" pInputText [formField]="foreignLanguageName" />
+            <small [appErrorMessage]="$any(foreignLanguageName)"></small>
+        </div>
+        }
+
+        <div class="custom-form-section md:col-span-12">
+            <h3>Situación Familiar y Laboral</h3>
+        </div>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="isHouseHead" label="¿Es jefe de hogar?" [field]="isHouseHead"></label>
+            <p-checkbox [binary]="true" [formField]="isHouseHead" inputId="isHouseHead" />
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="isHasChildren" label="¿Tiene hijos?" [field]="isHasChildren"></label>
+            <p-checkbox [binary]="true" [formField]="isHasChildren" inputId="isHasChildren" />
+        </div>
+
+        @if (isHasChildren().value()) {
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="childrenTotal" label="Total de Hijos" [field]="childrenTotal"></label>
+            <input id="childrenTotal" pInputText [formField]="childrenTotal" />
+            <small [appErrorMessage]="$any(childrenTotal)"></small>
+        </div>
+        }
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="isWork" label="¿Actualmente trabaja?" [field]="isWork"></label>
+            <p-checkbox [binary]="true" [formField]="isWork" inputId="isWork" />
+        </div>
+
+        @if (isWork().value()) {
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="workPosition" label="Cargo / Puesto" [field]="workPosition"></label>
+            <input id="workPosition" pInputText [formField]="workPosition" />
+            <small [appErrorMessage]="$any(workPosition)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="monthlySalary" label="Salario Mensual" [field]="monthlySalary"></label>
+            <input id="monthlySalary" pInputText [formField]="monthlySalary" />
+            <small [appErrorMessage]="$any(monthlySalary)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="workingHours" label="Horas semanales" [field]="workingHours"></label>
+            <input id="workingHours" pInputText [formField]="workingHours" />
+            <small [appErrorMessage]="$any(workingHours)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="workAddress" label="Dirección del Trabajo" [field]="workAddress"></label>
+            <input id="workAddress" pInputText [formField]="workAddress" />
+            <small [appErrorMessage]="$any(workAddress)"></small>
+        </div>
+        }
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="isSocialSecurity" label="¿Posee Seguro Social (IESS)?"
+                [field]="isSocialSecurity"></label>
+            <p-checkbox [binary]="true" [formField]="isSocialSecurity" inputId="isSocialSecurity" />
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="isPrivateSecurity" label="¿Posee Seguro Privado?" [field]="isPrivateSecurity"></label>
+            <p-checkbox [binary]="true" [formField]="isPrivateSecurity" inputId="isPrivateSecurity" />
+        </div>
+
+    </form>
+
+</div>

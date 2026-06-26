@@ -223,6 +223,14 @@ export const MY_ROUTES = {
                 base: 'users/profile',
                 absolute: '/main/admin/users/profile'
             }
+        },
+        enrollment: {
+            base: 'enrollment',
+            absolute: '/main/admin/enrollment',
+            application: {
+                base: 'enrollment/application',
+                absolute: '/main/admin/enrollment/application'
+            }
         }
     },
     dashboards: {

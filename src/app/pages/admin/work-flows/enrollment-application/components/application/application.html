@@ -1,0 +1,12 @@
+<div class="custom-form-card">
+    <app-application-selec-form #applicationSelec/>
+    <app-application-check-table #applicationTable/>
+    <div class="field xl:col-4 lg:col-4 md:col-4 sm:col-12">
+        <p-button type="submit" label="Guardar y Continuar" [icon]="PrimeIcons.SAVE" (onClick)="onSubmit()">
+        </p-button>
+    </div>
+    <div class="field xl:col-4 lg:col-4 md:col-4 sm:col-12">
+            <p-button label="Regresar" [icon]="PrimeIcons.ARROW_LEFT" (click)="previous()">
+            </p-button>
+        </div>
+</div>

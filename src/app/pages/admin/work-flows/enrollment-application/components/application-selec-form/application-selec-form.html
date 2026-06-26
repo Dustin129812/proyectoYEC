@@ -1,0 +1,45 @@
+<form class="custom-form-grid md:grid-cols-12">
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="career" label="Carrera" [field]="career"></label>
+            <p-select class="ml-3" [options]="careers" [(ngModel)]="career().value" [ngModelOptions]="{standalone: true}"
+                optionLabel="name" pTooltip="Carreras" filterBy="name"
+                placeholder="Seleccione una carrera...">
+            </p-select>
+
+        </div>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="schoolPeriod" label="Malla" [field]="schoolPeriod"></label>
+            <p-select class="ml-3" [options]="curriculums" [(ngModel)]="schoolPeriod().value"
+                (ngModelChange)="onCurriculumChange($event)" [ngModelOptions]="{standalone: true}" optionLabel="name"
+                pTooltip="Mallas Curriculares" filterBy="name" placeholder="Seleccione una malla curricular...">
+            </p-select>
+
+        </div>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="academicPeriod" label="Periodo academico" [field]="academicPeriod"></label>
+            <p-select [options]="academicPeriods" [(ngModel)]="formData.academicPeriod().value"
+                [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Semestre"
+                filterBy="name" placeholder="Seleccione un semestre...">
+            </p-select>
+
+        </div>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="workday" label="Horario" [field]="workday"></label>
+            <p-select [options]="workdays()" [(ngModel)]="formData.workday().value"
+                [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Horario"
+                filterBy="name" placeholder="Seleccione un horario...">
+            </p-select>
+
+        </div>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="parallel" label="Paralelo" [field]="parallel"></label>
+            <p-select [options]="parallels()" [(ngModel)]="parallel().value" [ngModelOptions]="{standalone: true}"
+                optionLabel="name" pTooltip="Paralelo" filterBy="name"
+                placeholder="Seleccione un paralelo...">
+            </p-select>
+
+        </div>
+
+
+</form>
