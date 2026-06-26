@@ -45,13 +45,13 @@ constructor() {
     }
     readonly paso1Completo = computed(() => {
         const pd = this.personalData();
-        return !(pd && pd.contactEmergencyPhone && pd.contactEmergencyName && pd.town);
+        return !!(pd && pd.contactEmergencyPhone && pd.contactEmergencyName && pd.town);
     });
 
     readonly paso2Completo = computed(() => {
         if (!this.paso1Completo()) return false;
         const application = this.application();
-        return !(application && application.career && application.parallel);
+        return !!(application && application.career && application.parallel);
     });
     setStep(step: number) {
         if (step === 2 && !this.paso1Completo()) return;

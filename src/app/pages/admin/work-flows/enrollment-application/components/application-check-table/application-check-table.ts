@@ -7,10 +7,11 @@ import { ApplicationDataGetters } from '../application/application-getters';
 import { validateApplicationData } from '../../validators/validate-application-data';
 import { TableModule } from "primeng/table";
 import { PrimeIcons } from 'primeng/api';
+import { InputText } from 'primeng/inputtext';
 const FORM_STATE_KEY = "application"
 @Component({
     selector: 'app-application-check-table',
-    imports: [TableModule],
+    imports: [TableModule,InputText],
     templateUrl: './application-check-table.html',
     styleUrl: './application-check-table.scss'
 })
@@ -42,6 +43,7 @@ export class ApplicationCheckTable extends ApplicationDataGetters {
                 ...form,
                 enrollmentDetails: this.selectedItems()
             }));
+
         });
     }
     get buildForm() {
@@ -99,8 +101,6 @@ export class ApplicationCheckTable extends ApplicationDataGetters {
     }
     onSelectionChange(selected: any[]) {
         this.selectedItems.set(selected);
-        console.log(this.form$().enrollmentDetails);
-        console.log(this.enrollmentApplicationStore.application().enrollmentDetails);
     }
 
     ngOnDestroy(): void {

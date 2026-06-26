@@ -47,24 +47,18 @@ export class ApplicationSelecForm extends ApplicationDataGetters {
         super();
         effect(() => {
             this.enrollmentApplicationStore.updateSection(FORM_STATE_KEY, this.form$());
-            console.log("form$", this.form$());
         });
         effect(() => {
             const academicPeriod = this.academicPeriod().value();
             if (!academicPeriod) return;
-            console.log('1effect:', this.academicPeriod().value());
-            console.log('signal: ', this.form$);
             this.formData.workday().reset();
             this.formData.parallel().reset();
         });
-        effect(() => {
-            console.log('Periodo:', this.formData.academicPeriod().value());
-        });
+
         effect(() => {
             const workday = this.workday().value();
             if (!workday) return;
             this.formData.parallel().reset();
-            console.log('workday:', this.formData.academicPeriod());
         });
     }
     get buildForm() {
@@ -94,7 +88,7 @@ export class ApplicationSelecForm extends ApplicationDataGetters {
     protected parallels = computed(() => {
         const academicPeriod = this.academicPeriod().value();
         const workday = this.workday().value();
-console.log('school: ',this.formData.schoolPeriod().value())
+        console.log('school: ', this.formData.schoolPeriod().value())
         if (!academicPeriod || !workday) return [];
 
         return this.careerParallels
@@ -115,7 +109,7 @@ console.log('school: ',this.formData.schoolPeriod().value())
             this.formData,
             this.form$()
         );
-        const data = this.enrollmentApplicationStore.application();
+
         //student por defecto logueado
         //cargar los datos reales desde los servicios
         this.academicPeriods = [

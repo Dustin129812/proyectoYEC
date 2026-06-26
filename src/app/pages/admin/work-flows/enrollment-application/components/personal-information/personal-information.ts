@@ -32,10 +32,10 @@ export class PersonalInformation {
     onSubmit() {
         if (this.formRegistryService.hasErrors()) {
             this.customMessageService.showFormErrors(this.formRegistryService.errors());
-            this.enrollmentApplicationStore.setStep(2);
             return;
         }
         if (!this.enrollmentApplicationStore.personalData() || !this.enrollmentApplicationStore.residencePlace()||!this.enrollmentApplicationStore.originPlace()) return;
         console.log('personal-information', this.enrollmentApplicationStore.formState())
+        this.enrollmentApplicationStore.setStep(2);
     }
 }

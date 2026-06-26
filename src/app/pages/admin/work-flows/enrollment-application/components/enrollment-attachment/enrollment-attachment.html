@@ -1,1 +1,12 @@
-<p>enrollment-attachment works!</p>
+
+@for(item of catalog ; track item.id){
+    <h4>{{item.name}}</h4>
+    <p-fileupload
+        mode="advanced"
+        [showUploadButton]="false"
+        chooseLabel="Seleccionar documentos"
+        cancelLabel="Limpiar"
+        chooseIcon="pi pi-upload"
+        (onSelect)="onSelect($event)">
+    </p-fileupload>
+}

@@ -4,7 +4,6 @@ import { FieldTree, form, FormField } from '@angular/forms/signals';
 import { EnrollmentAplicationStore } from '../../work-flow/enrollment-application.store';
 import { FormRegistryService } from '@utils/services/form-registry.service';
 import { validatePersonalData } from '../../validators/validate-personal-data-form';
-import { Button } from "primeng/button";
 import { Checkbox } from "primeng/checkbox";
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputText } from 'primeng/inputtext';
