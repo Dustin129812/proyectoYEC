@@ -91,6 +91,27 @@ export interface EnrollmentDetail {
     name: string
 }
 
+export interface Country{
+    id: string,
+    name: string,
+}
+
+export interface Province{
+    id: string,
+    name: string,
+}
+
+export interface Canton{
+    id: string,
+    name: string,
+}
+
+export interface Parish{
+    id: string,
+    name: string,
+}
+
+
 
 export const INITIAL_ENROLLMENT_APPLICATION_STATE: EnrollmentAplicationState = {
     personalData: {

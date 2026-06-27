@@ -1,1 +1,47 @@
-<p>residence-place-form works!</p>
+<div class="custom-form-card">
+    <form class="custom-form-grid md:grid-cols-12">
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="country" label="País" [field]="countryField"></label>
+            <p-select class="ml-3" [options]="countries" optionLabel="name" [ngModel]="getSelectedCountry()" [ngModelOptions]="{standalone: true}" (ngModelChange)="onCountryChange($event)" placeholder="Selecciona su país"> </p-select>
+            <small [appErrorMessage]="$any(countryField)"></small>
+        </div>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="province" label="Provincia" [field]="provinceField"></label>
+            <p-select class="ml-3" [options]="provinces" optionLabel="name" [ngModel]="getSelectedProvince()" [ngModelOptions]="{standalone: true}" (ngModelChange)="onProvinceChange($event)" placeholder="Selecciona su provincia"> </p-select>
+            <small [appErrorMessage]="$any(provinceField)"></small>
+        </div>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="canton" label="Canton" [field]="cantonField"></label>
+            <p-select class="ml-3" [options]="cantons" optionLabel="name" [ngModel]="getSelectedCanton()" [ngModelOptions]="{standalone: true}" (ngModelChange)="onCantonChange($event)" placeholder="Selecciona su cantón"> </p-select>
+            <small [appErrorMessage]="$any(cantonField)"></small>
+        </div>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="parish" label="Parroquia" [field]="parishField"></label>
+            <p-select class="ml-3" [options]="parishes" optionLabel="name" [ngModel]="getSelectedParish()" [ngModelOptions]="{standalone: true}" (ngModelChange)="onParishChange($event)" placeholder="Selecciona su parroquia"> </p-select>
+            <small [appErrorMessage]="$any(parishField)"></small>
+        </div>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="mainStreet" label="Calle Principal" [field]="mainStreetField"> </label>
+            <input id="mainStreet" pInputText [formField]="mainStreetField" />
+            <small [appErrorMessage]="$any(mainStreetField)"></small>
+        </div>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="secondaryStreet" label="Calle Secundaria" [field]="secondaryStreetField"> </label>
+            <input id="secondaryStreet" pInputText [formField]="secondaryStreetField" />
+            <small [appErrorMessage]="$any(secondaryStreetField)"></small>
+        </div>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="number" label="Número" [field]="numberField"> </label>
+            <input id="number" pInputText [formField]="numberField" />
+            <small [appErrorMessage]="$any(numberField)"></small>
+        </div>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="reference" label="Referencia" [field]="referenceField"> </label>
+            <input id="reference" pInputText [formField]="referenceField" />
+            <small [appErrorMessage]="$any(referenceField)"></small>
+        </div>
+        <div class="custom-form-field md:col-span-12">
+            <app-map (coordsChange)="onCoordsChange($event)"></app-map>
+        </div>
+    </form>
+</div>
