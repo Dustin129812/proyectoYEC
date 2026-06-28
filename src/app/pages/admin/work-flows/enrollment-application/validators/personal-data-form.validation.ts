@@ -4,19 +4,19 @@ import {
     required,
     SchemaPathTree,
 } from '@angular/forms/signals';
-import { PersonalData } from '../work-flow/enrollment-application.state';
+import { PersonalData } from '../enrollment-application.state';
 
 export function validatePersonalData(schema: SchemaPathTree<PersonalData> ): void {
-    const siTieneDiscapacidad = ({ valueOf }: any) => !!valueOf(schema.isDisability);
-    const siTieneEnfermedad = ({ valueOf }: any) => !!valueOf(schema.isCatastrophicIllness);
-    const siTieneIdiomaAncestral = ({ valueOf }: any) => !!valueOf(schema.isAncestralLanguage);
-    const siTieneIdiomaExtranjero = ({ valueOf }: any) => !!valueOf(schema.isForeignLanguage);
-    const siTieneHijos = ({ valueOf }: any) => !!valueOf(schema.isHasChildren);
-    const siTieneTrabajo = ({ valueOf }: any) => !!valueOf(schema.isWork);
+    const isDisability = ({ valueOf }: any) => !!valueOf(schema.isDisability);
+    const isCatastrophicIllness = ({ valueOf }: any) => !!valueOf(schema.isCatastrophicIllness);
+    const isAncestralLanguage = ({ valueOf }: any) => !!valueOf(schema.isAncestralLanguage);
+    const isForeignLanguage = ({ valueOf }: any) => !!valueOf(schema.isForeignLanguage);
+    const isHasChildren = ({ valueOf }: any) => !!valueOf(schema.isHasChildren);
+    const isWork = ({ valueOf }: any) => !!valueOf(schema.isWork);
 
     //Datos Academicos
-    required(schema.career.id,{
-        message:'La Carrera es requerida'///preguntar si hacerlo por campo , por que no vale por objeto
+    required(schema.career,{
+        message:'La Carrera es requerida'
     })
     required(schema.semester,{
         message:'El Semestre es requerido'
@@ -47,11 +47,11 @@ export function validatePersonalData(schema: SchemaPathTree<PersonalData> ): voi
     // Discapacidad
     required(schema.disabilityType, {
         message: 'El tipo de discapacidad es requerido',
-        when: siTieneDiscapacidad
+        when: isDisability
     });
     required(schema.disabilityPercentage, {
         message: 'El porcentaje de discapacidad es requerido',
-        when: siTieneDiscapacidad
+        when: isDisability
     });
     pattern(schema.disabilityPercentage, /^(100|[1-9]?[0-9])|^$/, {
         message: 'Ingrese un porcentaje válido entre 0 y 100',
@@ -60,16 +60,14 @@ export function validatePersonalData(schema: SchemaPathTree<PersonalData> ): voi
     // Idioma ancestral
     required(schema.ancestralLanguageName, {
         message: 'El idioma ancestral es requerido',
-        when: siTieneIdiomaAncestral
+        when: isAncestralLanguage
     });
-    minLength(schema.ancestralLanguageName, 2, {
-        message: 'Debe tener al menos 2 caracteres'
-    });
+
 
     // Enfermedad catastrófica
     required(schema.catastrophicIllness, {
         message: 'La enfermedad catastrófica es requerida',
-        when: siTieneEnfermedad
+        when: isCatastrophicIllness
     });
     minLength(schema.catastrophicIllness, 3, {
         message: 'Debe tener al menos 3 caracteres',
@@ -78,16 +76,14 @@ export function validatePersonalData(schema: SchemaPathTree<PersonalData> ): voi
     // Idioma extranjero
     required(schema.foreignLanguageName, {
         message: 'El idioma extranjero es requerido',
-        when: siTieneIdiomaExtranjero
+        when: isForeignLanguage
     });
-    minLength(schema.foreignLanguageName, 2, {
-        message: 'Debe tener al menos 2 caracteres'
-    });
+
 
     // Hijos
     required(schema.childrenTotal, {
         message: 'Ingrese el número de hijos',
-        when: siTieneHijos
+        when: isHasChildren
     });
     pattern(schema.childrenTotal, /^[0-9]+$/, {
         message: 'Solo se permiten números'
@@ -96,27 +92,25 @@ export function validatePersonalData(schema: SchemaPathTree<PersonalData> ): voi
     // Trabajo
     required(schema.workPosition, {
         message: 'El cargo es requerido',
-        when: siTieneTrabajo
+        when: isWork
     });
     required(schema.workAddress, {
         message: 'La dirección de trabajo es requerida',
-        when: siTieneTrabajo
+        when: isWork
     });
     required(schema.workingHours, {
         message: 'Las horas de trabajo son requeridas',
-        when: siTieneTrabajo
+        when: isWork
     });
     required(schema.monthlySalary, {
         message: 'El salario mensual es requerido',
-        when: siTieneTrabajo
-    });
-    pattern(schema.monthlySalary, /^[0-9]+(\.[0-9]{1,2})?$/, {
-        message: 'Ingrese un salario válido'
+        when: isWork
     });
 
+
     // Nacionalidad indígena
-    minLength(schema.indigenousNationality, 2, {
-        message: 'Debe tener al menos 2 caracteres'
+    required(schema.indigenousNationality,{
+        message: 'La NacionalidadIndigena es requrida'
     });
 
 }

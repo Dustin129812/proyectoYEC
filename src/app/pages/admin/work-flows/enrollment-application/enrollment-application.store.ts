@@ -1,7 +1,7 @@
 //signals
 
 import { computed, effect, Injectable, signal } from "@angular/core";
-import { ApplicationData, EnrollmentAplicationState, INITIAL_ENROLLMENT_APPLICATION_STATE, LocationData, PersonalData } from "./enrollment-application.state";
+import { ApplicationData, EnrollmentApplicationState, INITIAL_ENROLLMENT_APPLICATION_STATE, LocationData, PersonalData } from "./enrollment-application.state";
 
 
 const FORM_STATE_KEY = 'formState';
@@ -9,10 +9,11 @@ const CURRENT_STEP_KEY = 'currentStep';
 
 @Injectable({ providedIn: 'root' })
 export class EnrollmentAplicationStore {
-    readonly formState = signal<EnrollmentAplicationState>(this.loadFromStorage());
+    readonly formState = signal<EnrollmentApplicationState>(this.loadFromStorage());
     readonly formErrors = signal<Record<string, string[]>>({});
 
     readonly personalData = computed(() => this.formState().personalData);
+    readonly userData = computed(() => this.formState().userData);
     readonly originPlace = computed(() => this.formState().originPlace);
     readonly residencePlace = computed(() => this.formState().residencePlace);
     readonly application = computed(() => this.formState().application);
@@ -27,9 +28,9 @@ constructor() {
             sessionStorage.setItem(CURRENT_STEP_KEY, this.pasoActual().toString());
         });
     }
-    updateSection<K extends keyof EnrollmentAplicationState>(
+    updateSection<K extends keyof EnrollmentApplicationState>(
             section: K,
-            data: Partial<EnrollmentAplicationState[K]>
+            data: Partial<EnrollmentApplicationState[K]>
         ) {
             this.formState.update(state => ({
                 ...state,
@@ -39,7 +40,7 @@ constructor() {
                 }
             }));
         }
-    private loadFromStorage(): EnrollmentAplicationState {
+    private loadFromStorage(): EnrollmentApplicationState {
         const stored = sessionStorage.getItem(FORM_STATE_KEY);
         return stored ? JSON.parse(stored) : INITIAL_ENROLLMENT_APPLICATION_STATE;
     }

@@ -1,35 +1,35 @@
 import { FieldTree } from "@angular/forms/signals";
-import { ApplicationData } from "../../work-flow/enrollment-application.state";
+import { ApplicationData } from "../../enrollment-application.state";
 
 
 export abstract class ApplicationDataGetters {
     protected abstract formData: FieldTree<ApplicationData>;
 
-    get student (){
+    get studentField (){
         return this.formData.student;
     }
 
-    get career(){
+    get careerField(){
         return this.formData.career;
     }
 
-    get academicPeriod(){
+    get academicPeriodField(){
         return this.formData.academicPeriod;
     }
 
-    get parallel (){
+    get parallelField (){
         return this.formData.parallel;
     }
 
-    get schoolPeriod (){
+    get schoolPeriodField (){
         return this.formData.schoolPeriod;
     }
 
-    get workday (){
+    get workdayField (){
         return this.formData.workday;
     }
 
-    get enrollmentDetails (){
+    get enrollmentDetailsField (){
         return this.formData.enrollmentDetails;
     }
 

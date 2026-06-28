@@ -5,19 +5,18 @@
         <div class="custom-form-section md:col-span-12">
             <h4>Información Academica</h4>
         </div>
+
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="career" label="Carrera" [field]="career"></label>
-            <p-select class="ml-3" [options]="careers" [(ngModel)]="career"
-                [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Carreras"
-                filterBy="name" placeholder="Seleccione una carrera...">
+            <label appLabel for="careerField" label="Carrera" [field]="careerField"></label>
+            <p-select class="ml-3" [options]="careers()" [(ngModel)]="careerField().value" [ngModelOptions]="{standalone: true}"
+                optionLabel="name" pTooltip="Carreras" filterBy="name" placeholder="Seleccione una carrera...">
             </p-select>
-            <small [appErrorMessage]="$any(career.id)"></small>
+            <small [appErrorMessage]="$any(careerField)"></small>
         </div>
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="semester" label="Semestre" [field]="semester"></label>
-            <p-select class="ml-3" [options]="semesters" [(ngModel)]="semester"
-                [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Semestres"
-                filterBy="name" placeholder="Seleccione un Semestre...">
+            <label appLabel for="semesterField" label="Semestre" [field]="semesterField"></label>
+            <p-select class="ml-3" [options]="semesters()" [(ngModel)]="semesterField().value" [ngModelOptions]="{standalone: true}"
+                optionLabel="name" pTooltip="Semestres" filterBy="name" placeholder="Seleccione un Semestre...">
             </p-select>
         </div>
 
@@ -26,60 +25,67 @@
         </div>
 
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="contactEmergencyName" label="Nombre del Contacto" [field]="contactEmergencyName">
+            <label appLabel for="contactEmergencyNameField" label="Nombre del Contacto" [field]="contactEmergencyNameField">
             </label>
-            <input id="contactEmergencyName" pInputText [formField]="contactEmergencyName" />
-            <small [appErrorMessage]="$any(contactEmergencyName)"></small>
+            <input id="contactEmergencyName" pInputText [formField]="contactEmergencyNameField" />
+            <small [appErrorMessage]="$any(contactEmergencyNameField)"></small>
         </div>
 
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="contactEmergencyPhone" label="Contacto" [field]="contactEmergencyPhone"></label>
-            <input id="contactEmergencyPhone" pInputText [formField]="contactEmergencyPhone" />
-            <small [appErrorMessage]="$any(contactEmergencyPhone)"></small>
+            <label appLabel for="contactEmergencyPhoneField" label="Contacto" [field]="contactEmergencyPhoneField"></label>
+            <input id="contactEmergencyPhoneField" pInputText [formField]="contactEmergencyPhoneField" />
+            <small [appErrorMessage]="$any(contactEmergencyPhoneField)"></small>
         </div>
 
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="contactEmergencyKinship" label="Parentesco" [field]="contactEmergencyKinship"></label>
-            <input id="contactEmergencyKinship" pInputText [formField]="contactEmergencyKinship" />
-
-            <small [appErrorMessage]="$any(contactEmergencyKinship)"></small>
+            <label appLabel for="contactEmergencyKinship" label="Parentesco" [field]="contactEmergencyKinshipField"></label>
+            <p-select class="ml-3" [options]="contactEmergencyKinships()" [(ngModel)]="contactEmergencyKinshipField().value"
+                [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Parentesco" filterBy="name"
+                placeholder="Seleccione el Parentesco...">
+            </p-select>
+            <small [appErrorMessage]="$any(contactEmergencyKinshipField)"></small>
         </div>
+
 
         <div class="custom-form-section md:col-span-12">
             <h4>Inclusión y Salud</h4>
         </div>
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="isDisability" label="¿Tiene alguna discapacidad?" [field]="isDisability"></label>
-            <p-checkbox [binary]="true" [formField]="isDisability" inputId="isDisability" />
+            <label appLabel for="isDisabilityField" label="¿Tiene alguna discapacidad?" [field]="isDisabilityField"></label>
+            <p-checkbox [binary]="true" [formField]="isDisabilityField" inputId="isDisabilityField" />
         </div>
 
-        @if (isDisability().value()) {
-
+        @if (isDisabilityField().value()) {
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="disabilityType" label="Tipo de Discapacidad" [field]="disabilityType"></label>
-            <input id="disabilityType" pInputText [formField]="disabilityType" />
+            <label appLabel for="disabilityTypeField" label="Tipo de Discapacidad" [field]="disabilityTypeField"></label>
+            <p-select class="ml-3" [options]="disabilityTypes()" [(ngModel)]="disabilityTypeField().value"
+                [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Tipo de Discapacidad" filterBy="name"
+                placeholder="Seleccione una tipo...">
+            </p-select>
+            <small [appErrorMessage]="$any(disabilityTypeField)"></small>
         </div>
 
+
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="disabilityPercentage" label="Porcentaje (%)" [field]="disabilityPercentage"></label>
-            <input id="disabilityPercentage" pInputText [formField]="disabilityPercentage" />
+            <label appLabel for="disabilityPercentageField" label="Porcentaje (%)" [field]="disabilityPercentageField"></label>
+            <input id="disabilityPercentage" pInputText [formField]="disabilityPercentageField" />
         </div>
 
         }
 
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="isCatastrophicIllness" label="¿Padece una enfermedad catastrófica?"
-                [field]="isCatastrophicIllness"></label>
-            <p-checkbox [binary]="true" [formField]="isCatastrophicIllness" inputId="isCatastrophicIllness" />
+            <label appLabel for="isCatastrophicIllnessField" label="¿Padece una enfermedad catastrófica?"
+                [field]="isCatastrophicIllnessField"></label>
+            <p-checkbox [binary]="true" [formField]="isCatastrophicIllnessField" inputId="isCatastrophicIllnessField" />
         </div>
 
-        @if (isCatastrophicIllness().value()) {
+        @if (isCatastrophicIllnessField().value()) {
 
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="catastrophicIllness" label="Especifique la Enfermedad"
-                [field]="catastrophicIllness"></label>
-            <input id="catastrophicIllness" pInputText [formField]="catastrophicIllness" />
-            <small [appErrorMessage]="$any(isCatastrophicIllness)"></small>
+            <label appLabel for="catastrophicIllnessField" label="Especifique la Enfermedad"
+                [field]="catastrophicIllnessField"></label>
+            <input id="catastrophicIllnessField" pInputText [formField]="catastrophicIllnessField" />
+            <small [appErrorMessage]="$any(isCatastrophicIllnessField)"></small>
         </div>
 
         }
@@ -87,114 +93,132 @@
         <div class="custom-form-section md:col-span-12">
             <h4>Cultura e Idiomas</h4>
         </div>
-
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="town" label="Pueblo / Comunidad (Ciudad)" [field]="town"></label>
-            <input id="town" pInputText [formField]="town" />
-            <small [appErrorMessage]="$any(town)"></small>
+            <label appLabel for="townField" label="Pueblo / Comunidad (Ciudad)" [field]="townField"></label>
+            <p-select class="ml-3" [options]="towns()" [(ngModel)]="townField().value" [ngModelOptions]="{standalone: true}"
+                optionLabel="name" pTooltip="Pueblo / Comunidad (Ciudad)" filterBy="name"
+                placeholder="Seleccione un publo / ciudad...">
+            </p-select>
+            <small [appErrorMessage]="$any(townField)"></small>
+        </div>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="indigenousNationalityField" label="Nacionalidad Indígena"
+                [field]="indigenousNationalityField"></label>
+            <p-select class="ml-3" [options]="indigenousNationalitys()" [(ngModel)]="indigenousNationalityField().value"
+                [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Nacionalidad Indígena"
+                filterBy="name" placeholder="Seleccione una Nacionalidad Indígena...">
+            </p-select>
+            <small [appErrorMessage]="$any(indigenousNationalityField)"></small>
         </div>
 
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="indigenousNationality" label="Nacionalidad Indígena"
-                [field]="indigenousNationality"></label>
-            <input id="indigenousNationality" pInputText [formField]="indigenousNationality" />
-            <small [appErrorMessage]="$any(indigenousNationality)"></small>
+            <label appLabel for="isAncestralLanguageField" label="¿Habla un idioma ancestral?"
+                [field]="isAncestralLanguageField"></label>
+            <p-checkbox [binary]="true" [formField]="isAncestralLanguageField" inputId="isAncestralLanguageField" />
         </div>
+
+        @if (isAncestralLanguageField().value()) {
 
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="isAncestralLanguage" label="¿Habla un idioma ancestral?"
-                [field]="isAncestralLanguage"></label>
-            <p-checkbox [binary]="true" [formField]="isAncestralLanguage" inputId="isAncestralLanguage" />
+            <label appLabel for="ancestralLanguageNameField" label="Idioma Ancestral"
+                [field]="ancestralLanguageNameField"></label>
+            <p-select class="ml-3" [options]="ancestralLanguageNames()" [(ngModel)]="ancestralLanguageNameField().value"
+                [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Idioma Ancestral" filterBy="name"
+                placeholder="Seleccione un Idioma Ancestral...">
+            </p-select>
+            <small [appErrorMessage]="$any(ancestralLanguageNameField)"></small>
         </div>
 
-        @if (isAncestralLanguage().value()) {
-
-        <div class="custom-form-field md:col-span-6">
-            <label appLabel for="ancestralLanguageName" label="Idioma Ancestral"
-                [field]="ancestralLanguageName"></label>
-            <input id="ancestralLanguageName" pInputText [formField]="ancestralLanguageName" />
-            <small [appErrorMessage]="$any(ancestralLanguageName)"></small>
-        </div>
         }
 
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="isForeignLanguage" label="¿Habla un idioma extranjero?"
-                [field]="isForeignLanguage"></label>
-            <p-checkbox [binary]="true" [formField]="isForeignLanguage" inputId="isForeignLanguage" />
+            <label appLabel for="isForeignLanguageField" label="¿Habla un idioma extranjero?"
+                [field]="isForeignLanguageField"></label>
+            <p-checkbox [binary]="true" [formField]="isForeignLanguageField" inputId="isForeignLanguage" />
         </div>
 
-        @if (isForeignLanguage().value()) {
+        @if (isForeignLanguageField().value()) {
 
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="foreignLanguageName" label="Idioma Extranjero" [field]="foreignLanguageName"></label>
-            <input id="foreignLanguageName" pInputText [formField]="foreignLanguageName" />
-            <small [appErrorMessage]="$any(foreignLanguageName)"></small>
+            <label appLabel for="foreignLanguageNameField" label="Idioma Ancestral" [field]="foreignLanguageNameField"></label>
+            <p-select class="ml-3" [options]="foreignLanguageNames()" [(ngModel)]="foreignLanguageNameField().value"
+                [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Idioma Extranjero" filterBy="name"
+                placeholder="Seleccione un Idioma Extranjero...">
+            </p-select>
+            <small [appErrorMessage]="$any(foreignLanguageNameField)"></small>
         </div>
+
         }
 
         <div class="custom-form-section md:col-span-12">
             <h3>Situación Familiar y Laboral</h3>
         </div>
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="isHouseHead" label="¿Es jefe de hogar?" [field]="isHouseHead"></label>
-            <p-checkbox [binary]="true" [formField]="isHouseHead" inputId="isHouseHead" />
+            <label appLabel for="isHouseHead" label="¿Es jefe de hogar?" [field]="isHouseHeadField"></label>
+            <p-checkbox [binary]="true" [formField]="isHouseHeadField" inputId="isHouseHead" />
         </div>
 
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="isHasChildren" label="¿Tiene hijos?" [field]="isHasChildren"></label>
-            <p-checkbox [binary]="true" [formField]="isHasChildren" inputId="isHasChildren" />
+            <label appLabel for="isHasChildren" label="¿Tiene hijos?" [field]="isHasChildrenField"></label>
+            <p-checkbox [binary]="true" [formField]="isHasChildrenField" inputId="isHasChildren" />
         </div>
 
-        @if (isHasChildren().value()) {
+        @if (isHasChildrenField().value()) {
 
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="childrenTotal" label="Total de Hijos" [field]="childrenTotal"></label>
-            <input id="childrenTotal" pInputText [formField]="childrenTotal" />
-            <small [appErrorMessage]="$any(childrenTotal)"></small>
-        </div>
-        }
-
-        <div class="custom-form-field md:col-span-6">
-            <label appLabel for="isWork" label="¿Actualmente trabaja?" [field]="isWork"></label>
-            <p-checkbox [binary]="true" [formField]="isWork" inputId="isWork" />
-        </div>
-
-        @if (isWork().value()) {
-
-        <div class="custom-form-field md:col-span-6">
-            <label appLabel for="workPosition" label="Cargo / Puesto" [field]="workPosition"></label>
-            <input id="workPosition" pInputText [formField]="workPosition" />
-            <small [appErrorMessage]="$any(workPosition)"></small>
-        </div>
-
-        <div class="custom-form-field md:col-span-6">
-            <label appLabel for="monthlySalary" label="Salario Mensual" [field]="monthlySalary"></label>
-            <input id="monthlySalary" pInputText [formField]="monthlySalary" />
-            <small [appErrorMessage]="$any(monthlySalary)"></small>
-        </div>
-
-        <div class="custom-form-field md:col-span-6">
-            <label appLabel for="workingHours" label="Horas semanales" [field]="workingHours"></label>
-            <input id="workingHours" pInputText [formField]="workingHours" />
-            <small [appErrorMessage]="$any(workingHours)"></small>
-        </div>
-
-        <div class="custom-form-field md:col-span-6">
-            <label appLabel for="workAddress" label="Dirección del Trabajo" [field]="workAddress"></label>
-            <input id="workAddress" pInputText [formField]="workAddress" />
-            <small [appErrorMessage]="$any(workAddress)"></small>
+            <label appLabel for="childrenTotalField" label="Total de Hijos" [field]="childrenTotalField"></label>
+            <input id="childrenTotal" pInputText [formField]="childrenTotalField" />
+            <small [appErrorMessage]="$any(childrenTotalField)"></small>
         </div>
         }
 
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="isSocialSecurity" label="¿Posee Seguro Social (IESS)?"
-                [field]="isSocialSecurity"></label>
-            <p-checkbox [binary]="true" [formField]="isSocialSecurity" inputId="isSocialSecurity" />
+            <label appLabel for="isWorkField" label="¿Actualmente trabaja?" [field]="isWorkField"></label>
+            <p-checkbox [binary]="true" [formField]="isWorkField" inputId="isWork" />
+        </div>
+
+        @if (isWorkField().value()) {
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="workPositionField" label="Cargo / Puesto" [field]="workPositionField"></label>
+            <input id="workPosition" pInputText [formField]="workPositionField" />
+            <small [appErrorMessage]="$any(workPositionField)"></small>
+        </div>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="monthlySalaryField" label="Salario Mensual" [field]="monthlySalaryField"></label>
+            <p-select class="ml-3" [options]="monthlySalarys()" [(ngModel)]="monthlySalaryField().value"
+                [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Salario Mensual" filterBy="name"
+                placeholder="Seleccione el Salario Mensual...">
+            </p-select>
+            <small [appErrorMessage]="$any(monthlySalaryField)"></small>
         </div>
 
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="isPrivateSecurity" label="¿Posee Seguro Privado?" [field]="isPrivateSecurity"></label>
-            <p-checkbox [binary]="true" [formField]="isPrivateSecurity" inputId="isPrivateSecurity" />
+            <label appLabel for="workingHoursField" label="Horas semanales" [field]="workingHoursField"></label>
+            <p-select class="ml-3" [options]="workingHourstype()" [(ngModel)]="workingHoursField().value"
+                [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Horas semanales" filterBy="name"
+                placeholder="Seleccione las Horas semanales...">
+            </p-select>
+            <small [appErrorMessage]="$any(workingHoursField)"></small>
+        </div>
+
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="workAddressField" label="Dirección del Trabajo" [field]="workAddressField"></label>
+            <input id="workAddress" pInputText [formField]="workAddressField" />
+            <small [appErrorMessage]="$any(workAddressField)"></small>
+        </div>
+        }
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="isSocialSecurityField" label="¿Posee Seguro Social (IESS)?"
+                [field]="isSocialSecurityField"></label>
+            <p-checkbox [binary]="true" [formField]="isSocialSecurityField" inputId="isSocialSecurity" />
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="isPrivateSecurity" label="¿Posee Seguro Privado?" [field]="isPrivateSecurityField"></label>
+            <p-checkbox [binary]="true" [formField]="isPrivateSecurityField" inputId="isPrivateSecurity" />
         </div>
 
     </form>

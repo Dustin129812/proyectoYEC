@@ -1,0 +1,78 @@
+<form class="custom-form-grid md:grid-cols-12">
+
+    <div class="custom-form-field md:col-span-6">
+        <label appLabel for="career" label="Carrera" [field]="careerField"></label>
+        <p-select class="ml-3" [options]="careers" [(ngModel)]="careerField().value"
+            [ngModelOptions]="{standalone: true}" (onChange)="onCurriculumChange($event)" optionLabel="name"
+            pTooltip="Carreras" filterBy="name" placeholder="Seleccione una carrera...">
+        </p-select>
+
+    </div>
+    <div class="custom-form-field md:col-span-6">
+        <label appLabel for="schoolPeriodField" label="Malla" [field]="schoolPeriodField"></label>
+        <p-select [options]="curriculums" [(ngModel)]="schoolPeriodField().value" [ngModelOptions]="{standalone: true}"
+            optionLabel="name" pTooltip="Mallas Curriculares" [filter]="true" filterBy="name"
+            placeholder="Seleccione una malla curricular...">
+        </p-select>
+
+    </div>
+    <div class="custom-form-field md:col-span-6">
+        <label appLabel for="academicPeriodField" label="Periodo academico" [field]="academicPeriodField"></label>
+        <p-select [options]="academicPeriods" [(ngModel)]="formData.academicPeriod().value"
+            [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Semestre" filterBy="name"
+            placeholder="Seleccione un semestre...">
+        </p-select>
+
+    </div>
+    <div class="custom-form-field md:col-span-6">
+        <label appLabel for="workdayField" label="Horario" [field]="workdayField"></label>
+        <p-select [options]="workdays()" [(ngModel)]="formData.workday().value" [ngModelOptions]="{standalone: true}"
+            optionLabel="name" pTooltip="Horario" filterBy="name" placeholder="Seleccione un horario...">
+        </p-select>
+
+    </div>
+    <div class="custom-form-field md:col-span-6">
+        <label appLabel for="parallelField" label="Paralelo" [field]="parallelField"></label>
+        <p-select [options]="parallels()" [(ngModel)]="parallelField().value" [ngModelOptions]="{standalone: true}"
+            optionLabel="name" pTooltip="Paralelo" filterBy="name" placeholder="Seleccione un paralelo...">
+        </p-select>
+
+    </div>
+
+    <div class="custom-form-section md:col-span-12">
+        <h3>Total Asignaturas: {{ selectedItems()?.length ?? 0 }}</h3>
+    </div>
+
+
+
+
+</form>
+<div>
+    <i [class]="PrimeIcons.SEARCH" class="space-y-20" [style]="{ margin: '1rem' }"></i>
+    <input #search pInputText type="text" placeholder="Buscar..."
+        (input)="dt1.filterGlobal(search.value, 'contains')" />
+</div>
+
+<p-table #dt1 dataKey="id" [value]="subjects" [selection]="selectedItems()"
+    (selectionChange)="onSelectionChange($event)">
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width:4rem">
+                <p-tableHeaderCheckbox />
+            </th>
+            <th>Código</th>
+            <th>Asignatura</th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-subject>
+        <tr>
+            <td>
+                <p-tableCheckbox [value]="subject" />
+            </td>
+            <td>{{ subject.code }}</td>
+            <td>{{ subject.name }}</td>
+        </tr>
+    </ng-template>
+</p-table>

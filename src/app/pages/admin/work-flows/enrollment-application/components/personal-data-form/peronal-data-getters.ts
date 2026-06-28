@@ -1,112 +1,112 @@
 
 import { FieldTree } from '@angular/forms/signals';
-import { PersonalData } from '../../work-flow/enrollment-application.state';
+import { PersonalData } from '../../enrollment-application.state';
 
 export abstract class PersonalDataGetters {
 
     protected abstract formData: FieldTree<PersonalData>;
 
-    get career() {
+    get careerField() {
         return this.formData.career;
     }
 
-    get semester() {
+    get semesterField() {
         return this.formData.semester;
     }
 
-    get contactEmergencyKinship() {
+    get contactEmergencyKinshipField() {
         return this.formData.contactEmergencyKinship;
     }
 
-    get contactEmergencyName() {
+    get contactEmergencyNameField() {
         return this.formData.contactEmergencyName;
     }
 
-    get contactEmergencyPhone() {
+    get contactEmergencyPhoneField() {
         return this.formData.contactEmergencyPhone;
     }
 
-    get isDisability() {
+    get isDisabilityField() {
         return this.formData.isDisability;
     }
 
-    get disabilityPercentage() {
+    get disabilityPercentageField() {
         return this.formData.disabilityPercentage;
     }
 
-    get disabilityType() {
+    get disabilityTypeField() {
         return this.formData.disabilityType;
     }
 
-    get isCatastrophicIllness() {
+    get isCatastrophicIllnessField() {
         return this.formData.isCatastrophicIllness;
     }
 
-    get catastrophicIllness() {
+    get catastrophicIllnessField() {
         return this.formData.catastrophicIllness;
     }
 
-    get isAncestralLanguage(){
+    get isAncestralLanguageField(){
         return this.formData.isAncestralLanguage;
     }
 
-    get ancestralLanguageName(){
+    get ancestralLanguageNameField(){
         return this.formData.ancestralLanguageName;
     }
 
-    get isForeignLanguage(){
+    get isForeignLanguageField(){
         return this.formData.isForeignLanguage;
     }
 
-    get foreignLanguageName(){
+    get foreignLanguageNameField(){
         return this.formData.foreignLanguageName;
     }
 
-    get isHouseHead() {
+    get isHouseHeadField() {
         return this.formData.isHouseHead;
     }
 
-    get isHasChildren() {
+    get isHasChildrenField() {
         return this.formData.isHasChildren;
     }
 
-    get childrenTotal() {
+    get childrenTotalField() {
         return this.formData.childrenTotal;
     }
 
-    get isWork() {
+    get isWorkField() {
         return this.formData.isWork;
     }
 
-    get monthlySalary() {
+    get monthlySalaryField() {
         return this.formData.monthlySalary;
     }
 
-    get workAddress() {
+    get workAddressField() {
         return this.formData.workAddress;
     }
 
-    get workPosition() {
+    get workPositionField() {
         return this.formData.workPosition;
     }
 
-    get workingHours() {
+    get workingHoursField() {
         return this.formData.workingHours;
     }
 
-    get town() {
+    get townField() {
         return this.formData.town;
     }
 
-    get isSocialSecurity() {
+    get isSocialSecurityField() {
         return this.formData.isSocialSecurity;
     }
 
-    get isPrivateSecurity() {
+    get isPrivateSecurityField() {
         return this.formData.isPrivateSecurity;
     }
 
-    get indigenousNationality() {
+    get indigenousNationalityField() {
         return this.formData.indigenousNationality;
     }
 }
