@@ -1,6 +1,6 @@
 import { required, SchemaPathTree } from "@angular/forms/signals"
-import { ApplicationData } from "../work-flow/enrollment-application.state"
-
+import { ApplicationData } from "../enrollment-application.state"
+//nombre de el archivo application-data.validation.ts
 export function validateApplicationData(schema:SchemaPathTree<ApplicationData>){
 required(schema.student,{
     message:'El estudiante es necesario'
@@ -21,6 +21,6 @@ required(schema.parallel,{
     message:'El paralelo es necesario'
 })
 required(schema.enrollmentDetails,{
-    message:'El enrollmentDetails es necesario'
+    message:'Seleccione almenos una asignatura'
 })
 }

@@ -1,23 +1,22 @@
 import { Component, inject } from '@angular/core';
-import { ApplicationSelecForm } from "../application-selec-form/application-selec-form";
-import { ApplicationCheckTable } from "../application-check-table/application-check-table";
+import { ApplicationDataForm } from "../application-data-form/application-data-form";
 import { Button } from "primeng/button";
 import { PrimeIcons } from 'primeng/api';
 import { CustomMessageService } from '@utils/services';
-import { EnrollmentAplicationStore } from '../../work-flow/enrollment-application.store';
+import { EnrollmentAplicationStore } from '../../enrollment-application.store';
 import { FormRegistryService } from '@utils/services/form-registry.service';
 
+const FORM_STATE_KEY = "application"
 @Component({
     selector: 'app-application',
-    imports: [ApplicationSelecForm, ApplicationCheckTable, Button],
+    imports: [ApplicationDataForm, Button],
     templateUrl: './application.html',
-    styleUrl: './application.scss'
 })
 export class Application {
+    private readonly formRegistryService = inject(FormRegistryService);
     private readonly customMessageService = inject(CustomMessageService);
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
-    private readonly formRegistryService = inject(FormRegistryService);
-
+    // no usar primeng icons  usar customicons
     PrimeIcons = PrimeIcons;
 
     previous() {
@@ -25,11 +24,14 @@ export class Application {
     }
 
     onSubmit() {
-        if (this.formRegistryService.hasErrors()) {
-            this.customMessageService.showFormErrors(this.formRegistryService.errors());
+        const currentFormErrors = this.formRegistryService.getFormErrors(FORM_STATE_KEY)();
+        if (currentFormErrors.length > 0) {
+            console.log('application-information', this.enrollmentApplicationStore.formState());
+            this.customMessageService.showFormErrors(currentFormErrors);
             return;
         }
-        this.enrollmentApplicationStore.setStep(2);
-
+        if (!this.enrollmentApplicationStore.application()) return;
+        console.log('application-information', this.enrollmentApplicationStore.formState());
+        this.enrollmentApplicationStore.setStep(3);
     }
 }

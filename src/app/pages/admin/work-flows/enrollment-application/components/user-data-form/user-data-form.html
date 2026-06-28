@@ -1,0 +1,116 @@
+<div class="custom-form-card">
+
+    <form class="custom-form-grid md:grid-cols-12">
+        <div class="custom-form-section md:col-span-12">
+            <h4>Datos de Estudiante</h4>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="identificationTypeField" label="Tipo de Identificación"
+                [field]="identificationTypeField"></label>
+            <p-select class="ml-3" [options]="identificationTypes()" [(ngModel)]="identificationTypeField().value"
+                [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Tipo de Identificación"
+                filterBy="name" placeholder="Seleccione Tipo de Identificación...">
+            </p-select>
+            <small [appErrorMessage]="$any(identificationTypeField)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="identificationField" label="Identificación" [field]="identificationField"></label>
+            <input id="identification" pInputText [formField]="identificationField" />
+            <small [appErrorMessage]="$any(identificationField)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="nameField" label="Nombres" [field]="nameField"></label>
+            <input id="name" pInputText [formField]="nameField" />
+            <small [appErrorMessage]="$any(nameField)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="lastnameField" label="Apellidos" [field]="lastnameField"></label>
+            <input id="lastname" pInputText [formField]="lastnameField" />
+            <small [appErrorMessage]="$any(lastnameField)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="birthdateField" label="Fecha de Nacimiento" [field]="birthdateField"></label>
+            <input id="birthdate" pInputText [formField]="birthdateField" placeholder="Aaaa-mm-dd" />
+            <small [appErrorMessage]="$any(birthdateField)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="maritalStatusField" label="Estado Civil" [field]="maritalStatusField"></label>
+            <p-select class="ml-3" [options]="maritalStatuses()" [(ngModel)]="maritalStatusField().value"
+                [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Estado Civil" filterBy="name"
+                placeholder="Seleccione Estado Civil...">
+            </p-select>
+            <small [appErrorMessage]="$any(maritalStatusField)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="genderField" label="Género" [field]="genderField"></label>
+            <p-select class="ml-3" [options]="genders()" [(ngModel)]="genderField().value" [ngModelOptions]="{standalone: true}"
+                optionLabel="name" pTooltip="Género" filterBy="name" placeholder="Seleccione Género...">
+            </p-select>
+            <small [appErrorMessage]="$any(genderField)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="sexField" label="Sexo" [field]="sexField"></label>
+            <p-select class="ml-3" [options]="sexes()" [(ngModel)]="sexField().value" [ngModelOptions]="{standalone: true}"
+                optionLabel="name" pTooltip="Sexo" filterBy="name" placeholder="Seleccione Sexo...">
+            </p-select>
+            <small [appErrorMessage]="$any(sexField)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="ethnicOriginField" label="Origen Étnico" [field]="ethnicOriginField"></label>
+            <p-select class="ml-3" [options]="ethnicOrigins()" [(ngModel)]="ethnicOriginField().value"
+                [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Origen Étnico" filterBy="name"
+                placeholder="Seleccione Origen Étnico...">
+            </p-select>
+            <small [appErrorMessage]="$any(ethnicOriginField)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="nationalityField" label="Nacionalidad" [field]="nationalityField"></label>
+            <p-select class="ml-3" [options]="nationalities()" [(ngModel)]="nationalityField().value"
+                [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Nacionalidad" filterBy="name"
+                placeholder="Seleccione Nacionalidad...">
+            </p-select>
+            <small [appErrorMessage]="$any(nationalityField)"></small>
+        </div>
+
+        <div class="custom-form-section md:col-span-12">
+            <h4>Información de Contacto</h4>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="emailField" label="Correo Institucional" [field]="emailField"></label>
+            <input id="email" pInputText [formField]="emailField" type="email" />
+            <small [appErrorMessage]="$any(emailField)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="personalEmailField" label="Correo Personal" [field]="personalEmailField"></label>
+            <input id="personalEmail" pInputText [formField]="personalEmailField" type="email" />
+            <small [appErrorMessage]="$any(personalEmailField)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="cellPhoneField" label="Celular" [field]="cellPhoneField"></label>
+            <input id="cellPhone" pInputText [formField]="cellPhoneField" />
+            <small [appErrorMessage]="$any(cellPhoneField)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="phoneField" label="Teléfono Convencional" [field]="phoneField"></label>
+            <input id="phone" pInputText [formField]="phoneField" />
+            <small [appErrorMessage]="$any(phoneField)"></small>
+        </div>
+
+
+    </form>
+
+</div>

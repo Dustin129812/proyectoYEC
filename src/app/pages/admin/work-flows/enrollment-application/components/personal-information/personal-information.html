@@ -1,5 +1,13 @@
 <div>
     <p-accordion [(value)]="activePanel">
+        <p-accordion-panel value="user-data">
+            <p-accordion-header>
+                Informacon del Estudiante
+            </p-accordion-header>
+            <p-accordion-content>
+                <app-user-data-form/>
+            </p-accordion-content>
+        </p-accordion-panel>
         <p-accordion-panel value="personal-data">
             <p-accordion-header>
                 Datos Personales

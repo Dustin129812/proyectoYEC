@@ -1,0 +1,209 @@
+//Interfaces
+export interface EnrollmentApplicationState {
+    userData: UserData,
+    personalData: PersonalData,
+    originPlace: LocationData,
+    residencePlace: LocationData,
+    application: ApplicationData
+}
+
+export interface PersonalData {
+    career: Career | null,
+    semester: Semester | null,
+    contactEmergencyKinship: CatalogInterface | null,
+    contactEmergencyName: string,
+    contactEmergencyPhone: string,
+    isDisability: boolean ,
+    disabilityPercentage: string,
+    disabilityType: CatalogInterface | null,
+    isAncestralLanguage: boolean,
+    ancestralLanguageName: CatalogInterface | null,
+    isCatastrophicIllness: boolean,
+    catastrophicIllness: string,
+    isForeignLanguage: boolean,
+    foreignLanguageName: CatalogInterface | null,
+    isHasChildren:boolean,
+    childrenTotal: string,
+    isHouseHead: boolean,
+    isPrivateSecurity: boolean,
+    isSocialSecurity: boolean,
+    isWork: boolean,
+    monthlySalary: CatalogInterface | null,
+    workAddress: string,
+    workingHours: CatalogInterface | null,
+    workPosition: string,
+    town: CatalogInterface | null,
+    indigenousNationality: CatalogInterface | null,
+}
+
+export interface LocationData {
+    country: CatalogInterface | null,
+    province: CatalogInterface | null,
+    canton: CatalogInterface | null,
+    parish: CatalogInterface | null,
+    latitude: string,
+    longitude: string,
+    mainStreet: string,
+    number: string,
+    reference: string,
+    secondaryStreet: string
+}
+
+export interface ApplicationData {
+    student: Student|null,
+    academicPeriod: AcademicPeriod|null,
+    career: Career|null,
+    enrollmentDetails: EnrollmentDetail[]|null,
+    parallel: Parallel|null,
+    schoolPeriod: SchoolPeriod|null,
+    workday: Workday|null,
+}
+export interface Career {
+    id: string,
+    name: string,
+}
+export interface Semester {
+    id: string,
+    name: string,
+}
+export interface AcademicPeriod {
+    id: string,
+    name: string,
+}
+export interface Parallel {
+    id: string,
+    name: string,
+}
+export interface SchoolPeriod {
+    id: string,
+    name: string,
+}
+export interface Workday {
+    id: string,
+    name: string,
+}
+export interface Student {
+    id: string,
+    name: string,
+}
+export interface EnrollmentDetail {
+    id: string,
+    code: string,
+    name: string
+}
+export interface UserData {
+    birthdate: string;
+    cellPhone: string;
+    email: string;
+    ethnicOrigin: CatalogInterface | null;
+    gender: CatalogInterface | null;
+    identification: string;
+    identificationType: CatalogInterface | null;
+    lastname: string;
+    maritalStatus: CatalogInterface | null;
+    name: string;
+    nationality: CatalogInterface | null;
+    personalEmail: string;
+    phone: string;
+    sex: CatalogInterface | null;
+}
+export interface CatalogInterface {
+    id: string;
+    parentId: string;
+    code: string;
+    name: string;
+    required: boolean;
+    sort: number;
+    type: string;
+    isVisible: boolean;
+}
+const initialCatalogue: CatalogInterface = {
+    id: '',
+    parentId: '',
+    code: '',
+    name: '',
+    required: false,
+    sort: 0,
+    type: '',
+    isVisible: false
+};
+const objectBase = { id: "", name: "" }
+export const INITIAL_ENROLLMENT_APPLICATION_STATE: EnrollmentApplicationState = {
+    userData: {
+        birthdate: '',
+        cellPhone: '',
+        email: '',
+        ethnicOrigin: null,
+        gender: null,
+        identification: '',
+        identificationType: null,
+        lastname: '',
+        maritalStatus: null,
+        name: '',
+        nationality: null,
+        personalEmail: '',
+        phone: '',
+        sex: null
+    },
+    personalData: {
+        career: null,
+        semester: null,
+        contactEmergencyKinship: null,
+        contactEmergencyName: '',
+        contactEmergencyPhone: '',
+        isDisability: false,
+        disabilityPercentage: '',
+        disabilityType: null,
+        isAncestralLanguage: false,
+        ancestralLanguageName: null,
+        isCatastrophicIllness: false,
+        catastrophicIllness: '',
+        isForeignLanguage: false,
+        foreignLanguageName: null,
+        isHasChildren: false,
+        childrenTotal: '',
+        isHouseHead: false,
+        isPrivateSecurity: false,
+        isSocialSecurity: false,
+        isWork: false,
+        monthlySalary: null,
+        workAddress: '',
+        workingHours: null,
+        workPosition: '',
+        town: null,
+        indigenousNationality: null,
+    },
+    originPlace: {
+        country: null,
+        province: null,
+        canton: null,
+        parish: null,
+        latitude: '',
+        longitude: '',
+        mainStreet: '',
+        number: '',
+        reference: '',
+        secondaryStreet: ''
+    },
+    residencePlace: {
+        country: null,
+        province: null,
+        canton: null,
+        parish: null,
+        latitude: '',
+        longitude: '',
+        mainStreet: '',
+        number: '',
+        reference: '',
+        secondaryStreet: ''
+    },
+    application: {
+        student: null,
+        academicPeriod: null,
+        career: null,
+        enrollmentDetails:null,
+        parallel: null,
+        schoolPeriod: null,
+        workday: null,
+    }
+}
