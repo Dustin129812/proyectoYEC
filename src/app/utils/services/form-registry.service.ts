@@ -24,32 +24,6 @@ export class FormRegistryService {
     private readonly forms = signal(
         new Map<string, RegisteredForm>()
     );
-    getFormErrors(formName: string): Signal<FormError[]> {
-        return computed<FormError[]>(() => {
-            const form = this.forms().get(formName);
-            if (!form) return [];
-
-            const errors: FormError[] = [];
-            const { label, fieldTree, keys } = form;
-
-            for (const key of keys) {
-                const field = (fieldTree as Record<string, () => any>)[key]?.();
-
-                if (!field?.invalid?.()) continue;
-
-                for (const error of field.errors()) {
-                    errors.push({
-                        form: formName,
-                        label,
-                        field: key,
-                        message: error.message ?? error.kind,
-                    });
-                }
-            }
-
-            return errors;
-        });
-    }
 
     readonly errors = computed<FormError[]>(() => {
         const errors: FormError[] = [];

@@ -11,7 +11,6 @@ import { LabelDirective } from '@utils/directives/label.directive';
 import { ErrorMessageDirective } from '@utils/directives/error-message.directive';
 import { Select } from 'primeng/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserDataGetters } from './user-data-getters';
 import { validateUserData } from '../../validators/user-data-form.validation';
 const FORM_STATE_KEY = 'userData'
 @Component({
@@ -19,7 +18,7 @@ const FORM_STATE_KEY = 'userData'
     imports: [FormField, InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select, FormsModule, ReactiveFormsModule],
     templateUrl: './user-data-form.html',
 })
-export class UserDataForm extends UserDataGetters {
+export class UserDataForm {
 
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
@@ -36,7 +35,6 @@ export class UserDataForm extends UserDataGetters {
     ethnicOrigins: WritableSignal<CatalogInterface[]> =signal([])
     nationalities: WritableSignal<CatalogInterface[]> =signal([])
     constructor() {
-        super();
         effect(() => {
             this.enrollmentApplicationStore.updateSection(FORM_STATE_KEY, this.form$());
         });
