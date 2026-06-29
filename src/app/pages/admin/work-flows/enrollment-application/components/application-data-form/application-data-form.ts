@@ -1,5 +1,5 @@
 import { Component, computed, effect, inject, signal, WritableSignal } from '@angular/core';
-import { ApplicationData } from '../../enrollment-application.state';
+import { ApplicationData, CatalogInterface } from '../../enrollment-application.state';
 import { validateApplicationData } from '../../validators/application-data-form.validation';
 import { FieldTree, form } from '@angular/forms/signals';
 import { PrimeIcons } from 'primeng/api';
@@ -8,28 +8,26 @@ import { EnrollmentAplicationStore } from '../../enrollment-application.store';
 import { TableModule } from "primeng/table";
 import { Select } from "primeng/select";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ApplicationDataGetters } from './application-getters';
 import { LabelDirective } from "@utils/directives/label.directive";
-import { InputText } from 'primeng/inputtext';
 
 const FORM_STATE_KEY = "application"
 
 @Component({
     selector: 'app-application-data-form',
-    imports: [TableModule, Select, FormsModule, ReactiveFormsModule, LabelDirective, InputText],
+    imports: [TableModule, Select, FormsModule, ReactiveFormsModule, LabelDirective],
     templateUrl: './application-data-form.html',
 })
-export class ApplicationDataForm extends ApplicationDataGetters {
+export class ApplicationDataForm {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
 
     PrimeIcons = PrimeIcons;
 
 
-    protected academicPeriods: any[] = [];
-    protected careers: any[] = [];
-    protected curriculums: any[] = [];
-    protected subjects: any[] = [];
+    protected academicPeriods: WritableSignal<CatalogInterface[]> = signal([]);
+    protected careers: WritableSignal<CatalogInterface[]> = signal([]);
+    protected curriculums: WritableSignal<CatalogInterface[]> = signal([]);
+    protected subjects: WritableSignal<CatalogInterface[]> = signal([]);
     protected selectedItems = signal<any[] | null>(null);
     protected careerParallels: {
         academicPeriodId: string;
@@ -45,7 +43,6 @@ export class ApplicationDataForm extends ApplicationDataGetters {
     protected formData: FieldTree<ApplicationData> = this.buildForm;
     //los getter gregar sufijo Field para el nombre del metodo ej:careerField
     constructor() {
-        super();
         effect(() => {
             this.enrollmentApplicationStore.updateSection(FORM_STATE_KEY, this.form$());
         });
@@ -57,7 +54,7 @@ export class ApplicationDataForm extends ApplicationDataGetters {
 
         });
         effect(() => {
-            if (this.enrollmentDetailsField().value()?.length === 0) {
+            if (this.formData.enrollmentDetails().value()?.length === 0) {
                 this.form$.update(form => ({
                     ...form,
                     enrollmentDetails: null
@@ -66,14 +63,14 @@ export class ApplicationDataForm extends ApplicationDataGetters {
             }
         })
         effect(() => {
-            const academicPeriod = this.academicPeriodField().value();
+            const academicPeriod = this.formData.academicPeriod().value();
             if (!academicPeriod) return;
             this.formData.workday().reset();
             this.formData.parallel().reset();
         });
 
         effect(() => {
-            const workday = this.workdayField().value();
+            const workday = this.formData.workday().value();
             if (!workday) return;
             this.formData.parallel().reset();
         });
@@ -83,7 +80,7 @@ export class ApplicationDataForm extends ApplicationDataGetters {
     }
 
     protected workdays = computed(() => {
-        const academicPeriod = this.academicPeriodField().value();
+        const academicPeriod = this.formData.academicPeriod().value();
         if (!academicPeriod) return [];
         //puede cambiar de donde se obtiene
         //todos los id son string
@@ -92,8 +89,8 @@ export class ApplicationDataForm extends ApplicationDataGetters {
     });
 
     protected parallels = computed(() => {
-        const academicPeriod = this.academicPeriodField().value();
-        const workday = this.workdayField().value();
+        const academicPeriod = this.formData.academicPeriod().value();
+        const workday = this.formData.workday().value();
         if (!academicPeriod || !workday) return [];
 
         return this.careerParallels
@@ -116,62 +113,27 @@ export class ApplicationDataForm extends ApplicationDataGetters {
         //cargar los datos reales desde los servicios
         const data = this.enrollmentApplicationStore.application();
         this.selectedItems.set(data.enrollmentDetails?.length ? [...data.enrollmentDetails] : null);
+        this.academicPeriods.set([
+            { id: '1', parentId: '', code: 'PER-2026-1', name: 'Primer Periodo Académico 2026', required: true, sort: 1, type: 'ACADEMIC_PERIOD', isVisible: true },
+            { id: '2', parentId: '', code: 'PER-2026-2', name: 'Segundo Periodo Académico 2026', required: true, sort: 2, type: 'ACADEMIC_PERIOD', isVisible: true }
+        ]);
 
-        this.subjects = [
-            {
-                id: '1',
-                code: 'DSW101',
-                name: 'Programación I'
-            },
-            {
-                id: '2',
-                code: 'DSW102',
-                name: 'Base de Datos I'
-            },
-            {
-                id: '3',
-                code: 'DSW103',
-                name: 'Programación Web'
-            },
-            {
-                id: '4',
-                code: 'DSW104',
-                name: 'Arquitectura de Software'
-            },
-            {
-                id: '5',
-                code: 'DSW105',
-                name: 'Estructura de Datos'
-            },
-            {
-                id: '6',
-                code: 'DSW106',
-                name: 'Ingeniería de Software'
-            },
-            {
-                id: '7',
-                code: 'DSW107',
-                name: 'Desarrollo Móvil'
-            }
-        ];
-        this.academicPeriods = [
-            { name: '2025-A', id: '1' },
-            { name: '2025-B', id: '2' },
-            { name: '2026-A', id: '3' }
-        ];
+        this.careers.set([
+            { id: 'c1', parentId: '', code: 'SFW', name: 'Ingeniería en Software', required: true, sort: 1, type: 'CAREER', isVisible: true },
+            { id: 'c2', parentId: '', code: 'IND', name: 'Ingeniería Industrial', required: true, sort: 2, type: 'CAREER', isVisible: true },
+            { id: 'c3', parentId: '', code: 'ADM', name: 'Administración de Empresas', required: true, sort: 3, type: 'CAREER', isVisible: true }
+        ]);
 
-        this.careers = [
-            { name: 'Desarrollo de Software', id: '1' },
-            { name: 'Redes y Telecomunicaciones', id: '2' },
-            { name: 'Diseño Gráfico', id: '3' },
-            { name: 'Marketing Digital', id: '4' }
-        ];
+        this.curriculums.set([
+            { id: 'm1', parentId: 'c1', code: 'M-SFW-2022', name: 'Malla Rediseño Software 2022', required: true, sort: 1, type: 'CURRICULUM', isVisible: true },
+            { id: 'm2', parentId: 'c2', code: 'M-IND-2020', name: 'Malla Ajuste Industrial 2020', required: true, sort: 2, type: 'CURRICULUM', isVisible: true }
+        ]);
 
-        this.curriculums = [
-            { name: 'Malla 2023', id: '1' },
-            { name: 'Malla 2024', id: '2' },
-            { name: 'Malla 2025', id: '3' }
-        ];
+        this.subjects.set([
+            { id: 's1', parentId: 'm1', code: 'PROG-I', name: 'Programación Orientada a Objetos', required: true, sort: 1, type: 'SUBJECT', isVisible: true },
+            { id: 's2', parentId: 'm1', code: 'BD-I', name: 'Bases de Datos Relacionales', required: true, sort: 2, type: 'SUBJECT', isVisible: true },
+            { id: 's3', parentId: 'm2', code: 'IND-PROC', name: 'Gestión de Procesos', required: true, sort: 3, type: 'SUBJECT', isVisible: true }
+        ]);
 
         this.careerParallels = [
             {

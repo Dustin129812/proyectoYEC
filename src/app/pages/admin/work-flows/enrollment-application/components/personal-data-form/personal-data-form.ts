@@ -10,7 +10,6 @@ import { InputText } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { AccordionModule } from 'primeng/accordion';
 import { LabelDirective } from "@utils/directives/label.directive";
-import { PersonalDataGetters } from './peronal-data-getters';
 import { ErrorMessageDirective } from "@utils/directives/error-message.directive";
 import { Select } from "primeng/select";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,7 +21,7 @@ const FORM_STATE_KEY = "personalData"
     imports: [FormField, Checkbox, InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select, FormsModule, ReactiveFormsModule],
     templateUrl: './personal-data-form.html',
 })
-export class PersonalDataForm extends PersonalDataGetters {
+export class PersonalDataForm {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
 
@@ -43,7 +42,6 @@ export class PersonalDataForm extends PersonalDataGetters {
     semesters: WritableSignal<Semester[]> = signal([])
 
     constructor() {
-        super();
         effect(() => {
             this.enrollmentApplicationStore.updateSection(FORM_STATE_KEY, this.form$());
         });

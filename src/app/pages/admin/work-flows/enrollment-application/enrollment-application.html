@@ -7,18 +7,26 @@
         </p-step-list>
         <p-step-panels>
             <p-step-panel [value]="1">
-                <ng-template #content let-activateCallback="activateCallback">
-                    <app-personal-information />
+                <ng-template #content let-activateCallback="activateCallback" let-value="value">
+                    @if(pageActual() == 1 ){
+                        <app-personal-information />
+                    }
                 </ng-template>
             </p-step-panel>
             <p-step-panel [value]="2">
-                <ng-template #content let-activateCallback="activateCallback">
-                    <app-application />
+                <ng-template #content let-activateCallback="activateCallback" let-value="value">
+                    @if(pageActual() ==2){
+
+                        <app-application />
+                    }
                 </ng-template>
             </p-step-panel>
             <p-step-panel [value]="3">
-                <ng-template #content let-activateCallback="activateCallback">
-                    <app-enrollment-attachment />
+                <ng-template #content let-activateCallback="activateCallback"let-value="value">
+                    @if(pageActual() ==3){
+                        <app-enrollment-attachment />
+
+                    }
                 </ng-template>
             </p-step-panel>
         </p-step-panels>

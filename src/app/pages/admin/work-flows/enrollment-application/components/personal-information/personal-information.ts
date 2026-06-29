@@ -33,17 +33,10 @@ export class PersonalInformation {
     }
 
     onSubmit() {
-        console.log(this.enrollmentApplicationStore.userData() )
-        //Obtenemos los errores ESPECÍFICOS del formulario actual ejecutando la Signal ()
-        const currentPersonalErrors = this.formRegistryService.getFormErrors(FORM_PERSONAL_KEY)();
-        const currentUserErrors=this.formRegistryService.getFormErrors(FORM_USER_KEY)();
-        const allErrors = [ ...currentUserErrors,...currentPersonalErrors];
-        // Evaluamos si ESTE formulario tiene errores en lugar de usar .hasErrors() global
-        if (allErrors.length > 0) {
-        this.customMessageService.showFormErrors(allErrors);
-        return;
-    }
-
+        if (this.formRegistryService.hasErrors()) {
+            this.customMessageService.showFormErrors(this.formRegistryService.errors());
+            return;
+        }
         if (
             !this.enrollmentApplicationStore.personalData() ||
             !this.enrollmentApplicationStore.userData() ||

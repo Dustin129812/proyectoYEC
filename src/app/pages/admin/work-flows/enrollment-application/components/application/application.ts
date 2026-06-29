@@ -24,10 +24,8 @@ export class Application {
     }
 
     onSubmit() {
-        const currentFormErrors = this.formRegistryService.getFormErrors(FORM_STATE_KEY)();
-        if (currentFormErrors.length > 0) {
-            console.log('application-information', this.enrollmentApplicationStore.formState());
-            this.customMessageService.showFormErrors(currentFormErrors);
+        if (this.formRegistryService.hasErrors()) {
+            this.customMessageService.showFormErrors(this.formRegistryService.errors());
             return;
         }
         if (!this.enrollmentApplicationStore.application()) return;

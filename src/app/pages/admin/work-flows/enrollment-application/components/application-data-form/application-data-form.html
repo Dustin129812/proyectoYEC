@@ -1,40 +1,42 @@
 <form class="custom-form-grid md:grid-cols-12">
 
     <div class="custom-form-field md:col-span-6">
-        <label appLabel for="career" label="Carrera" [field]="careerField"></label>
-        <p-select class="ml-3" [options]="careers" [(ngModel)]="careerField().value"
-            [ngModelOptions]="{standalone: true}" (onChange)="onCurriculumChange($event)" optionLabel="name"
-            pTooltip="Carreras" filterBy="name" placeholder="Seleccione una carrera...">
+        <label appLabel for="career" label="Carrera" [field]="formData.career"></label>
+        <p-select class="ml-3" [options]="careers()" [(ngModel)]="formData.career().value" name="career"
+            (onChange)="onCurriculumChange($event)" optionLabel="name" pTooltip="Carreras" filterBy="name"
+            placeholder="Seleccione una carrera...">
         </p-select>
 
     </div>
     <div class="custom-form-field md:col-span-6">
-        <label appLabel for="schoolPeriodField" label="Malla" [field]="schoolPeriodField"></label>
-        <p-select [options]="curriculums" [(ngModel)]="schoolPeriodField().value" [ngModelOptions]="{standalone: true}"
+        <label appLabel for="schoolPeriod" label="Malla" [field]="formData.schoolPeriod"></label>
+        <p-select [options]="curriculums()" [(ngModel)]="formData.schoolPeriod().value" name="schoolPeriod"
             optionLabel="name" pTooltip="Mallas Curriculares" [filter]="true" filterBy="name"
             placeholder="Seleccione una malla curricular...">
         </p-select>
 
     </div>
     <div class="custom-form-field md:col-span-6">
-        <label appLabel for="academicPeriodField" label="Periodo academico" [field]="academicPeriodField"></label>
-        <p-select [options]="academicPeriods" [(ngModel)]="formData.academicPeriod().value"
-            [ngModelOptions]="{standalone: true}" optionLabel="name" pTooltip="Semestre" filterBy="name"
+        <label appLabel for="academicPeriod" label="Periodo academico" [field]="formData.academicPeriod"></label>
+        <p-select [options]="academicPeriods()" [(ngModel)]="formData.academicPeriod().value"
+            name="academicPeriod" optionLabel="name" pTooltip="Semestre" filterBy="name"
             placeholder="Seleccione un semestre...">
         </p-select>
-
+        <!-- [ngModelOptions]="{standalone: true}" se puede cambiar por name   cambiar por name y probar -->
     </div>
     <div class="custom-form-field md:col-span-6">
-        <label appLabel for="workdayField" label="Horario" [field]="workdayField"></label>
-        <p-select [options]="workdays()" [(ngModel)]="formData.workday().value" [ngModelOptions]="{standalone: true}"
-            optionLabel="name" pTooltip="Horario" filterBy="name" placeholder="Seleccione un horario...">
+        <label appLabel for="workday" label="Horario" [field]="formData.workday"></label>
+        <p-select [options]="workdays()" [(ngModel)]="formData.workday().value" name="workday"
+            optionLabel="name" pTooltip="Horario" filterBy="name" [filter]="true"
+            placeholder="Seleccione un horario...">
         </p-select>
 
     </div>
     <div class="custom-form-field md:col-span-6">
-        <label appLabel for="parallelField" label="Paralelo" [field]="parallelField"></label>
-        <p-select [options]="parallels()" [(ngModel)]="parallelField().value" [ngModelOptions]="{standalone: true}"
-            optionLabel="name" pTooltip="Paralelo" filterBy="name" placeholder="Seleccione un paralelo...">
+        <label appLabel for="parallel" label="Paralelo" [field]="formData.parallel"></label>
+        <p-select [options]="parallels()" [(ngModel)]="formData.parallel().value" name="parallel"
+            optionLabel="name" pTooltip="Paralelo" filterBy="name" [filter]="true"
+            placeholder="Seleccione un paralelo...">
         </p-select>
 
     </div>
@@ -43,17 +45,9 @@
         <h3>Total Asignaturas: {{ selectedItems()?.length ?? 0 }}</h3>
     </div>
 
-
-
-
 </form>
-<div>
-    <i [class]="PrimeIcons.SEARCH" class="space-y-20" [style]="{ margin: '1rem' }"></i>
-    <input #search pInputText type="text" placeholder="Buscar..."
-        (input)="dt1.filterGlobal(search.value, 'contains')" />
-</div>
-
-<p-table #dt1 dataKey="id" [value]="subjects" [selection]="selectedItems()"
+<!-- colocar el nombre items a la variable que carga la tabla, eso esta por revisar para ver si es contexto o en genral  -->
+<p-table #dt1 dataKey="id" [value]="subjects()" [selection]="selectedItems()"
     (selectionChange)="onSelectionChange($event)">
 
     <ng-template pTemplate="header">
