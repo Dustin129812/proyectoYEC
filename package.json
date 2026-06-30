@@ -28,12 +28,9 @@
         "@primeuix/themes": "^2.0.0",
         "@tailwindcss/postcss": "^4.1.11",
         "chart.js": "4.4.2",
-<<<<<<< HEAD
         "leaflet": "^1.9.4",
-=======
         "date-fns": "^4.1.0",
         "ng2-pdf-viewer": "^10.4.0",
->>>>>>> 0370732f697fab048f6bbb47a408fc32aaa111d7
         "primeclt": "^0.1.5",
         "primeicons": "^7.0.0",
         "primeng": "^21.0.2",
