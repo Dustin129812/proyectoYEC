@@ -35,6 +35,7 @@ export class PersonalInformation {
     onSubmit() {
         if (this.formRegistryService.hasErrors()) {
             this.customMessageService.showFormErrors(this.formRegistryService.errors());
+            console.log('personal-information', this.enrollmentApplicationStore.formState());
             return;
         }
         if (
