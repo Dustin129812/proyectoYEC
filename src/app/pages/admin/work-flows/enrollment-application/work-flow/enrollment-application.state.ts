@@ -1,5 +1,6 @@
 //Interfaces
-export interface EnrollmentAplicationState {
+export interface EnrollmentApplicationState {
+    userData: UserData,
     personalData: PersonalData,
     originPlace: LocationData,
     residencePlace: LocationData,
@@ -7,39 +8,39 @@ export interface EnrollmentAplicationState {
 }
 
 export interface PersonalData {
-    career: Career,
-    semester: Semester,
-    contactEmergencyKinship: string,
+    career: Career | null,
+    semester: Semester | null,
+    contactEmergencyKinship: CatalogInterface | null,
     contactEmergencyName: string,
     contactEmergencyPhone: string,
-    isDisability: boolean,
+    isDisability: boolean ,
     disabilityPercentage: string,
-    disabilityType: string,
+    disabilityType: CatalogInterface | null,
     isAncestralLanguage: boolean,
-    ancestralLanguageName: string,
+    ancestralLanguageName: CatalogInterface | null,
     isCatastrophicIllness: boolean,
     catastrophicIllness: string,
     isForeignLanguage: boolean,
-    foreignLanguageName: string,
-    isHasChildren: boolean,
+    foreignLanguageName: CatalogInterface | null,
+    isHasChildren:boolean,
     childrenTotal: string,
     isHouseHead: boolean,
     isPrivateSecurity: boolean,
     isSocialSecurity: boolean,
     isWork: boolean,
-    monthlySalary: string,
+    monthlySalary: CatalogInterface | null,
     workAddress: string,
-    workingHours: string,
+    workingHours: CatalogInterface | null,
     workPosition: string,
-    town: string,
-    indigenousNationality: string,
+    town: CatalogInterface | null,
+    indigenousNationality: CatalogInterface | null,
 }
 
 export interface LocationData {
-    country: string,
-    province: string,
-    canton: string,
-    parish: string,
+    country: CatalogInterface | null,
+    province: CatalogInterface | null,
+    canton: CatalogInterface | null,
+    parish: CatalogInterface | null,
     latitude: string,
     longitude: string,
     mainStreet: string,
@@ -49,13 +50,13 @@ export interface LocationData {
 }
 
 export interface ApplicationData {
-    student: Student,
-    academicPeriod: AcademicPeriod,
-    career: Career,
-    enrollmentDetails: EnrollmentDetail[],
-    parallel: Parallel,
-    schoolPeriod: SchoolPeriod,
-    workday: Workday,
+    student: Student|null,
+    academicPeriod: AcademicPeriod|null,
+    career: Career|null,
+    enrollmentDetails: EnrollmentDetail[]|null,
+    parallel: Parallel|null,
+    schoolPeriod: SchoolPeriod|null,
+    workday: Workday|null,
 }
 export interface Career {
     id: string,
@@ -90,63 +91,93 @@ export interface EnrollmentDetail {
     code: string,
     name: string
 }
-
-export interface Country{
-    id: string,
-    name: string,
+export interface UserData {
+    birthdate: string;
+    cellPhone: string;
+    email: string;
+    ethnicOrigin: CatalogInterface | null;
+    gender: CatalogInterface | null;
+    identification: string;
+    identificationType: CatalogInterface | null;
+    lastname: string;
+    maritalStatus: CatalogInterface | null;
+    name: string;
+    nationality: CatalogInterface | null;
+    personalEmail: string;
+    phone: string;
+    sex: CatalogInterface | null;
 }
-
-export interface Province{
-    id: string,
-    name: string,
+export interface CatalogInterface {
+    id: string;
+    parentId: string;
+    code: string;
+    name: string;
+    required: boolean;
+    sort: number;
+    type: string;
+    isVisible: boolean;
 }
-
-export interface Canton{
-    id: string,
-    name: string,
-}
-
-export interface Parish{
-    id: string,
-    name: string,
-}
-
-
-
-export const INITIAL_ENROLLMENT_APPLICATION_STATE: EnrollmentAplicationState = {
+const initialCatalogue: CatalogInterface = {
+    id: '',
+    parentId: '',
+    code: '',
+    name: '',
+    required: false,
+    sort: 0,
+    type: '',
+    isVisible: false
+};
+const objectBase = { id: "", name: "" }
+export const INITIAL_ENROLLMENT_APPLICATION_STATE: EnrollmentApplicationState = {
+    userData: {
+        birthdate: '',
+        cellPhone: '',
+        email: '',
+        ethnicOrigin: null,
+        gender: null,
+        identification: '',
+        identificationType: null,
+        lastname: '',
+        maritalStatus: null,
+        name: '',
+        nationality: null,
+        personalEmail: '',
+        phone: '',
+        sex: null
+    },
     personalData: {
-        career: { name: "", id: "" },
-        semester: { name: "", id: "" },
-        contactEmergencyKinship: '',
+        career: null,
+        semester: null,
+        contactEmergencyKinship: null,
         contactEmergencyName: '',
         contactEmergencyPhone: '',
         isDisability: false,
         disabilityPercentage: '',
-        disabilityType: '',
+        disabilityType: null,
         isAncestralLanguage: false,
-        ancestralLanguageName: '',
+        ancestralLanguageName: null,
         isCatastrophicIllness: false,
         catastrophicIllness: '',
         isForeignLanguage: false,
-        foreignLanguageName: '',
+        foreignLanguageName: null,
         isHasChildren: false,
         childrenTotal: '',
         isHouseHead: false,
         isPrivateSecurity: false,
         isSocialSecurity: false,
         isWork: false,
-        monthlySalary: '',
+        monthlySalary: null,
         workAddress: '',
-        workingHours: '',
+        workingHours: null,
         workPosition: '',
-        town: '',
-        indigenousNationality: '',
+        town: null,
+        indigenousNationality: null,
     },
     originPlace: {
-        country: '',
-        province: '',
-        canton: '',
-        parish: '',
+        country: null,
+        province: null,
+        canton: null,
+        parish: null,
         latitude: '',
         longitude: '',
         mainStreet: '',
@@ -155,10 +186,10 @@ export const INITIAL_ENROLLMENT_APPLICATION_STATE: EnrollmentAplicationState = {
         secondaryStreet: ''
     },
     residencePlace: {
-        country: '',
-        province: '',
-        canton: '',
-        parish: '',
+        country: null,
+        province: null,
+        canton: null,
+        parish: null,
         latitude: '',
         longitude: '',
         mainStreet: '',
@@ -167,12 +198,12 @@ export const INITIAL_ENROLLMENT_APPLICATION_STATE: EnrollmentAplicationState = {
         secondaryStreet: ''
     },
     application: {
-        student: { name: "", id: "" },
-        academicPeriod: { name: "", id: "" },
-        career: { name: "", id: "" },
-        enrollmentDetails: [],
-        parallel: { name: "", id: "" },
-        schoolPeriod: { name: "", id: "" },
-        workday: { name: "", id: "" },
+        student: null,
+        academicPeriod: null,
+        career: null,
+        enrollmentDetails:null,
+        parallel: null,
+        schoolPeriod: null,
+        workday: null,
     }
 }

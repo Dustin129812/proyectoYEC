@@ -1,8 +1,8 @@
-import { Component, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, effect, inject, signal, WritableSignal } from '@angular/core';
 import { EnrollmentAplicationStore } from '../../work-flow/enrollment-application.store';
 import { FormRegistryService } from '@utils/services/form-registry.service';
 import { FieldTree, form, FormField } from '@angular/forms/signals';
-import { Canton, Country, LocationData, Parish, Province } from '../../work-flow/enrollment-application.state';
+import { CatalogInterface, LocationData } from '../../work-flow/enrollment-application.state';
 import { validateOriginPlace } from '../../validators/validate-origin-place';
 import { Select } from "primeng/select";
 import { ErrorMessageDirective } from '@utils/directives/error-message.directive';
@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LabelDirective } from '@utils/directives/label.directive';
 import { InputText } from 'primeng/inputtext';
 import { MapCoords, MapComponent } from '../map/map';
+
 
 const FORM_STATE_KEY = "originPlace"
 
@@ -19,17 +20,19 @@ const FORM_STATE_KEY = "originPlace"
     templateUrl: './origin-place-form.html',
     styleUrl: './origin-place-form.scss'
 })
-export class OriginPlaceForm implements OnInit, OnDestroy {
+export class OriginPlaceForm {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
 
-    protected readonly form$ = signal(this.enrollmentApplicationStore.originPlace());
+
+    protected readonly form$: WritableSignal<LocationData> = signal(this.enrollmentApplicationStore.originPlace());
     protected readonly formData: FieldTree<LocationData> = this.buildForm;
 
-    countries: Country[] = [];
-    provinces: Province[] = [];
-    cantons: Canton[] = [];
-    parishes: Parish[] = [];
+    countries: WritableSignal<CatalogInterface[]> = signal([]);
+    provinces: WritableSignal<CatalogInterface[]> = signal([]);
+    cantons: WritableSignal<CatalogInterface[]> = signal([]);
+    parishes: WritableSignal<CatalogInterface[]> = signal([]);
+
     constructor() {
         effect(() => {
             this.enrollmentApplicationStore.updateSection(FORM_STATE_KEY, this.form$());
@@ -43,28 +46,29 @@ export class OriginPlaceForm implements OnInit, OnDestroy {
             this.formData,
             this.form$()
         )
-        this.countries = [
-            { name: 'Ecuador', id: '1' },
-            { name: 'Colombia', id: '2' }
-        ];
-        this.provinces =[
-            { name: 'Pichincha', id: '1'},
-            { name: 'Guayas', id: '2'},
-        ]
-        this.cantons = [
-            { name: 'Quito', id: '1'},
-            { name: 'Guayaquil', id: '2'},
-        ]
-        this.parishes = [
-            { name: 'Centro Historico', id: '1'},
-            { name: 'La Mariscal', id: '2'},
-        ]
+        this.countries.set([
+            { id: '1', parentId: '', code: 'WH_TC', name: 'Ecuador', required: true, sort: 1, type: 'HORARIO', isVisible: true },
+            { id: '2', parentId: '', code: 'WH_TD', name: 'Colombia', required: true, sort: 2, type: 'HORARIO', isVisible: true }
+        ]);
+        this.provinces.set([
+            { id: '1', parentId: '1', code: 'PR_PIC', name: 'Pichincha', required: true, sort: 1, type: 'PROVINCIA', isVisible: true },
+            { id: '2', parentId: '1', code: 'PR_GUA', name: 'Guayas', required: true, sort: 2, type: 'PROVINCIA', isVisible: true }
+        ]);
+
+        this.cantons.set([
+            { id: '1', parentId: '1', code: 'CA_QUI', name: 'Quito', required: true, sort: 1, type: 'CANTON', isVisible: true },
+            { id: '2', parentId: '2', code: 'CA_GYE', name: 'Guayaquil', required: true, sort: 2, type: 'CANTON', isVisible: true }
+        ]);
+
+        this.parishes.set([
+            { id: '1', parentId: '1', code: 'PA_CH', name: 'Centro Histórico', required: true, sort: 1, type: 'PARROQUIA', isVisible: true },
+            { id: '2', parentId: '1', code: 'PA_LM', name: 'La Mariscal', required: true, sort: 2, type: 'PARROQUIA', isVisible: true }
+        ]);
     }
 
     ngOnDestroy(): void {
         this.formRegistryService.unregister(FORM_STATE_KEY);
     }
-
     get buildForm() {
         return form(this.form$, (schema) => {
             validateOriginPlace(schema);
@@ -73,75 +77,11 @@ export class OriginPlaceForm implements OnInit, OnDestroy {
 
     // Para el Mapa
     onCoordsChange(coords: MapCoords): void {
-    this.form$.update(state => ({
-        ...state,
-        latitude: coords.latitude,
-        longitude: coords.longitude
-    }));
-}
-    // Para select de pais
-    get countryField() {
-        return this.formData.country;
+        this.form$.update(state => ({
+            ...state,
+            latitude: coords.latitude,
+            longitude: coords.longitude
+        }));
     }
-
-    onCountryChange(selected: Country) {
-        this.form$.update(state => ({ ...state, country: selected.id }));
-    }
-    getSelectedCountry(): Country | undefined {
-        return this.countries.find(c => c.id === this.form$().country);
-    }
-
-    // Para select de provincia
-        get provinceField() {
-        return this.formData.province;
-    }
-
-    onProvinceChange(selected: Province) {
-        this.form$.update(state => ({ ...state, province: selected.id }));
-    }
-    getSelectedProvince(): Province | undefined {
-        return this.provinces.find(p => p.id === this.form$().province);
-    }
-
-    // Para select de cantón
-    get cantonField() {
-        return this.formData.canton;
-    }
-
-    onCantonChange(selected: Canton) {
-        this.form$.update(state => ({ ...state, canton: selected.id }));
-    }
-    getSelectedCanton(): Canton | undefined {
-        return this.cantons.find(c => c.id === this.form$().canton);
-    }
-
-    // Para select de parroquia
-        get parishField() {
-        return this.formData.parish;
-    }
-
-    onParishChange(selected: Parish) {
-        this.form$.update(state => ({ ...state, parish: selected.id }));
-    }
-    getSelectedParish(): Parish | undefined {
-        return this.parishes.find(p => p.id === this.form$().parish);
-    }
-
-    // Para calle principal
-    get mainStreetField() {
-        return this.formData.mainStreet;
-    }
-    // Para calle secundaria
-    get secondaryStreetField() {
-        return this.formData.secondaryStreet;
-    }
-    // Para número
-    get numberField() {
-        return this.formData.number;
-    }
-    // Para referencia
-    get referenceField() {
-        return this.formData.reference;
-    }
-
+  
 }
