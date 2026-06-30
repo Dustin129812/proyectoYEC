@@ -69,7 +69,8 @@
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="disabilityPercentage" label="Porcentaje (%)" [field]="formData.disabilityPercentage"></label>
-            <input id="disabilityPercentage" pInputText [formField]="formData.disabilityPercentage" />
+            <input id="disabilityPercentage" pInputText [formField]="formData.disabilityPercentage" type="number" />
+            <small [appErrorMessage]="$any(formData.disabilityPercentage)"></small>
         </div>
 
         }

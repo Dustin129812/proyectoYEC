@@ -45,6 +45,40 @@ export class PersonalDataForm {
         effect(() => {
             this.enrollmentApplicationStore.updateSection(FORM_STATE_KEY, this.form$());
         });
+        effect(() => {
+            if (!this.formData.isDisability().value()) {
+                this.formData.disabilityType().reset(null);
+                this.formData.disabilityPercentage().reset("");
+            }
+        });
+        effect(() => {
+            if (!this.formData.isAncestralLanguage().value()) {
+                this.formData.ancestralLanguageName().reset(null);
+            }
+        });
+        effect(() => {
+            if (!this.formData.isCatastrophicIllness().value()) {
+                this.formData.catastrophicIllness().reset("");
+            }
+        })
+        effect(() => {
+            if (!this.formData.isForeignLanguage().value()) {
+                this.formData.foreignLanguageName().reset(null);
+            }
+        });
+        effect(() => {
+            if (!this.formData.isHasChildren().value()) {
+                this.formData.childrenTotal().reset("");
+            }
+        });
+        effect(() => {
+            if (!this.formData.isWork().value()) {
+                this.formData.monthlySalary().reset(null);
+                this.formData.workAddress().reset("");
+                this.formData.workingHours().reset(null);
+                this.formData.workPosition().reset("");
+            }
+        });
     }
 
     ngOnInit(): void {
