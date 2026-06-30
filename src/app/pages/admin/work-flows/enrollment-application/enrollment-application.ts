@@ -3,14 +3,13 @@ import { StepperModule } from 'primeng/stepper';
 import { Application } from "./components/application/application";
 import { EnrollmentAttachment } from './components/enrollment-attachment/enrollment-attachment';
 import { PersonalInformation } from './components/personal-information/personal-information';
-import { EnrollmentAplicationStore } from './work-flow/enrollment-application.store';
+import { EnrollmentAplicationStore } from './enrollment-application.store';
 
 
 @Component({
     selector: 'app-enrollment-application',
     imports: [Application, EnrollmentAttachment, StepperModule, PersonalInformation],
     templateUrl: './enrollment-application.html',
-    styleUrl: './enrollment-application.scss'
 })
 export class EnrollmentApplication {
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);

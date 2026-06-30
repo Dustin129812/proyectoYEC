@@ -1,8 +1,8 @@
 import { Component, effect, inject, signal, WritableSignal } from '@angular/core';
-import { EnrollmentAplicationStore } from '../../work-flow/enrollment-application.store';
+import { EnrollmentAplicationStore } from '../../enrollment-application.store';
 import { FormRegistryService } from '@utils/services/form-registry.service';
 import { FieldTree, form, FormField } from '@angular/forms/signals';
-import { CatalogInterface, LocationData } from '../../work-flow/enrollment-application.state';
+import { CatalogInterface, LocationData } from '../../enrollment-application.state';
 import { validateOriginPlace } from '../../validators/validate-origin-place';
 import { Select } from "primeng/select";
 import { ErrorMessageDirective } from '@utils/directives/error-message.directive';
@@ -18,7 +18,6 @@ const FORM_STATE_KEY = "originPlace"
     selector: 'app-origin-place-form',
     imports: [FormField, Select, ErrorMessageDirective, Select, FormsModule, ReactiveFormsModule, LabelDirective, InputText, MapComponent],
     templateUrl: './origin-place-form.html',
-    styleUrl: './origin-place-form.scss'
 })
 export class OriginPlaceForm {
     private readonly formRegistryService = inject(FormRegistryService);

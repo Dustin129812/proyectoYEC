@@ -5,7 +5,6 @@ import { FileUpload, FileSelectEvent } from 'primeng/fileupload';
     selector: 'app-enrollment-attachment',
     imports: [FileUpload],
     templateUrl: './enrollment-attachment.html',
-    styleUrl: './enrollment-attachment.scss'
 })
 export class EnrollmentAttachment {
     protected catalog:any[]=[]

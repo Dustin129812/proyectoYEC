@@ -4,7 +4,7 @@ import {
     pattern,
     SchemaPathTree,
 } from '@angular/forms/signals';
-import { LocationData } from '../work-flow/enrollment-application.state';
+import { LocationData } from '../enrollment-application.state';
 
 export function validateOriginPlace(schema: SchemaPathTree<LocationData>): void {
     // País

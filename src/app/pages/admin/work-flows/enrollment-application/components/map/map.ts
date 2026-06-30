@@ -21,9 +21,16 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     private marker?: L.Marker;
 
     // ← AfterViewInit garantiza que #mapContainer ya está en el DOM
-    ngAfterViewInit(): void {
+ngAfterViewInit(): void {
+    // Un pequeño retraso (ej. 150ms-200ms) permite que las animaciones 
+    // de CSS y los contenedores dinámicos tomen su tamaño real.
+    setTimeout(() => {
         this.initMap();
-    }
+        
+        // Opcional pero altamente recomendado: obliga a Leaflet a reajustarse
+        this.map?.invalidateSize();
+    }, 200); 
+}
 
     ngOnDestroy(): void {
         this.map?.remove();

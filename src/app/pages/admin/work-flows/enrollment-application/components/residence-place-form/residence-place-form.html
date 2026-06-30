@@ -1,44 +1,50 @@
 <div class="custom-form-card">
     <form class="custom-form-grid md:grid-cols-12">
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="country" label="País" [field]="countryField"></label>
-            <p-select class="ml-3" [options]="countries" optionLabel="name" [ngModel]="getSelectedCountry()" [ngModelOptions]="{standalone: true}" (ngModelChange)="onCountryChange($event)" placeholder="Selecciona su país"> </p-select>
-            <small [appErrorMessage]="$any(countryField)"></small>
+            <label appLabel for="country" label="País" [field]="formData.country"></label>
+            <p-select class="ml-3" [options]="countries()" [(ngModel)]="formData.country().value" name="country" optionLabel="name" pTooltip="Paises" filterBy="name" placeholder="Seleccione su país..."> </p-select>
+            <small [appErrorMessage]="$any(formData.country)"></small>
         </div>
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="province" label="Provincia" [field]="provinceField"></label>
-            <p-select class="ml-3" [options]="provinces" optionLabel="name" [ngModel]="getSelectedProvince()" [ngModelOptions]="{standalone: true}" (ngModelChange)="onProvinceChange($event)" placeholder="Selecciona su provincia"> </p-select>
-            <small [appErrorMessage]="$any(provinceField)"></small>
+            <label appLabel for="province" label="Provincia" [field]="formData.province"></label>
+            <p-select class="ml-3" [options]="provinces()" [(ngModel)]="formData.province().value" name="province" optionLabel="name" pTooltip="Provincias" filterBy="name" placeholder="Seleccione su provincia..."> </p-select>
+            <small [appErrorMessage]="$any(formData.province)"></small>
         </div>
+
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="canton" label="Canton" [field]="cantonField"></label>
-            <p-select class="ml-3" [options]="cantons" optionLabel="name" [ngModel]="getSelectedCanton()" [ngModelOptions]="{standalone: true}" (ngModelChange)="onCantonChange($event)" placeholder="Selecciona su cantón"> </p-select>
-            <small [appErrorMessage]="$any(cantonField)"></small>
+            <label appLabel for="canton" label="Cantón" [field]="formData.canton"></label>
+            <p-select class="ml-3" [options]="cantons()" [(ngModel)]="formData.canton().value" name="canton" optionLabel="name" pTooltip="Cantones" filterBy="name" placeholder="Seleccione su cantón..."> </p-select>
+            <small [appErrorMessage]="$any(formData.canton)"></small>
         </div>
+
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="parish" label="Parroquia" [field]="parishField"></label>
-            <p-select class="ml-3" [options]="parishes" optionLabel="name" [ngModel]="getSelectedParish()" [ngModelOptions]="{standalone: true}" (ngModelChange)="onParishChange($event)" placeholder="Selecciona su parroquia"> </p-select>
-            <small [appErrorMessage]="$any(parishField)"></small>
+            <label appLabel for="parish" label="Parroquia" [field]="formData.parish"></label>
+            <p-select class="ml-3" [options]="parishes()" [(ngModel)]="formData.parish().value" name="parish" optionLabel="name" pTooltip="Parroquias" filterBy="name" placeholder="Seleccione su parroquia..."> </p-select>
+            <small [appErrorMessage]="$any(formData.parish)"></small>
         </div>
+
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="mainStreet" label="Calle Principal" [field]="mainStreetField"> </label>
-            <input id="mainStreet" pInputText [formField]="mainStreetField" />
-            <small [appErrorMessage]="$any(mainStreetField)"></small>
+            <label appLabel for="mainStreet" label="Calle Principal" [field]="formData.mainStreet"></label>
+            <input id="mainStreet" pInputText [formField]="formData.mainStreet" />
+            <small [appErrorMessage]="$any(formData.mainStreet)"></small>
         </div>
+
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="secondaryStreet" label="Calle Secundaria" [field]="secondaryStreetField"> </label>
-            <input id="secondaryStreet" pInputText [formField]="secondaryStreetField" />
-            <small [appErrorMessage]="$any(secondaryStreetField)"></small>
+            <label appLabel for="secondaryStreet" label="Calle Secundaria" [field]="formData.secondaryStreet"></label>
+            <input id="secondaryStreet" pInputText [formField]="formData.secondaryStreet" />
+            <small [appErrorMessage]="$any(formData.secondaryStreet)"></small>
         </div>
+
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="number" label="Número" [field]="numberField"> </label>
-            <input id="number" pInputText [formField]="numberField" />
-            <small [appErrorMessage]="$any(numberField)"></small>
+            <label appLabel for="number" label="Número" [field]="formData.number"></label>
+            <input id="number" pInputText [formField]="formData.number" />
+            <small [appErrorMessage]="$any(formData.number)"></small>
         </div>
+
         <div class="custom-form-field md:col-span-6">
-            <label appLabel for="reference" label="Referencia" [field]="referenceField"> </label>
-            <input id="reference" pInputText [formField]="referenceField" />
-            <small [appErrorMessage]="$any(referenceField)"></small>
+            <label appLabel for="reference" label="Referencia" [field]="formData.reference"></label>
+            <input id="reference" pInputText [formField]="formData.reference" />
+            <small [appErrorMessage]="$any(formData.reference)"></small>
         </div>
         <div class="custom-form-field md:col-span-12">
             <app-map (coordsChange)="onCoordsChange($event)"></app-map>

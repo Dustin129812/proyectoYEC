@@ -1,4 +1,4 @@
-import {computed, Injectable, signal} from '@angular/core';
+import {computed, Injectable, Signal, signal} from '@angular/core';
 import {FieldTree} from '@angular/forms/signals';
 
 type AnyFieldTree = FieldTree<unknown>;
