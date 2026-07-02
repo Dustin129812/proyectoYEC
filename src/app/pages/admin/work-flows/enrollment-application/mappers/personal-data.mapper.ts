@@ -4,16 +4,8 @@ export class EnrollmentApplicationMapper {
 
     static toStudentDto(state: EnrollmentApplicationState) {
         return {
-            userId: this.mapUser(state.userData),
-
+            user: this.mapUser(state.userData),
             informationStudent: this.mapPersonalData(state.personalData),
-
-            //No creo que es array pero pero en el back es array, no hay seleccion multiple
-            // a menos que sean las asignaturas del enrollmendetail , toca averiguar
-            //careers: this.mapCareers(state.application),
-
-            // si el backend lo requiere
-            // enrollment: this.mapEnrollment(state.application)
         };
     }
     private static mapUser(user: UserData) {
@@ -27,47 +19,46 @@ export class EnrollmentApplicationMapper {
             cellPhone: user.cellPhone,
             birthdate: user.birthdate,
 
-            identificationTypeId: user.identificationType.id,
-            genderId: user.gender.id,
-            ethnicOriginId: user.ethnicOrigin.id,
-            maritalStatusId: user.maritalStatus.id,
-            nationalityId: user.nationality.id,
-            sexId: user.sex.id,
-            // bloodTypeId: user.bloodType?.id ?? null no existe actualmente un componente para eso ni en el sistema antiguo
+            identificationTypeId: user.identificationType?.id,
+            genderId: user.gender?.id,
+            ethnicOriginId: user.ethnicOrigin?.id,
+            maritalStatusId: user.maritalStatus?.id,
+            nationalityId: user.nationality?.id,
+            sexId: user.sex?.id,
         };
     }
     private static mapPersonalData(pd: PersonalData) {
         return {
             contactEmergencyName: pd.contactEmergencyName,
             contactEmergencyPhone: pd.contactEmergencyPhone,
-            contactEmergencyKinshipId: pd.contactEmergencyKinship.id,
+            contactEmergencyKinshipId: pd.contactEmergencyKinship?.id,
 
             disabilityPercentage: pd.disabilityPercentage ? Number(pd.disabilityPercentage) : null,
-            isDisabilityId: pd.isDisability?.id ?? null,
+            isDisabilityId: pd.isDisability,
             disabilityTypeId: pd.disabilityType?.id ?? null,
 
-            isAncestralLanguageId: pd.isAncestralLanguage?.id ?? null,
+            isAncestralLanguageId: pd.isAncestralLanguage,
             ancestralLanguageNameId: pd.ancestralLanguageName?.id ?? null,
 
-            isCatastrophicIllnessId: pd.isCatastrophicIllness?.id ?? null,
-            catastrophicIllness: pd.catastrophicIllness,
+            isCatastrophicIllnessId: pd.isCatastrophicIllness,
+            catastrophicIllness: pd.catastrophicIllness?? null,
 
-            isForeignLanguageId: pd.isForeignLanguage?.id ?? null,
+            isForeignLanguageId: pd.isForeignLanguage,
             foreignLanguageNameId: pd.foreignLanguageName?.id ?? null,
 
-            isHasChildrenId: pd.isHasChildren?.id ?? null,
+            isHasChildrenId: pd.isHasChildren,
             childrenTotal: pd.childrenTotal ? Number(pd.childrenTotal) : null,
 
-            isHouseHeadId: pd.isHouseHead?.id ?? null,
-            isPrivateSecurityId: pd.isPrivateSecurity?.id ?? null,
-            isSocialSecurityId: pd.isSocialSecurity?.id ?? null,
+            isHouseHeadId: pd.isHouseHead,
+            isPrivateSecurityId: pd.isPrivateSecurity,
+            isSocialSecurityId: pd.isSocialSecurity,
 
-            isWorkId: pd.isWork?.id ?? null,
+            isWorkId: pd.isWork,
             monthlySalaryId: pd.monthlySalary?.id ?? null,
             workingHoursId: pd.workingHours?.id ?? null,
 
-            workAddress: pd.workAddress,
-            workPosition: pd.workPosition,
+            workAddress: pd.workAddress ?? null,
+            workPosition: pd.workPosition ?? null,
 
             townId: pd.town?.id ?? null,
             indigenousNationalityId: pd.indigenousNationality?.id ?? null
@@ -75,21 +66,18 @@ export class EnrollmentApplicationMapper {
     }
     private static mapApplication(app: ApplicationData) {
         return {
-            studentId: app.student.id,
-            academicPeriodId: app.academicPeriod.id,
-            careerId: app.career.id,
-            parallelId: app.parallel.id,
-            schoolPeriodId: app.schoolPeriod.id,
-            workdayId: app.workday.id,
+            studentId: app.student?.id,
+            academicPeriodId: app.academicPeriod?.id,
+            careerId: app.career?.id,
+            parallelId: app.parallel?.id,
+            schoolPeriodId: app.schoolPeriod?.id,
+            workdayId: app.workday?.id,
 
-            enrollmentDetails: app.enrollmentDetails.map(d => ({
+            enrollmentDetails: app.enrollmentDetails?.map(d => ({
                 id: d.id,
                 code: d.code,
                 name: d.name
             }))
         };
-    }
-    private static mapCareers(app: ApplicationData) {
-        return app.career ? [app.career.id] : [];
     }
 }
