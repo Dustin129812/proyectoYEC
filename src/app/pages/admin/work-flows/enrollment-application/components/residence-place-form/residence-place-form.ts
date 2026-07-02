@@ -39,7 +39,7 @@ export class ResidencePlaceForm {
 
     ngOnInit(): void {
         this.formRegistryService.register(
-            'Lugar de Procedencia',
+            'Lugar de Residencia',
             FORM_STATE_KEY,
             this.formData,
             this.form$()
@@ -81,5 +81,5 @@ export class ResidencePlaceForm {
             longitude: coords.longitude
         }));
     }
-  
+
 }
