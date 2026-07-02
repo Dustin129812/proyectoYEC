@@ -34,19 +34,18 @@ export class PersonalInformation {
     }
 
     onSubmit() {
-        // if (this.formRegistryService.hasErrors()) {
-        //     this.customMessageService.showFormErrors(this.formRegistryService.errors());
-        //     console.log('personal-information', this.enrollmentApplicationStore.formState());
-        //     return;
-        // }
-        // if (
-        //     !this.enrollmentApplicationStore.personalData() ||
-        //     !this.enrollmentApplicationStore.userData() ||
-        //     !this.enrollmentApplicationStore.residencePlace() ||
-        //     !this.enrollmentApplicationStore.originPlace()
-        // ) {
-        //     return;
-        // }
+        if (this.formRegistryService.hasErrors()) {
+            this.customMessageService.showFormErrors(this.formRegistryService.errors());
+            return;
+        }
+        if (
+            !this.enrollmentApplicationStore.personalData() ||
+            !this.enrollmentApplicationStore.userData() ||
+            !this.enrollmentApplicationStore.residencePlace() ||
+            !this.enrollmentApplicationStore.originPlace()
+        ) {
+            return;
+        }
         const payload = EnrollmentApplicationMapper.toStudentDto(this.enrollmentApplicationStore.formState())
 
         console.log('personal-information : ',payload);
