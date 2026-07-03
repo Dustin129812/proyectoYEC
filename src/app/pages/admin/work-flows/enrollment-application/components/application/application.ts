@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { ApplicationDataForm } from "../application-data-form/application-data-form";
 import { Button } from "primeng/button";
-import { PrimeIcons } from 'primeng/api';
 import { CustomMessageService } from '@utils/services';
 import { EnrollmentAplicationStore } from '../../enrollment-application.store';
 import { FormRegistryService } from '@utils/services/form-registry.service';
+import { CustomIcons } from '@utils/icons/custom-icons';
 
 const FORM_STATE_KEY = "application"
 @Component({
@@ -16,8 +16,7 @@ export class Application {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly customMessageService = inject(CustomMessageService);
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
-    // no usar primeng icons  usar customicons
-    PrimeIcons = PrimeIcons;
+    protected readonly CustomIcons = CustomIcons;
 
     previous() {
         this.enrollmentApplicationStore.setStep(1);

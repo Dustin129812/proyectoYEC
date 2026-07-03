@@ -33,7 +33,7 @@ export class EnrollmentApplicationMapper {
             contactEmergencyPhone: pd.contactEmergencyPhone,
             contactEmergencyKinshipId: pd.contactEmergencyKinship?.id,
 
-            disabilityPercentage: pd.disabilityPercentage ? Number(pd.disabilityPercentage) : null,
+            disabilityPercentage: pd.disabilityPercentage ? Number(pd.disabilityPercentage) : '',
             isDisabilityId: pd.isDisability,
             disabilityTypeId: pd.disabilityType?.id ?? null,
 
@@ -47,7 +47,7 @@ export class EnrollmentApplicationMapper {
             foreignLanguageNameId: pd.foreignLanguageName?.id ?? null,
 
             isHasChildrenId: pd.isHasChildren,
-            childrenTotal: pd.childrenTotal ? Number(pd.childrenTotal) : null,
+            childrenTotal: pd.childrenTotal ? Number(pd.childrenTotal) : '',
 
             isHouseHeadId: pd.isHouseHead,
             isPrivateSecurityId: pd.isPrivateSecurity,
