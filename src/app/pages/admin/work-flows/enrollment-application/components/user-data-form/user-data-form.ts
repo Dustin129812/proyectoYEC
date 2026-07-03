@@ -12,10 +12,11 @@ import { ErrorMessageDirective } from '@utils/directives/error-message.directive
 import { Select } from 'primeng/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { validateUserData } from '../../validators/user-data-form.validation';
+import { DatePicker } from "primeng/datepicker";
 const FORM_STATE_KEY = 'userData'
 @Component({
     selector: 'app-user-data-form',
-    imports: [FormField, InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select, FormsModule, ReactiveFormsModule],
+    imports: [FormField, InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select, FormsModule, ReactiveFormsModule, DatePicker],
     templateUrl: './user-data-form.html',
 })
 export class UserDataForm {

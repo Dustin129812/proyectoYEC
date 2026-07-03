@@ -9,8 +9,8 @@
             <label appLabel for="identificationType" label="Tipo de Identificación"
                 [field]="formData.identificationType"></label>
             <p-select class="ml-3" [options]="identificationTypes()" [(ngModel)]="formData.identificationType().value"
-                name="identificationTaype" optionLabel="name" pTooltip="Tipo de Identificación"
-                filterBy="name" placeholder="Seleccione Tipo de Identificación...">
+                name="identificationTaype" optionLabel="name" pTooltip="Tipo de Identificación" filterBy="name"
+                placeholder="Seleccione Tipo de Identificación...">
             </p-select>
             <small [appErrorMessage]="$any(formData.identificationType)"></small>
         </div>
@@ -35,7 +35,8 @@
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="birthdate" label="Fecha de Nacimiento" [field]="formData.birthdate"></label>
-            <input id="birthdate" pInputText [formField]="formData.birthdate" placeholder="Aaaa-mm-dd" />
+            <p-datepicker [(ngModel)]="formData.birthdate().value" [iconDisplay]="'input'" [showIcon]="true"
+                inputId="bithdate" name="birthday" dataType="string" dateFormat="yy-mm-dd" />
             <small [appErrorMessage]="$any(formData.birthdate)"></small>
         </div>
 
@@ -58,8 +59,8 @@
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="sex" label="Sexo" [field]="formData.sex"></label>
-            <p-select class="ml-3" [options]="sexes()" [(ngModel)]="formData.sex().value" name="sex"
-                optionLabel="name" pTooltip="Sexo" filterBy="name" placeholder="Seleccione Sexo...">
+            <p-select class="ml-3" [options]="sexes()" [(ngModel)]="formData.sex().value" name="sex" optionLabel="name"
+                pTooltip="Sexo" filterBy="name" placeholder="Seleccione Sexo...">
             </p-select>
             <small [appErrorMessage]="$any(formData.sex)"></small>
         </div>
