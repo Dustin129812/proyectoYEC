@@ -8,6 +8,11 @@ export class EnrollmentApplicationMapper {
             informationStudent: this.mapPersonalData(state.personalData),
         };
     }
+    static toApplicationDto(state: EnrollmentApplicationState) {
+        return {
+            application: this.mapApplication(state.application)
+        };
+    }
     private static mapUser(user: UserData) {
         return {
             identification: user.identification,
