@@ -2,13 +2,13 @@ import { Component, computed, effect, inject, signal, WritableSignal } from '@an
 import { ApplicationData, CatalogInterface } from '../../enrollment-application.state';
 import { validateApplicationData } from '../../validators/application-data-form.validation';
 import { FieldTree, form } from '@angular/forms/signals';
-import { PrimeIcons } from 'primeng/api';
 import { FormRegistryService } from '@utils/services/form-registry.service';
 import { EnrollmentAplicationStore } from '../../enrollment-application.store';
 import { TableModule } from "primeng/table";
 import { Select } from "primeng/select";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LabelDirective } from "@utils/directives/label.directive";
+import { CustomIcons } from '@utils/icons/custom-icons';
 
 const FORM_STATE_KEY = "application"
 
@@ -21,13 +21,13 @@ export class ApplicationDataForm {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
 
-    PrimeIcons = PrimeIcons;
+    protected readonly CustomIcons = CustomIcons;
 
 
     protected academicPeriods: WritableSignal<CatalogInterface[]> = signal([]);
     protected careers: WritableSignal<CatalogInterface[]> = signal([]);
     protected curriculums: WritableSignal<CatalogInterface[]> = signal([]);
-    protected subjects: WritableSignal<CatalogInterface[]> = signal([]);
+    protected items: WritableSignal<CatalogInterface[]> = signal([]);
     protected selectedItems = signal<any[] | null>(null);
     protected careerParallels: {
         academicPeriodId: string;
@@ -129,7 +129,7 @@ export class ApplicationDataForm {
             { id: 'm2', parentId: 'c2', code: 'M-IND-2020', name: 'Malla Ajuste Industrial 2020', required: true, sort: 2, type: 'CURRICULUM', isVisible: true }
         ]);
 
-        this.subjects.set([
+        this.items.set([
             { id: 's1', parentId: 'm1', code: 'PROG-I', name: 'Programación Orientada a Objetos', required: true, sort: 1, type: 'SUBJECT', isVisible: true },
             { id: 's2', parentId: 'm1', code: 'BD-I', name: 'Bases de Datos Relacionales', required: true, sort: 2, type: 'SUBJECT', isVisible: true },
             { id: 's3', parentId: 'm2', code: 'IND-PROC', name: 'Gestión de Procesos', required: true, sort: 3, type: 'SUBJECT', isVisible: true }
