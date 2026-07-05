@@ -13,7 +13,7 @@ export interface PersonalData {
     contactEmergencyKinship: CatalogInterface | null,
     contactEmergencyName: string,
     contactEmergencyPhone: string,
-    isDisability: boolean ,
+    isDisability: boolean,
     disabilityPercentage: string,
     disabilityType: CatalogInterface | null,
     isAncestralLanguage: boolean,
@@ -22,7 +22,7 @@ export interface PersonalData {
     catastrophicIllness: string,
     isForeignLanguage: boolean,
     foreignLanguageName: CatalogInterface | null,
-    isHasChildren:boolean,
+    isHasChildren: boolean,
     childrenTotal: string,
     isHouseHead: boolean,
     isPrivateSecurity: boolean,
@@ -36,11 +36,27 @@ export interface PersonalData {
     indigenousNationality: CatalogInterface | null,
 }
 
+export interface LocationInterface {
+    id?: string;
+    parent?: LocationInterface | null;
+    parentId?: string;
+    alpha2Code?: string;
+    alpha3Code?: string;
+    callingCode?: string;
+    code?: string;
+    flag?: string;
+    latitude?: number;
+    longitude?: number;
+    level?: number;
+    name?: string;
+    zone?: string;
+}
+
 export interface LocationData {
-    country: CatalogInterface | null,
-    province: CatalogInterface | null,
-    canton: CatalogInterface | null,
-    parish: CatalogInterface | null,
+    country: LocationInterface | null,
+    province: LocationInterface | null,
+    canton: LocationInterface | null,
+    parish: LocationInterface | null,
     latitude: string,
     longitude: string,
     mainStreet: string,
@@ -50,13 +66,13 @@ export interface LocationData {
 }
 
 export interface ApplicationData {
-    student: Student|null,
-    academicPeriod: AcademicPeriod|null,
-    career: Career|null,
-    enrollmentDetails: EnrollmentDetail[]|null,
-    parallel: Parallel|null,
-    schoolPeriod: SchoolPeriod|null,
-    workday: Workday|null,
+    student: Student | null,
+    academicPeriod: AcademicPeriod | null,
+    career: Career | null,
+    enrollmentDetails: EnrollmentDetail[] | null,
+    parallel: Parallel | null,
+    schoolPeriod: SchoolPeriod | null,
+    workday: Workday | null,
 }
 export interface Career {
     id: string,
@@ -125,7 +141,23 @@ const initialCatalogue: CatalogInterface = {
     required: false,
     sort: 0,
     type: '',
-    isVisible: false
+    isVisible: false,
+};
+
+const initialLocation: LocationInterface = {
+    id: '',
+    parent: null,
+    parentId: '',
+    alpha2Code: '',
+    alpha3Code: '',
+    callingCode: '',
+    code: '',
+    flag: '',
+    latitude: 0,
+    longitude: 0,
+    level: 0,
+    name: '',
+    zone: ''
 };
 const objectBase = { id: "", name: "" }
 export const INITIAL_ENROLLMENT_APPLICATION_STATE: EnrollmentApplicationState = {
@@ -201,7 +233,7 @@ export const INITIAL_ENROLLMENT_APPLICATION_STATE: EnrollmentApplicationState = 
         student: null,
         academicPeriod: null,
         career: null,
-        enrollmentDetails:null,
+        enrollmentDetails: null,
         parallel: null,
         schoolPeriod: null,
         workday: null,

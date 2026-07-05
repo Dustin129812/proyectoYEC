@@ -28,12 +28,12 @@ export class UserDataForm {
 
     protected readonly formData: FieldTree<UserData> = this.buildForm;
 
-    identificationTypes: WritableSignal<CatalogInterface[]> =signal([])
-    maritalStatuses: WritableSignal<CatalogInterface[]> =signal([])
-    genders: WritableSignal<CatalogInterface[]> =signal([])
-    sexes: WritableSignal<CatalogInterface[]> =signal([])
-    ethnicOrigins: WritableSignal<CatalogInterface[]> =signal([])
-    nationalities: WritableSignal<CatalogInterface[]> =signal([])
+    protected identificationTypes: WritableSignal<CatalogInterface[]> =signal([])
+    protected maritalStatuses: WritableSignal<CatalogInterface[]> =signal([])
+    protected genders: WritableSignal<CatalogInterface[]> =signal([])
+    protected sexes: WritableSignal<CatalogInterface[]> =signal([])
+    protected ethnicOrigins: WritableSignal<CatalogInterface[]> =signal([])
+    protected nationalities: WritableSignal<CatalogInterface[]> =signal([])
     constructor() {
         effect(() => {
             this.enrollmentApplicationStore.updateSection(FORM_STATE_KEY, this.form$());
