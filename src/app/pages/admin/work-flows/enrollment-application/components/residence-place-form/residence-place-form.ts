@@ -21,7 +21,7 @@ const FORM_STATE_KEY = "residencePlace"
 export class ResidencePlaceForm {
 private readonly formRegistryService = inject(FormRegistryService);
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
-    protected readonly form$: WritableSignal<LocationData> = signal(this.enrollmentApplicationStore.originPlace());
+    protected readonly form$: WritableSignal<LocationData> = signal(this.enrollmentApplicationStore.residencePlace());
     protected readonly formData: FieldTree<LocationData> = this.buildForm;
     // Catálogo raíz (sin padre)
     countries: WritableSignal<LocationInterface[]> = signal([]);
@@ -117,14 +117,6 @@ private readonly formRegistryService = inject(FormRegistryService);
         if (!canton) return [];
         return this.allParishes().filter(p => p.parentId === canton.id);
     });
-
-
-    // Flags para no resetear en la primera carga (cuando se restaura el estado guardado)
-    private countryInitialized = false;
-    private provinceInitialized = false;
-    private cantonInitialized = false;
-
-
 
 
     get buildForm() {

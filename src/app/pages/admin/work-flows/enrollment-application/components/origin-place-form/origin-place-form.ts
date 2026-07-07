@@ -119,10 +119,6 @@ export class OriginPlaceForm {
     });
 
 
-    // Flags para no resetear en la primera carga (cuando se restaura el estado guardado)
-    private countryInitialized = false;
-    private provinceInitialized = false;
-    private cantonInitialized = false;
     get buildForm() {
         return form(this.form$, (schema) => {
             validateOriginPlace(schema);
