@@ -18,7 +18,7 @@ const FORM_STATE_KEY = "personalData"
 
 @Component({
     selector: 'app-personal-data-form',
-    imports: [FormField, Checkbox, DatePickerModule ,InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select, FormsModule, ReactiveFormsModule],
+    imports: [FormField, Checkbox, DatePickerModule, InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select, FormsModule, ReactiveFormsModule],
     templateUrl: './personal-data-form.html',
 })
 export class PersonalDataForm {
@@ -28,7 +28,7 @@ export class PersonalDataForm {
 
     protected readonly form$: WritableSignal<PersonalData> = signal(this.enrollmentApplicationStore.personalData())
 
-    protected readonly formData: FieldTree<PersonalData> = this.buildForm;
+    protected readonly formData: FieldTree<PersonalData> = this.buildForm();
     //tambien signals todas las opciones
     protected workingHourstype: WritableSignal<CatalogInterface[]> = signal([]);
     protected monthlySalarys: WritableSignal<CatalogInterface[]> = signal([]);
@@ -165,7 +165,8 @@ export class PersonalDataForm {
     ngOnDestroy(): void {
         this.formRegistryService.unregister(FORM_STATE_KEY);
     }
-    get buildForm() {
+
+    private buildForm(): FieldTree<PersonalData> {
         return form(this.form$, (schema) => {
             validatePersonalData(schema);
         });

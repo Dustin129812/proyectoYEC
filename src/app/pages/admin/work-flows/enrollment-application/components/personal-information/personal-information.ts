@@ -9,8 +9,7 @@ import { CustomMessageService } from '@utils/services';
 import { FormRegistryService } from '@utils/services/form-registry.service';
 import { UserDataForm } from "../user-data-form/user-data-form";
 import { EnrollmentApplicationMapper } from '../../mappers/personal-data.mapper';
-const FORM_PERSONAL_KEY = "personalData"
-const FORM_USER_KEY = 'userData'
+
 @Component({
     selector: 'app-personal-information',
     imports: [Button, Accordion, AccordionPanel, AccordionHeader, AccordionContent, PersonalDataForm, ResidencePlaceForm, OriginPlaceForm, UserDataForm],

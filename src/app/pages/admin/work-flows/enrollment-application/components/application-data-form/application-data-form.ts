@@ -40,7 +40,7 @@ export class ApplicationDataForm {
 
     protected form$: WritableSignal<ApplicationData> = signal(this.enrollmentApplicationStore.application());
 
-    protected formData: FieldTree<ApplicationData> = this.buildForm;
+    protected formData: FieldTree<ApplicationData> = this.buildForm();
     //los getter gregar sufijo Field para el nombre del metodo ej:careerField
     constructor() {
         effect(() => {
@@ -75,7 +75,7 @@ export class ApplicationDataForm {
             this.formData.parallel().reset();
         });
     }
-    get buildForm() {
+    private buildForm(): FieldTree<ApplicationData> {
         return form(this.form$, (schema) => validateApplicationData(schema));
     }
 

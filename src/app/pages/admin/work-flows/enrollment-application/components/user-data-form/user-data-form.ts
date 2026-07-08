@@ -27,7 +27,7 @@ export class UserDataForm {
 
     protected readonly form$: WritableSignal<UserData> = signal(this.enrollmentApplicationStore.userData())
 
-    protected readonly formData: FieldTree<UserData> = this.buildForm;
+    protected readonly formData: FieldTree<UserData> = this.buildForm();
 
     protected identificationTypes: WritableSignal<CatalogInterface[]> =signal([])
     protected maritalStatuses: WritableSignal<CatalogInterface[]> =signal([])
@@ -97,7 +97,7 @@ export class UserDataForm {
     ngOnDestroy(): void {
         this.formRegistryService.unregister(FORM_STATE_KEY);
     }
-    get buildForm() {
+    private buildForm(): FieldTree<UserData>{
         return form(this.form$, (schema) => {
             validateUserData(schema);
         });
