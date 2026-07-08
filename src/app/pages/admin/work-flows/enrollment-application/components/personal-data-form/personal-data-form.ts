@@ -13,12 +13,12 @@ import { LabelDirective } from "@utils/directives/label.directive";
 import { ErrorMessageDirective } from "@utils/directives/error-message.directive";
 import { Select } from "primeng/select";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { DatePickerModule } from 'primeng/datepicker';
 const FORM_STATE_KEY = "personalData"
 
 @Component({
     selector: 'app-personal-data-form',
-    imports: [FormField, Checkbox, InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select, FormsModule, ReactiveFormsModule],
+    imports: [FormField, Checkbox, DatePickerModule ,InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select, FormsModule, ReactiveFormsModule],
     templateUrl: './personal-data-form.html',
 })
 export class PersonalDataForm {
@@ -30,20 +30,54 @@ export class PersonalDataForm {
 
     protected readonly formData: FieldTree<PersonalData> = this.buildForm;
     //tambien signals todas las opciones
-    workingHourstype: WritableSignal<CatalogInterface[]> = signal([]);
-    monthlySalarys: WritableSignal<CatalogInterface[]> = signal([]);
-    foreignLanguageNames: WritableSignal<CatalogInterface[]> = signal([]);
-    ancestralLanguageNames: WritableSignal<CatalogInterface[]> = signal([]);
-    indigenousNationalitys: WritableSignal<CatalogInterface[]> = signal([]);
-    towns: WritableSignal<CatalogInterface[]> = signal([]);
-    disabilityTypes: WritableSignal<CatalogInterface[]> = signal([]);
-    contactEmergencyKinships: WritableSignal<CatalogInterface[]> = signal([]);
-    careers: WritableSignal<Career[]> = signal([]);
-    semesters: WritableSignal<Semester[]> = signal([])
+    protected workingHourstype: WritableSignal<CatalogInterface[]> = signal([]);
+    protected monthlySalarys: WritableSignal<CatalogInterface[]> = signal([]);
+    protected foreignLanguageNames: WritableSignal<CatalogInterface[]> = signal([]);
+    protected ancestralLanguageNames: WritableSignal<CatalogInterface[]> = signal([]);
+    protected indigenousNationalitys: WritableSignal<CatalogInterface[]> = signal([]);
+    protected towns: WritableSignal<CatalogInterface[]> = signal([]);
+    protected disabilityTypes: WritableSignal<CatalogInterface[]> = signal([]);
+    protected contactEmergencyKinships: WritableSignal<CatalogInterface[]> = signal([]);
+    protected careers: WritableSignal<Career[]> = signal([]);
+    protected semesters: WritableSignal<Semester[]> = signal([])
 
     constructor() {
         effect(() => {
             this.enrollmentApplicationStore.updateSection(FORM_STATE_KEY, this.form$());
+        });
+        effect(() => {
+            if (!this.formData.isDisability().value()) {
+                this.formData.disabilityType().reset(null);
+                this.formData.disabilityPercentage().reset("");
+            }
+        });
+        effect(() => {
+            if (!this.formData.isAncestralLanguage().value()) {
+                this.formData.ancestralLanguageName().reset(null);
+            }
+        });
+        effect(() => {
+            if (!this.formData.isCatastrophicIllness().value()) {
+                this.formData.catastrophicIllness().reset("");
+            }
+        })
+        effect(() => {
+            if (!this.formData.isForeignLanguage().value()) {
+                this.formData.foreignLanguageName().reset(null);
+            }
+        });
+        effect(() => {
+            if (!this.formData.isHasChildren().value()) {
+                this.formData.childrenTotal().reset("");
+            }
+        });
+        effect(() => {
+            if (!this.formData.isWork().value()) {
+                this.formData.monthlySalary().reset(null);
+                this.formData.workAddress().reset("");
+                this.formData.workingHours().reset(null);
+                this.formData.workPosition().reset("");
+            }
         });
     }
 

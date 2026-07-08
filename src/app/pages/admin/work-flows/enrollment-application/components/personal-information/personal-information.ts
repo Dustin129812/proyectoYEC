@@ -8,6 +8,7 @@ import { OriginPlaceForm } from "../origin-place-form/origin-place-form";
 import { CustomMessageService } from '@utils/services';
 import { FormRegistryService } from '@utils/services/form-registry.service';
 import { UserDataForm } from "../user-data-form/user-data-form";
+import { EnrollmentApplicationMapper } from '../../mappers/personal-data.mapper';
 const FORM_PERSONAL_KEY = "personalData"
 const FORM_USER_KEY = 'userData'
 @Component({
@@ -45,8 +46,9 @@ export class PersonalInformation {
         ) {
             return;
         }
+        const payload = EnrollmentApplicationMapper.toStudentDto(this.enrollmentApplicationStore.formState())
 
-        console.log('personal-information', this.enrollmentApplicationStore.formState());
+        console.log('personal-information : ',payload);
         this.enrollmentApplicationStore.setStep(2);
     }
 }

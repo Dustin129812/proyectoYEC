@@ -1,4 +1,4 @@
-import { pattern, required, SchemaPathTree } from "@angular/forms/signals"
+import { pattern, required, SchemaPathTree, validate } from "@angular/forms/signals"
 import { UserData } from "../enrollment-application.state"
 
 export function validateUserData(schema: SchemaPathTree<UserData>) {
@@ -6,6 +6,8 @@ export function validateUserData(schema: SchemaPathTree<UserData>) {
     required(schema.birthdate,
         { message: 'La fecha de nacimiento es necesaria' }
     )
+    validate(schema.birthdate, minAgeValidator(17, { message: 'Debes tener al menos 17 años de edad' }) as any);
+
     required(schema.ethnicOrigin,
         { message: 'El origen étnico es necesario' }
     )
@@ -72,3 +74,20 @@ export function validateUserData(schema: SchemaPathTree<UserData>) {
     )
 }
 
+const minAgeValidator = (minYears: number, config: { message: string }) => {
+    return (ctx: any) => {
+        const valorFecha = ctx.value();
+        if (!valorFecha) return null;
+
+        const fechaNacimiento = new Date(valorFecha);
+        const hoy = new Date();
+        let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+        const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+
+        if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+            edad--;
+        }
+
+        return edad < minYears ? {kind:config.message } : null;
+    };
+};
