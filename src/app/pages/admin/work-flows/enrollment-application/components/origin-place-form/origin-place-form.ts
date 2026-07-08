@@ -1,8 +1,8 @@
-import { Component, effect, inject, signal, WritableSignal } from '@angular/core';
+import { Component, computed, effect, inject, signal, WritableSignal } from '@angular/core';
 import { EnrollmentAplicationStore } from '../../enrollment-application.store';
 import { FormRegistryService } from '@utils/services/form-registry.service';
 import { FieldTree, form, FormField } from '@angular/forms/signals';
-import { CatalogInterface, LocationData } from '../../enrollment-application.state';
+import {  LocationData, LocationInterface } from '../../enrollment-application.state';
 import { validateOriginPlace } from '../../validators/validate-origin-place';
 import { Select } from "primeng/select";
 import { ErrorMessageDirective } from '@utils/directives/error-message.directive';
@@ -22,15 +22,15 @@ const FORM_STATE_KEY = "originPlace"
 export class OriginPlaceForm {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
-
-
     protected readonly form$: WritableSignal<LocationData> = signal(this.enrollmentApplicationStore.originPlace());
     protected readonly formData: FieldTree<LocationData> = this.buildForm;
+    // Catálogo raíz (sin padre)
+    countries: WritableSignal<LocationInterface[]> = signal([]);
 
-    countries: WritableSignal<CatalogInterface[]> = signal([]);
-    provinces: WritableSignal<CatalogInterface[]> = signal([]);
-    cantons: WritableSignal<CatalogInterface[]> = signal([]);
-    parishes: WritableSignal<CatalogInterface[]> = signal([]);
+    // Catálogos COMPLETOS, sin filtrar
+    private allProvinces: WritableSignal<LocationInterface[]> = signal([]);
+    private allCantons: WritableSignal<LocationInterface[]> = signal([]);
+    private allParishes: WritableSignal<LocationInterface[]> = signal([]);
 
     constructor() {
         effect(() => {
@@ -45,29 +45,80 @@ export class OriginPlaceForm {
             this.formData,
             this.form$()
         )
+
+
+
         this.countries.set([
-            { id: '1', parentId: '', code: 'WH_TC', name: 'Ecuador', required: true, sort: 1, type: 'HORARIO', isVisible: true },
-            { id: '2', parentId: '', code: 'WH_TD', name: 'Colombia', required: true, sort: 2, type: 'HORARIO', isVisible: true }
-        ]);
-        this.provinces.set([
-            { id: '1', parentId: '1', code: 'PR_PIC', name: 'Pichincha', required: true, sort: 1, type: 'PROVINCIA', isVisible: true },
-            { id: '2', parentId: '1', code: 'PR_GUA', name: 'Guayas', required: true, sort: 2, type: 'PROVINCIA', isVisible: true }
+            { id: '1', parentId: '', code: 'ECU', name: 'Ecuador', alpha3Code: 'ECU', level: 1, latitude: -1.8312, longitude: -78.1834 },
+            { id: '2', parentId: '', code: 'COL', name: 'Colombia', alpha3Code: 'COL', level: 1, latitude: 4.5709, longitude: -74.2973 }
         ]);
 
-        this.cantons.set([
-            { id: '1', parentId: '1', code: 'CA_QUI', name: 'Quito', required: true, sort: 1, type: 'CANTON', isVisible: true },
-            { id: '2', parentId: '2', code: 'CA_GYE', name: 'Guayaquil', required: true, sort: 2, type: 'CANTON', isVisible: true }
+        this.allProvinces.set([
+            { id: '1', parentId: '1', code: 'PR_PIC', name: 'Pichincha', level: 2, latitude: -0.1807, longitude: -78.4678 },
+            { id: '2', parentId: '1', code: 'PR_GUA', name: 'Guayas', level: 2, latitude: -2.1962, longitude: -79.8862 }
         ]);
 
-        this.parishes.set([
-            { id: '1', parentId: '1', code: 'PA_CH', name: 'Centro Histórico', required: true, sort: 1, type: 'PARROQUIA', isVisible: true },
-            { id: '2', parentId: '1', code: 'PA_LM', name: 'La Mariscal', required: true, sort: 2, type: 'PARROQUIA', isVisible: true }
+        this.allCantons.set([
+            { id: '1', parentId: '1', code: 'CA_QUI', name: 'Quito', level: 3, latitude: -0.1807, longitude: -78.4678 },
+            { id: '2', parentId: '2', code: 'CA_GYE', name: 'Guayaquil', level: 3, latitude: -2.1962, longitude: -79.8862 }
+        ]);
+
+        this.allParishes.set([
+            { id: '1', parentId: '1', code: 'PA_CH', name: 'Centro Histórico', level: 4, zone: 'Urbana', latitude: -0.2201, longitude: -78.5123 },
+            { id: '2', parentId: '1', code: 'PA_LM', name: 'La Mariscal', level: 4, zone: 'Urbana', latitude: -0.1969, longitude: -78.4850 }
         ]);
     }
 
     ngOnDestroy(): void {
         this.formRegistryService.unregister(FORM_STATE_KEY);
     }
+
+   protected readonly selectedCenter = computed<MapCoords | null>(() => {
+        const parish = this.formData.parish().value();
+        if (parish?.latitude && parish?.longitude) {
+            return { latitude: parish.latitude.toString(), longitude: parish.longitude.toString() };
+        }
+
+        const canton = this.formData.canton().value();
+        if (canton?.latitude && canton?.longitude) {
+            return { latitude: canton.latitude.toString(), longitude: canton.longitude.toString() };
+        }
+
+        const province = this.formData.province().value();
+        if (province?.latitude && province?.longitude) {
+            return { latitude: province.latitude.toString(), longitude: province.longitude.toString() };
+        }
+
+        const country = this.formData.country().value();
+        if (country?.latitude && country?.longitude) {
+            return { latitude: country.latitude.toString(), longitude: country.longitude.toString() };
+        }
+
+        return null;
+    });
+
+    // Catálogos FILTRADOS que consume el template, según selección del padre
+    provinces = computed(() => {
+        const country = this.formData.country().value();
+        if (!country) return [];
+        return this.allProvinces().filter(p => p.parentId === country.id);
+    });
+
+
+    cantons = computed(() => {
+        const province = this.formData.province().value();
+        if (!province) return [];
+        return this.allCantons().filter(c => c.parentId === province.id);
+    });
+
+
+    parishes = computed(() => {
+        const canton = this.formData.canton().value();
+        if (!canton) return [];
+        return this.allParishes().filter(p => p.parentId === canton.id);
+    });
+
+
     get buildForm() {
         return form(this.form$, (schema) => {
             validateOriginPlace(schema);

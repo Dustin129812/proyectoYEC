@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnDestroy, AfterViewInit, ElementRef, ViewChild, output } from '@angular/core';
+import { Component, Output, EventEmitter, OnDestroy, AfterViewInit, ElementRef, ViewChild, output, signal, input, effect } from '@angular/core';
 import * as L from 'leaflet';
 
 export interface MapCoords {
@@ -15,22 +15,42 @@ export interface MapCoords {
 export class MapComponent implements AfterViewInit, OnDestroy {
     public coordsChange = output<MapCoords>();
 
-    @ViewChild('mapContainer') mapContainer!: ElementRef;
+    // NUEVO: coordenadas de centrado que vienen del padre (province/canton/parish)
+    public centerCoords = input<MapCoords | null>(null);
 
+    @ViewChild('mapContainer') mapContainer!: ElementRef;
     private map!: L.Map;
     private marker?: L.Marker;
+    private mapReady = signal(false);
 
-    // ← AfterViewInit garantiza que #mapContainer ya está en el DOM
-ngAfterViewInit(): void {
-    // Un pequeño retraso (ej. 150ms-200ms) permite que las animaciones 
-    // de CSS y los contenedores dinámicos tomen su tamaño real.
-    setTimeout(() => {
-        this.initMap();
-        
-        // Opcional pero altamente recomendado: obliga a Leaflet a reajustarse
-        this.map?.invalidateSize();
-    }, 200); 
-}
+    constructor() {
+        // Reacciona cada vez que cambie centerCoords, PERO solo si el mapa ya existe
+        effect(() => {
+            const coords = this.centerCoords();
+            const ready = this.mapReady();
+            if (!coords || !ready) return;
+
+            const lat = parseFloat(coords.latitude);
+            const lng = parseFloat(coords.longitude);
+            if (isNaN(lat) || isNaN(lng)) return;
+
+            this.map.flyTo([lat, lng], 14); // flyTo = animado, setView = instantáneo
+
+            if (this.marker) {
+                this.marker.setLatLng([lat, lng]);
+            } else {
+                this.marker = L.marker([lat, lng]).addTo(this.map);
+            }
+        });
+    }
+
+    ngAfterViewInit(): void {
+        setTimeout(() => {
+            this.initMap();
+            this.map?.invalidateSize();
+            this.mapReady.set(true); // ← habilita el effect de arriba
+        }, 200);
+    }
 
     ngOnDestroy(): void {
         this.map?.remove();
@@ -45,22 +65,18 @@ ngAfterViewInit(): void {
         });
         L.Marker.prototype.options.icon = iconDefault;
 
-        // ← referencia directa al elemento, no por ID string
         this.map = L.map(this.mapContainer.nativeElement).setView([-0.1807, -78.4678], 12);
-
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(this.map);
 
         this.map.on('click', (e: L.LeafletMouseEvent) => {
             const { lat, lng } = e.latlng;
-
             if (this.marker) {
                 this.marker.setLatLng([lat, lng]);
             } else {
                 this.marker = L.marker([lat, lng]).addTo(this.map);
             }
-
             this.coordsChange.emit({
                 latitude: lat.toString(),
                 longitude: lng.toString()
