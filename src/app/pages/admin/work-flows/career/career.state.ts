@@ -10,6 +10,11 @@ export interface PrincipalData {
     acronym: string;
 }
 
+export interface PrincipalData1 {
+    career: CareerInterface;
+    schoolPeriod: SchoolPeriodInterface;
+}
+
 export interface SecondaryData {
     code: string;
     shortName: string;
@@ -19,6 +24,15 @@ export interface SecondaryData {
 }
 
 export interface CareerInterface {
+    id: string;
+    code: string;
+    shortName: string;
+    logo: string;
+    resolutionNumber: string;
+    isEnabled: boolean;
+}
+
+export interface SchoolPeriodInterface {
     id: string;
     code: string;
     shortName: string;

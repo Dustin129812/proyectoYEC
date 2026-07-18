@@ -4,6 +4,11 @@ import {tokenGuard} from '@utils/guards';
 
 export default [
     {
+        path: MY_ROUTES.publicPages.emailVerification.base,
+        title: 'Verificación Email',
+        loadComponent: () => import('@modules/auth/components/email-verification/email-verification.component')
+    },
+    {
         path: MY_ROUTES.publicPages.terms.base,
         title: 'Términos y Condiciones',
         loadComponent: () => import('@modules/auth/components/terms/terms.component'),
@@ -13,5 +18,18 @@ export default [
         path: MY_ROUTES.publicPages.icons.base,
         title: 'Icons',
         loadComponent: () => import('./icons/font-awesome-icons')
+    },
+    {
+        path: MY_ROUTES.publicPages.passwordChanged.base,
+        title: 'Cambio de Contraseña',
+        loadComponent: () => import('@modules/auth/components/password-changed/password-changed.component'),
+        canActivate: [tokenGuard]
+    },
+
+    {
+        path: MY_ROUTES.publicPages.securityQuestions.base,
+        title: 'Preguntas de Seguridad',
+        loadComponent: () => import('@modules/auth/components/security-question/security-question.component'),
+        canActivate: [tokenGuard]
     },
 ] as Routes;
