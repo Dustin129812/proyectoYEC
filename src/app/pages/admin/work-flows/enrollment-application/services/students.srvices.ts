@@ -116,38 +116,29 @@ update(
     map(response => response.data)
   );
 }
-updatePersonalInformation(
-  id: string,
-  payload: PersonalInformationDto
-): Observable<StudentInterface> {
-  const url = `${this.API_URL}/${id}/personal-information`;
-
-  return this.httpClient.patch<HttpResponseInterface>(url, payload).pipe(
-    map(response => response.data)
-  );
+updatePersonalInformation(id: string, payload: any): Observable<StudentInterface> {
+    const url = `${this.API_URL}/${id}/personal-information`;
+    return this.httpClient.patch<HttpResponseInterface>(url, payload).pipe(
+        map((response) => response.data),
+    );
 }
-
-  updateOriginPlace(id: string, payload: LocationDto): Observable<StudentInterface> {
+updateOriginPlace(id: string, payload: any): Observable<StudentInterface> {
     const url = `${this.API_URL}/${id}/origin-place`;
     return this.httpClient.patch<HttpResponseInterface>(url, payload).pipe(
-      map(response => {
-        return response.data;
-      })
+        map((response) => response.data),
     );
-  }
+}
 
-  updateResidencePlace(id: string, payload: LocationDto): Observable<StudentInterface> {
+updateResidencePlace(id: string, payload: any): Observable<StudentInterface> {
     const url = `${this.API_URL}/${id}/residence-place`;
     return this.httpClient.patch<HttpResponseInterface>(url, payload).pipe(
-      map(response => {
-        return response.data;
-      })
+        map((response) => response.data),
     );
-  }
+}
 
 
   // Preguntar
-  updateCroquis(id: string, payload: UpdateStudentDto): Observable<StudentModel> {
+ /* updateCroquis(id: string, payload: UpdateStudentDto): Observable<StudentModel> {
     const url = `${this.API_URL}/${id}/croquis`;
 
     this.coreService.isProcessing = true;
@@ -158,7 +149,7 @@ updatePersonalInformation(
         return response.data;
       })
     );
-  }
+  }*/
 
 
 }

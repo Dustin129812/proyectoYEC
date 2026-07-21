@@ -1,20 +1,31 @@
-import { ApplicationData, EnrollmentApplicationState, PersonalData, UserData,LocationData } from "../enrollment-application.state";
+import { EnrollmentApplicationState, PersonalData, UserData, LocationData, ApplicationData } from "../enrollment-application.state";
 
 export class EnrollmentApplicationMapper {
 
-    static toStudentDto(state: EnrollmentApplicationState) {
+    static toPersonalInformationDto(state: EnrollmentApplicationState) {
         return {
             user: this.mapUser(state.userData),
             informationStudent: this.mapPersonalData(state.personalData),
-            originPlace: this.mapOriginPlace(state.originPlace),
-            residencePlace: this.mapResidencePlace(state.residencePlace)
         };
     }
-    static toApplicationDto(state: EnrollmentApplicationState) {
+
+    static toOriginPlaceDto(state: EnrollmentApplicationState) {
+        return {
+            user: { originAddress: this.mapLocation(state.originPlace) },
+        };
+    }
+
+    static toResidencePlaceDto(state: EnrollmentApplicationState) {
+        return {
+            user: { residenceAddress: this.mapLocation(state.residencePlace) },
+        };
+    }
+        static toApplicationDto(state: EnrollmentApplicationState) {
         return {
             application: this.mapApplication(state.application)
         };
     }
+
     private static mapUser(user: UserData) {
         return {
             identification: user.identification,
@@ -26,49 +37,64 @@ export class EnrollmentApplicationMapper {
             cellPhone: user.cellPhone,
             birthdate: user.birthdate,
 
-            identificationTypeId: user.identificationType?.id,
-            genderId: user.gender?.id,
-            ethnicOriginId: user.ethnicOrigin?.id,
-            maritalStatusId: user.maritalStatus?.id,
-            nationalityId: user.nationality?.id,
-            sexId: user.sex?.id,
+            identificationType: user.identificationType,
+            gender: user.gender,
+            ethnicOrigin: user.ethnicOrigin,
+            maritalStatus: user.maritalStatus,
+            nationality: user.nationality,
+            sex: user.sex,
         };
     }
+
     private static mapPersonalData(pd: PersonalData) {
         return {
             contactEmergencyName: pd.contactEmergencyName,
             contactEmergencyPhone: pd.contactEmergencyPhone,
-            contactEmergencyKinshipId: pd.contactEmergencyKinship?.id,
+            contactEmergencyKinship: pd.contactEmergencyKinship,
 
-            disabilityPercentage: pd.disabilityPercentage ? Number(pd.disabilityPercentage) : '',
-            isDisabilityId: pd.isDisability,
-            disabilityTypeId: pd.disabilityType?.id ?? null,
+            isDisability: pd.isDisability,
+            disabilityType: pd.disabilityType,
+            disabilityPercentage: pd.disabilityPercentage ? Number(pd.disabilityPercentage) : undefined,
 
-            isAncestralLanguageId: pd.isAncestralLanguage,
-            ancestralLanguageNameId: pd.ancestralLanguageName?.id ?? null,
+            isAncestralLanguage: pd.isAncestralLanguage,
+            ancestralLanguageName: pd.ancestralLanguageName,
 
-            isCatastrophicIllnessId: pd.isCatastrophicIllness,
-            catastrophicIllness: pd.catastrophicIllness?? null,
+            isCatastrophicIllness: pd.isCatastrophicIllness,
+            catastrophicIllness: pd.catastrophicIllness,
 
-            isForeignLanguageId: pd.isForeignLanguage,
-            foreignLanguageNameId: pd.foreignLanguageName?.id ?? null,
+            isForeignLanguage: pd.isForeignLanguage,
+            foreignLanguageName: pd.foreignLanguageName,
 
-            isHasChildrenId: pd.isHasChildren,
-            childrenTotal: pd.childrenTotal ? Number(pd.childrenTotal) : '',
+            isHasChildren: pd.isHasChildren,
+            childrenTotal: pd.childrenTotal ? Number(pd.childrenTotal) : undefined,
 
-            isHouseHeadId: pd.isHouseHead,
-            isPrivateSecurityId: pd.isPrivateSecurity,
-            isSocialSecurityId: pd.isSocialSecurity,
+            isHouseHead: pd.isHouseHead,
+            isPrivateSecurity: pd.isPrivateSecurity,
+            isSocialSecurity: pd.isSocialSecurity,
 
-            isWorkId: pd.isWork,
-            monthlySalaryId: pd.monthlySalary?.id ?? null,
-            workingHoursId: pd.workingHours?.id ?? null,
+            isWork: pd.isWork,
+            monthlySalary: pd.monthlySalary,
+            workingHours: pd.workingHours,
+            workAddress: pd.workAddress,
+            workPosition: pd.workPosition,
 
-            workAddress: pd.workAddress ?? null,
-            workPosition: pd.workPosition ?? null,
+            town: pd.town,
+            indigenousNationality: pd.indigenousNationality,
+        };
+    }
 
-            townId: pd.town?.id ?? null,
-            indigenousNationalityId: pd.indigenousNationality?.id ?? null
+    private static mapLocation(loc: LocationData) {
+        return {
+            country: loc.country,
+            province: loc.province,
+            canton: loc.canton,
+            parish: loc.parish,
+            latitude: loc.latitude ? Number(loc.latitude) : undefined,
+            longitude: loc.longitude ? Number(loc.longitude) : undefined,
+            mainStreet: loc.mainStreet,
+            number: loc.number,
+            secondaryStreet: loc.secondaryStreet,
+            reference: loc.reference,
         };
     }
     private static mapApplication(app: ApplicationData) {
@@ -86,34 +112,5 @@ export class EnrollmentApplicationMapper {
                 name: d.name
             }))
         };
-    }
-
-    private static mapResidencePlace(rd: LocationData){
-        return {
-            countryId: rd.country?.id,
-            provinceId: rd.province?.id,
-            cantonId: rd.canton?.id,
-            parishId: rd.parish?.id,
-            latitude: rd.latitude ? Number(rd.latitude) : 0,
-            longitude: rd.longitude ? Number(rd.longitude) : 0,
-            mainStreet: rd.mainStreet,
-            number: rd.number,
-            secondaryStreet: rd.secondaryStreet,
-            reference: rd.reference
-        }
-    }
-        private static mapOriginPlace(rd: LocationData){
-        return {
-            countryId: rd.country?.id,
-            provinceId: rd.province?.id,
-            cantonId: rd.canton?.id,
-            parishId: rd.parish?.id,
-            latitude: rd.latitude ? Number(rd.latitude) : 0,
-            longitude: rd.longitude ? Number(rd.longitude) : 0,
-            mainStreet: rd.mainStreet,
-            number: rd.number,
-            secondaryStreet: rd.secondaryStreet,
-            reference: rd.reference
-        }
     }
 }

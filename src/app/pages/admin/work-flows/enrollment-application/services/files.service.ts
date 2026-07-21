@@ -41,7 +41,7 @@ export class FilesHttpService {
         );
     }
 
-    findOne(id: string): Observable<EventModel> {
+    findOne(id: string): Observable<FileData> {
         const url = `${this.API_URL}/${id}`;
 
         return this.httpClient.get<HttpResponseInterface>(url).pipe(
@@ -55,7 +55,7 @@ export class FilesHttpService {
         const url = `${this.API_URL}/${modelId}/upload`;
         const params = new HttpParams().append('typeId', typeId);
 
-        return this.httpClient.post<HttpResponseInterface>(url, payload).pipe(
+        return this.httpClient.post<HttpResponseInterface>(url, payload,{ params }).pipe(
             map((response) => {
                 return response.data;
             }))
@@ -71,7 +71,7 @@ export class FilesHttpService {
             })
         );
     }
-
+/*
     reactivate(id: string): Observable<FileData> {
         const url = `${this.API_URL}/${id}/reactivate`;
 
@@ -115,8 +115,8 @@ export class FilesHttpService {
             })
         );
     }
-
-    downloadFile(file: FileModel) {
+*/
+    downloadFile(file: FileData) {
         const url = `${this.API_URL}/${file.id}/download`;
         
         this.httpClient.get<BlobPart>(url, { responseType: 'blob' as 'json' })
