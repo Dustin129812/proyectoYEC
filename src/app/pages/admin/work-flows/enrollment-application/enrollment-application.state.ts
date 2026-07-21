@@ -4,7 +4,8 @@ export interface EnrollmentApplicationState {
     personalData: PersonalData,
     originPlace: LocationData,
     residencePlace: LocationData,
-    application: ApplicationData
+    application: ApplicationData,
+    files: FileData,
 }
 export interface PersonalInformationDto {
     userData: UserDataDto,
@@ -57,6 +58,19 @@ export interface PersonalDataDto {
 export interface LocationDto {
     locationData: LocationData,
 }
+export interface LocationDataDto {
+    country: LocationInterface,
+    province: LocationInterface,
+    canton: LocationInterface,
+    parish: LocationInterface,
+    latitude: string,
+    longitude: string,
+    mainStreet: string,
+    number: string,
+    reference: string,
+    secondaryStreet: string
+}
+
 
 export interface PersonalData {
     career: Career | null,
@@ -114,6 +128,18 @@ export interface LocationData {
     number: string,
     reference: string,
     secondaryStreet: string
+}
+
+export interface FileData {
+    id: string;
+    name: string;
+    fullName: string;
+    fullPath: string;
+    description: string;
+    extension: string;
+    directory: string;
+    originalName: string;
+    type: CatalogInterface | null;
 }
 
 export interface ApplicationData {
@@ -196,7 +222,17 @@ export interface StudentInterface {
 
 }
 
-
+const initialFile: FileData = {
+    id: '',
+    name: '',
+    fullName: '',
+    fullPath: '',
+    description: '',
+    extension: '',
+    directory: '',
+    originalName: '',
+    type: null
+};
 
 const initialStudent: StudentInterface = {
     id: '',
@@ -313,5 +349,16 @@ export const INITIAL_ENROLLMENT_APPLICATION_STATE: EnrollmentApplicationState = 
         parallel: null,
         schoolPeriod: null,
         workday: null,
+    },
+    files: {
+        id: '',
+        name: '',
+        fullName: '',
+        fullPath: '',
+        description: '',
+        extension: '',
+        directory: '',
+        originalName: '',
+        type: null
     }
 }

@@ -6,7 +6,8 @@ export class EnrollmentApplicationMapper {
         return {
             user: this.mapUser(state.userData),
             informationStudent: this.mapPersonalData(state.personalData),
-            //residencePlace: this.mapResidencePlace(state.residencePlace)
+            originPlace: this.mapOriginPlace(state.originPlace),
+            residencePlace: this.mapResidencePlace(state.residencePlace)
         };
     }
     static toApplicationDto(state: EnrollmentApplicationState) {
@@ -87,18 +88,32 @@ export class EnrollmentApplicationMapper {
         };
     }
 
-    // private static mapResidencePlace(rd: LocationData){
-    //     return {
-    //         country: rd.country?.id,
-    //         province: rd.province?.id,
-    //         canton: rd.canton?.id,
-    //         parish: rd.parish?.id,
-    //         latitude: rd.latitude,
-    //         longitude: rd.longitude,
-    //         mainStreet: rd.mainStreet,
-    //         number: rd.number,
-    //         secondaryStreet: rd.secondaryStreet,
-    //         reference: rd.reference
-    //     }
-    // }
+    private static mapResidencePlace(rd: LocationData){
+        return {
+            countryId: rd.country?.id,
+            provinceId: rd.province?.id,
+            cantonId: rd.canton?.id,
+            parishId: rd.parish?.id,
+            latitude: rd.latitude ? Number(rd.latitude) : 0,
+            longitude: rd.longitude ? Number(rd.longitude) : 0,
+            mainStreet: rd.mainStreet,
+            number: rd.number,
+            secondaryStreet: rd.secondaryStreet,
+            reference: rd.reference
+        }
+    }
+        private static mapOriginPlace(rd: LocationData){
+        return {
+            countryId: rd.country?.id,
+            provinceId: rd.province?.id,
+            cantonId: rd.canton?.id,
+            parishId: rd.parish?.id,
+            latitude: rd.latitude ? Number(rd.latitude) : 0,
+            longitude: rd.longitude ? Number(rd.longitude) : 0,
+            mainStreet: rd.mainStreet,
+            number: rd.number,
+            secondaryStreet: rd.secondaryStreet,
+            reference: rd.reference
+        }
+    }
 }
