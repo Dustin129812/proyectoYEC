@@ -1,4 +1,4 @@
-import { ApplicationData, EnrollmentApplicationState, PersonalData, UserData } from "../enrollment-application.state";
+import { ApplicationData, EnrollmentApplicationState, PersonalData, UserData,LocationData } from "../enrollment-application.state";
 
 export class EnrollmentApplicationMapper {
 
@@ -6,6 +6,7 @@ export class EnrollmentApplicationMapper {
         return {
             user: this.mapUser(state.userData),
             informationStudent: this.mapPersonalData(state.personalData),
+            //residencePlace: this.mapResidencePlace(state.residencePlace)
         };
     }
     static toApplicationDto(state: EnrollmentApplicationState) {
@@ -85,4 +86,19 @@ export class EnrollmentApplicationMapper {
             }))
         };
     }
+
+    // private static mapResidencePlace(rd: LocationData){
+    //     return {
+    //         country: rd.country?.id,
+    //         province: rd.province?.id,
+    //         canton: rd.canton?.id,
+    //         parish: rd.parish?.id,
+    //         latitude: rd.latitude,
+    //         longitude: rd.longitude,
+    //         mainStreet: rd.mainStreet,
+    //         number: rd.number,
+    //         secondaryStreet: rd.secondaryStreet,
+    //         reference: rd.reference
+    //     }
+    // }
 }

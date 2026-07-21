@@ -6,6 +6,57 @@ export interface EnrollmentApplicationState {
     residencePlace: LocationData,
     application: ApplicationData
 }
+export interface PersonalInformationDto {
+    userData: UserDataDto,
+    personalData: PersonalDataDto,
+}
+export interface UserDataDto {
+    birthdate: string;
+    cellPhone: string;
+    email: string;
+    ethnicOriginId: CatalogInterface;
+    genderId: CatalogInterface;
+    identification: string;
+    identificationTypeId: CatalogInterface;
+    lastname: string;
+    maritalStatusId: CatalogInterface;
+    name: string;
+    nationalityId: CatalogInterface;
+    personalEmail: string;
+    phone: string;
+    sexId: CatalogInterface;
+}
+export interface PersonalDataDto {
+    career: Career,
+    semesterId: CatalogInterface,
+    contactEmergencyKinshipId: CatalogInterface,
+    contactEmergencyName: string,
+    contactEmergencyPhone: string,
+    isDisability: boolean,
+    disabilityPercentage: string,
+    disabilityTypeId: CatalogInterface,
+    isAncestralLanguage: boolean,
+    ancestralLanguageNameId: CatalogInterface,
+    isCatastrophicIllness: boolean,
+    catastrophicIllness: string,
+    isForeignLanguage: boolean,
+    foreignLanguageNameId: CatalogInterface,
+    isHasChildren: boolean,
+    childrenTotal: string,
+    isHouseHead: boolean,
+    isPrivateSecurity: boolean,
+    isSocialSecurity: boolean,
+    isWork: boolean,
+    monthlySalaryId: CatalogInterface,
+    workAddress: string,
+    workingHoursId: CatalogInterface,
+    workPosition: string,
+    town: CatalogInterface,
+    indigenousNationalityId: CatalogInterface,
+}
+export interface LocationDto {
+    locationData: LocationData,
+}
 
 export interface PersonalData {
     career: Career | null,
@@ -133,6 +184,31 @@ export interface CatalogInterface {
     type: string;
     isVisible: boolean;
 }
+
+export interface StudentInterface {
+    id: string;
+    createAt: string;
+    updateAt: string;
+    deleteAt: string;
+    isVisible: boolean;
+    informationStudent: PersonalData | null;
+    user: UserData | null;
+
+}
+
+
+
+const initialStudent: StudentInterface = {
+    id: '',
+    createAt: '',
+    updateAt: '',
+    deleteAt: '',
+    isVisible: false,
+    informationStudent: null,
+    user: null
+
+}
+
 const initialCatalogue: CatalogInterface = {
     id: '',
     parentId: '',
