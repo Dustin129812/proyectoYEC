@@ -18,7 +18,7 @@ export class FilesHttpService {
     API_URL = `${environment.API_URL}/files`;
 
     constructor(private messageServicePn: MessageServicePn,
-        //private coreService: CoreService, 
+        //private coreService: CoreService,
         private httpClient: HttpClient,
         //private messageService: MessageService
     ) {
@@ -55,7 +55,7 @@ export class FilesHttpService {
         const url = `${this.API_URL}/${modelId}/upload`;
         const params = new HttpParams().append('typeId', typeId);
 
-        return this.httpClient.post<HttpResponseInterface>(url, payload,{ params }).pipe(
+        return this.httpClient.post<HttpResponseInterface>(url, payload, { params }).pipe(
             map((response) => {
                 return response.data;
             }))
@@ -71,54 +71,54 @@ export class FilesHttpService {
             })
         );
     }
-/*
-    reactivate(id: string): Observable<FileData> {
-        const url = `${this.API_URL}/${id}/reactivate`;
+    /*
+        reactivate(id: string): Observable<FileData> {
+            const url = `${this.API_URL}/${id}/reactivate`;
 
-        return this.httpClient.patch<HttpResponseInterface>(url, null).pipe(
-            map((response) => {
-                return response.data;
-            })
-        );
-    }
+            return this.httpClient.patch<HttpResponseInterface>(url, null).pipe(
+                map((response) => {
+                    return response.data;
+                })
+            );
+        }
 
-    remove(id: string): Observable<FileData> {
-        const url = `${this.API_URL}/${id}`;
+        remove(id: string): Observable<FileData> {
+            const url = `${this.API_URL}/${id}`;
 
 
-        return this.httpClient.delete<HttpResponseInterface>(url).pipe(
-            map((response) => {
+            return this.httpClient.delete<HttpResponseInterface>(url).pipe(
+                map((response) => {
 
-                return response.data;
-            })
-        );
-    }
+                    return response.data;
+                })
+            );
+        }
 
-    removeAll(payload: EventModel[]): Observable<EventModel[]> {
-        const url = `${this.API_URL}/remove-all`;
+        removeAll(payload: EventModel[]): Observable<EventModel[]> {
+            const url = `${this.API_URL}/remove-all`;
 
-        return this.httpClient.patch<HttpResponseInterface>(url, payload).pipe(
-            map((response) => {
-                
-                return response.data;
-            })
-        );
-    }
+            return this.httpClient.patch<HttpResponseInterface>(url, payload).pipe(
+                map((response) => {
 
-    hide(id: string): Observable<EventModel> {
-        const url = `${this.API_URL}/${id}/hide`;
+                    return response.data;
+                })
+            );
+        }
 
-        return this.httpClient.patch<HttpResponseInterface>(url, null).pipe(
-            map((response) => {
-                
-                return response.data;
-            })
-        );
-    }
-*/
+        hide(id: string): Observable<EventModel> {
+            const url = `${this.API_URL}/${id}/hide`;
+
+            return this.httpClient.patch<HttpResponseInterface>(url, null).pipe(
+                map((response) => {
+
+                    return response.data;
+                })
+            );
+        }
+    */
     downloadFile(file: FileData) {
         const url = `${this.API_URL}/${file.id}/download`;
-        
+
         this.httpClient.get<BlobPart>(url, { responseType: 'blob' as 'json' })
             .subscribe(response => {
                 // const filePath = URL.createObjectURL(new Blob(binaryData, {type: file.extension}));
@@ -128,7 +128,7 @@ export class FilesHttpService {
                 downloadLink.setAttribute('download', file.originalName!);
                 document.body.appendChild(downloadLink);
                 downloadLink.click();
-                
+
             });
     }
 }

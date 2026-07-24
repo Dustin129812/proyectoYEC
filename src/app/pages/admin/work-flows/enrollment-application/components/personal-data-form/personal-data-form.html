@@ -8,15 +8,15 @@
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="career" label="Carrera" [field]="formData.career"></label>
-            <p-select class="ml-3" [options]="careers()" [(ngModel)]="formData.career().value" name="career"
-                optionLabel="name" pTooltip="Carreras" filterBy="name" placeholder="Seleccione una carrera...">
+            <p-select class="ml-3" [options]="careers()" [formField]="$any(formData.career)" name="career"
+                optionLabel="name" pTooltip="Carreras" filterBy="name" dataKey="id" placeholder="Seleccione una carrera...">
             </p-select>
             <small [appErrorMessage]="$any(formData.career)"></small>
         </div>
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="semester" label="Semestre" [field]="formData.semester"></label>
-            <p-select class="ml-3" [options]="semesters()" [(ngModel)]="formData.semester().value" name="semester"
-            optionLabel="name" pTooltip="Semestres" filterBy="name" placeholder="Seleccione un Semestre...">
+            <p-select class="ml-3" [options]="semesters()" [formField]="$any(formData.semester)" name="semester"
+            optionLabel="name" pTooltip="Semestres" filterBy="name" dataKey="id" placeholder="Seleccione un Semestre...">
         </p-select>
         <small [appErrorMessage]="$any(formData.semester)"></small>
         </div>
@@ -40,8 +40,8 @@
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="contactEmergencyKinship" label="Parentesco" [field]="formData.contactEmergencyKinship"></label>
-            <p-select class="ml-3" [options]="contactEmergencyKinships()" [(ngModel)]="formData.contactEmergencyKinship().value"
-                name="contactEmergencyKinship" optionLabel="name" pTooltip="Parentesco" filterBy="name"
+            <p-select class="ml-3" [options]="contactEmergencyKinships()" [formField]="$any(formData.contactEmergencyKinship)"
+                name="contactEmergencyKinship" dataKey="id" optionLabel="name" pTooltip="Parentesco" filterBy="name"
                 placeholder="Seleccione el Parentesco...">
             </p-select>
             <small [appErrorMessage]="$any(formData.contactEmergencyKinship)"></small>
@@ -59,8 +59,8 @@
         @if (formData.isDisability().value()) {
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="disabilityType" label="Tipo de Discapacidad" [field]="formData.disabilityType"></label>
-            <p-select class="ml-3" [options]="disabilityTypes()" [(ngModel)]="formData.disabilityType().value"
-                name="disabilityType" optionLabel="name" pTooltip="Tipo de Discapacidad" filterBy="name"
+            <p-select class="ml-3" [options]="disabilityTypes()" [formField]="$any(formData.disabilityType)"
+                name="disabilityType" optionLabel="name" pTooltip="Tipo de Discapacidad" filterBy="name" dataKey="id"
                 placeholder="Seleccione una tipo...">
             </p-select>
             <small [appErrorMessage]="$any(formData.disabilityType)"></small>
@@ -97,8 +97,8 @@
         </div>
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="town" label="Pueblo / Comunidad (Ciudad)" [field]="formData.town"></label>
-            <p-select class="ml-3" [options]="towns()" [(ngModel)]="formData.town().value" name="town"
-                optionLabel="name" pTooltip="Pueblo / Comunidad (Ciudad)" filterBy="name"
+            <p-select class="ml-3" [options]="towns()" [formField]="$any(formData.town)" name="town"
+                optionLabel="name" pTooltip="Pueblo / Comunidad (Ciudad)" filterBy="name" dataKey="id"
                 placeholder="Seleccione un publo / ciudad...">
             </p-select>
             <small [appErrorMessage]="$any(formData.town)"></small>
@@ -106,9 +106,9 @@
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="indigenousNationality" label="Nacionalidad Indígena"
                 [field]="formData.indigenousNationality"></label>
-            <p-select class="ml-3" [options]="indigenousNationalitys()" [(ngModel)]="formData.indigenousNationality().value"
+            <p-select class="ml-3" [options]="indigenousNationalitys()" [formField]="$any(formData.indigenousNationality)"
                 name="indigenousNationality" optionLabel="name" pTooltip="Nacionalidad Indígena"
-                filterBy="name" placeholder="Seleccione una Nacionalidad Indígena...">
+                filterBy="name" dataKey="id" placeholder="Seleccione una Nacionalidad Indígena...">
             </p-select>
             <small [appErrorMessage]="$any(formData.indigenousNationality)"></small>
         </div>
@@ -124,8 +124,8 @@
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="ancestralLanguageName" label="Idioma Ancestral"
                 [field]="formData.ancestralLanguageName"></label>
-            <p-select class="ml-3" [options]="ancestralLanguageNames()" [(ngModel)]="formData.ancestralLanguageName().value"
-                name="ancestralLanguageName" optionLabel="name" pTooltip="Idioma Ancestral" filterBy="name"
+            <p-select class="ml-3" [options]="ancestralLanguageNames()" [formField]="$any(formData.ancestralLanguageName)"
+                name="ancestralLanguageName" optionLabel="name" pTooltip="Idioma Ancestral" filterBy="name" dataKey="id"
                 placeholder="Seleccione un Idioma Ancestral...">
             </p-select>
             <small [appErrorMessage]="$any(formData.ancestralLanguageName)"></small>
@@ -143,8 +143,8 @@
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="foreignLanguageName" label="Idioma Ancestral" [field]="formData.foreignLanguageName"></label>
-            <p-select class="ml-3" [options]="foreignLanguageNames()" [(ngModel)]="formData.foreignLanguageName().value"
-                name="foreignLanguageName" optionLabel="name" pTooltip="Idioma Extranjero" filterBy="name"
+            <p-select class="ml-3" [options]="foreignLanguageNames()" [formField]="$any(formData.foreignLanguageName)"
+                name="foreignLanguageName" optionLabel="name" pTooltip="Idioma Extranjero" filterBy="name" dataKey="id"
                 placeholder="Seleccione un Idioma Extranjero...">
             </p-select>
             <small [appErrorMessage]="$any(formData.foreignLanguageName)"></small>
@@ -188,8 +188,8 @@
         </div>
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="monthlySalary" label="Salario Mensual" [field]="formData.monthlySalary"></label>
-            <p-select class="ml-3" [options]="monthlySalarys()" [(ngModel)]="formData.monthlySalary().value"
-                name="monthlySalary" optionLabel="name" pTooltip="Salario Mensual" filterBy="name"
+            <p-select class="ml-3" [options]="monthlySalarys()" [formField]="$any(formData.monthlySalary)"
+                name="monthlySalary" optionLabel="name" pTooltip="Salario Mensual" filterBy="name" dataKey="id"
                 placeholder="Seleccione el Salario Mensual...">
             </p-select>
             <small [appErrorMessage]="$any(formData.monthlySalary)"></small>
@@ -197,8 +197,8 @@
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="workingHours" label="Horas semanales" [field]="formData.workingHours"></label>
-            <p-select class="ml-3" [options]="workingHourstype()" [(ngModel)]="formData.workingHours().value"
-                name="workingHours" optionLabel="name" pTooltip="Horas semanales" filterBy="name"
+            <p-select class="ml-3" [options]="workingHourstype()" [formField]="$any(formData.workingHours)"
+                name="workingHours" optionLabel="name" pTooltip="Horas semanales" filterBy="name" dataKey="id"
                 placeholder="Seleccione las Horas semanales...">
             </p-select>
             <small [appErrorMessage]="$any(formData.workingHours)"></small>

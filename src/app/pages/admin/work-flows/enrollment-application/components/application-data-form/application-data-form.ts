@@ -1,12 +1,11 @@
 import { Component, computed, effect, inject, signal, WritableSignal } from '@angular/core';
 import { ApplicationData, CatalogInterface } from '../../enrollment-application.state';
 import { validateApplicationData } from '../../validators/application-data-form.validation';
-import { FieldTree, form } from '@angular/forms/signals';
+import { FieldTree, form, FormField } from '@angular/forms/signals';
 import { FormRegistryService } from '@utils/services/form-registry.service';
 import { EnrollmentAplicationStore } from '../../enrollment-application.store';
 import { TableModule } from "primeng/table";
 import { Select } from "primeng/select";
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LabelDirective } from "@utils/directives/label.directive";
 import { CustomIcons } from '@utils/icons/custom-icons';
 
@@ -14,7 +13,7 @@ const FORM_STATE_KEY = "application"
 
 @Component({
     selector: 'app-application-data-form',
-    imports: [TableModule, Select, FormsModule, ReactiveFormsModule, LabelDirective],
+    imports: [TableModule, Select, LabelDirective, FormField],
     templateUrl: './application-data-form.html',
 })
 export class ApplicationDataForm {

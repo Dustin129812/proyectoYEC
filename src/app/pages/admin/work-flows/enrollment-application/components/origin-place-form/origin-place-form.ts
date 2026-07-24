@@ -6,7 +6,6 @@ import {  LocationData, LocationInterface } from '../../enrollment-application.s
 import { validateOriginPlace } from '../../validators/validate-origin-place';
 import { Select } from "primeng/select";
 import { ErrorMessageDirective } from '@utils/directives/error-message.directive';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LabelDirective } from '@utils/directives/label.directive';
 import { InputText } from 'primeng/inputtext';
 import { MapCoords, MapComponent } from '../map/map';
@@ -16,7 +15,7 @@ const FORM_STATE_KEY = "originPlace"
 
 @Component({
     selector: 'app-origin-place-form',
-    imports: [FormField, Select, ErrorMessageDirective, Select, FormsModule, ReactiveFormsModule, LabelDirective, InputText, MapComponent],
+    imports: [FormField, Select, ErrorMessageDirective, Select, LabelDirective, InputText, MapComponent],
     templateUrl: './origin-place-form.html',
 })
 export class OriginPlaceForm {
@@ -133,5 +132,5 @@ export class OriginPlaceForm {
             longitude: coords.longitude
         }));
     }
-  
+
 }

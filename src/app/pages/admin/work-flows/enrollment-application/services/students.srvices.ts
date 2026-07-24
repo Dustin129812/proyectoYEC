@@ -24,7 +24,7 @@ import { EnrollmentApplicationMapper } from '../mappers/personal-data.mapper';
 })
 export class StudentsService {
     API_URL = `${environment.API_URL}/students`;
-  //  protected readonly careersService = inject(CareersService);
+    //  protected readonly careersService = inject(CareersService);
 
     constructor(
         // private coreService: CoreService,
@@ -32,7 +32,9 @@ export class StudentsService {
         //private messageService: MessageService,
     ) {
     }
-
+    getCurrentDraft(): Observable<HttpResponseInterface> {
+        return this.httpClient.get<HttpResponseInterface>(`${this.API_URL}/current-draft`);
+    }
     findAll(page: number = 0, search: string = ''): Observable<HttpResponseInterface> {
         const url = this.API_URL;
 
@@ -58,98 +60,98 @@ export class StudentsService {
         );
     }
 
-/*
-    reactivate(id: string): Observable<StudentModel> {
-        const url = `${this.API_URL}/${id}/reactivate`;
+    /*
+        reactivate(id: string): Observable<StudentModel> {
+            const url = `${this.API_URL}/${id}/reactivate`;
 
-        return this.httpClient.put<HttpResponseInterface>(url, null).pipe(
-            map((response) => {
-                this.messageService.success(response).then();
-                return response.data;
-            })
-        );
-    }
+            return this.httpClient.put<HttpResponseInterface>(url, null).pipe(
+                map((response) => {
+                    this.messageService.success(response).then();
+                    return response.data;
+                })
+            );
+        }
 
 
 
-    remove(id: string): Observable<StudentModel> {
+        remove(id: string): Observable<StudentModel> {
+            const url = `${this.API_URL}/${id}`;
+
+            return this.httpClient.delete<HttpResponseInterface>(url).pipe(
+                map((response) => {
+                    this.messageService.success(response).then();
+                    return response.data;
+                })
+            );
+        }
+
+        removeAll(users: StudentModel[]): Observable<StudentModel[]> {
+            const url = `${this.API_URL}/remove-all`;
+
+            return this.httpClient.patch<HttpResponseInterface>(url, users).pipe(
+                map((response) => {
+                    this.messageService.success(response).then();
+                    return response.data;
+                })
+            );
+        }
+
+        hide(id: string): Observable<StudentModel> {
+            const url = `${this.API_URL}/${id}/hide`;
+
+            return this.httpClient.patch<HttpResponseInterface>(url, null).pipe(
+                map((response) => {
+                    this.messageService.success(response).then();
+                    return response.data;
+                })
+            );
+        }
+    */
+
+    update(
+        id: string,
+        payload: PersonalInformationDto
+    ): Observable<StudentInterface> {
         const url = `${this.API_URL}/${id}`;
 
-        return this.httpClient.delete<HttpResponseInterface>(url).pipe(
-            map((response) => {
-                this.messageService.success(response).then();
-                return response.data;
-            })
+        return this.httpClient.put<HttpResponseInterface>(url, payload).pipe(
+            map(response => response.data)
+        );
+    }
+    updatePersonalInformation(id: string, payload: any): Observable<StudentInterface> {
+        const url = `${this.API_URL}/${id}/personal-information`;
+        return this.httpClient.patch<HttpResponseInterface>(url, payload).pipe(
+            map((response) => response.data),
+        );
+    }
+    updateOriginPlace(id: string, payload: any): Observable<StudentInterface> {
+        const url = `${this.API_URL}/${id}/origin-place`;
+        return this.httpClient.patch<HttpResponseInterface>(url, payload).pipe(
+            map((response) => response.data),
         );
     }
 
-    removeAll(users: StudentModel[]): Observable<StudentModel[]> {
-        const url = `${this.API_URL}/remove-all`;
-
-        return this.httpClient.patch<HttpResponseInterface>(url, users).pipe(
-            map((response) => {
-                this.messageService.success(response).then();
-                return response.data;
-            })
+    updateResidencePlace(id: string, payload: any): Observable<StudentInterface> {
+        const url = `${this.API_URL}/${id}/residence-place`;
+        return this.httpClient.patch<HttpResponseInterface>(url, payload).pipe(
+            map((response) => response.data),
         );
     }
 
-    hide(id: string): Observable<StudentModel> {
-        const url = `${this.API_URL}/${id}/hide`;
 
-        return this.httpClient.patch<HttpResponseInterface>(url, null).pipe(
-            map((response) => {
-                this.messageService.success(response).then();
-                return response.data;
-            })
-        );
-    }
-*/
+    // Preguntar
+    /* updateCroquis(id: string, payload: UpdateStudentDto): Observable<StudentModel> {
+       const url = `${this.API_URL}/${id}/croquis`;
 
-update(
-  id: string,
-  payload: PersonalInformationDto
-): Observable<StudentInterface> {
-  const url = `${this.API_URL}/${id}`;
-
-  return this.httpClient.put<HttpResponseInterface>(url, payload).pipe(
-    map(response => response.data)
-  );
-}
-updatePersonalInformation(id: string, payload: any): Observable<StudentInterface> {
-    const url = `${this.API_URL}/${id}/personal-information`;
-    return this.httpClient.patch<HttpResponseInterface>(url, payload).pipe(
-        map((response) => response.data),
-    );
-}
-updateOriginPlace(id: string, payload: any): Observable<StudentInterface> {
-    const url = `${this.API_URL}/${id}/origin-place`;
-    return this.httpClient.patch<HttpResponseInterface>(url, payload).pipe(
-        map((response) => response.data),
-    );
-}
-
-updateResidencePlace(id: string, payload: any): Observable<StudentInterface> {
-    const url = `${this.API_URL}/${id}/residence-place`;
-    return this.httpClient.patch<HttpResponseInterface>(url, payload).pipe(
-        map((response) => response.data),
-    );
-}
-
-
-  // Preguntar
- /* updateCroquis(id: string, payload: UpdateStudentDto): Observable<StudentModel> {
-    const url = `${this.API_URL}/${id}/croquis`;
-
-    this.coreService.isProcessing = true;
-    return this.httpClient.patch<HttpResponseInterface>(url, payload).pipe(
-      map(response => {
-        this.coreService.isProcessing = false;
-        this.messageService.success(response).then();
-        return response.data;
-      })
-    );
-  }*/
+       this.coreService.isProcessing = true;
+       return this.httpClient.patch<HttpResponseInterface>(url, payload).pipe(
+         map(response => {
+           this.coreService.isProcessing = false;
+           this.messageService.success(response).then();
+           return response.data;
+         })
+       );
+     }*/
 
 
 }

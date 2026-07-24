@@ -10,13 +10,12 @@ import { AccordionModule } from 'primeng/accordion';
 import { LabelDirective } from '@utils/directives/label.directive';
 import { ErrorMessageDirective } from '@utils/directives/error-message.directive';
 import { Select } from 'primeng/select';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { validateUserData } from '../../validators/user-data-form.validation';
 import { DatePicker } from "primeng/datepicker";
 const FORM_STATE_KEY = 'userData'
 @Component({
     selector: 'app-user-data-form',
-    imports: [FormField, InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select, FormsModule, ReactiveFormsModule, DatePicker],
+    imports: [FormField, InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select, DatePicker],
     templateUrl: './user-data-form.html',
 })
 export class UserDataForm {
@@ -29,12 +28,12 @@ export class UserDataForm {
 
     protected readonly formData: FieldTree<UserData> = this.buildForm();
 
-    protected identificationTypes: WritableSignal<CatalogInterface[]> =signal([])
-    protected maritalStatuses: WritableSignal<CatalogInterface[]> =signal([])
-    protected genders: WritableSignal<CatalogInterface[]> =signal([])
-    protected sexes: WritableSignal<CatalogInterface[]> =signal([])
-    protected ethnicOrigins: WritableSignal<CatalogInterface[]> =signal([])
-    protected nationalities: WritableSignal<CatalogInterface[]> =signal([])
+    protected identificationTypes: WritableSignal<CatalogInterface[]> = signal([])
+    protected maritalStatuses: WritableSignal<CatalogInterface[]> = signal([])
+    protected genders: WritableSignal<CatalogInterface[]> = signal([])
+    protected sexes: WritableSignal<CatalogInterface[]> = signal([])
+    protected ethnicOrigins: WritableSignal<CatalogInterface[]> = signal([])
+    protected nationalities: WritableSignal<CatalogInterface[]> = signal([])
     constructor() {
         effect(() => {
             this.enrollmentApplicationStore.updateSection(FORM_STATE_KEY, this.form$());
@@ -97,7 +96,7 @@ export class UserDataForm {
     ngOnDestroy(): void {
         this.formRegistryService.unregister(FORM_STATE_KEY);
     }
-    private buildForm(): FieldTree<UserData>{
+    private buildForm(): FieldTree<UserData> {
         return form(this.form$, (schema) => {
             validateUserData(schema);
         });

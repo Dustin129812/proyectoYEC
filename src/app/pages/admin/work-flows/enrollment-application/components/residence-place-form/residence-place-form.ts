@@ -1,5 +1,5 @@
-import { Component, computed, effect, inject, signal, untracked, WritableSignal } from '@angular/core';
-import { CatalogInterface, LocationData, LocationInterface } from '../../enrollment-application.state';
+import { Component, computed, effect, inject, signal, WritableSignal } from '@angular/core';
+import { LocationData, LocationInterface } from '../../enrollment-application.state';
 import { FormRegistryService } from '@utils/services/form-registry.service';
 import { EnrollmentAplicationStore } from '../../enrollment-application.store';
 import { FieldTree, form, FormField } from '@angular/forms/signals';
@@ -7,7 +7,6 @@ import { validateOriginPlace } from '../../validators/validate-origin-place';
 import { MapComponent, MapCoords } from '../map/map';
 import { Select } from 'primeng/select';
 import { ErrorMessageDirective } from '@utils/directives/error-message.directive';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LabelDirective } from '@utils/directives/label.directive';
 import { InputText } from 'primeng/inputtext';
 
@@ -15,7 +14,7 @@ import { InputText } from 'primeng/inputtext';
 const FORM_STATE_KEY = "residencePlace"
 @Component({
     selector: 'app-residence-place-form',
-    imports: [FormField, Select, ErrorMessageDirective, FormsModule, ReactiveFormsModule, LabelDirective,InputText, MapComponent],
+    imports: [FormField, Select, ErrorMessageDirective, LabelDirective,InputText, MapComponent],
     templateUrl: './residence-place-form.html',
 })
 export class ResidencePlaceForm {
@@ -49,7 +48,7 @@ private readonly formRegistryService = inject(FormRegistryService);
 
         this.countries.set([
             { id: '1', parentId: '', code: 'ECU', name: 'Ecuador', alpha3Code: 'ECU', level: 1, latitude: -0.1807, longitude: -78.4678 }
-            
+
         ]);
 
         this.allProvinces.set([

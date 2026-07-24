@@ -12,13 +12,12 @@ import { AccordionModule } from 'primeng/accordion';
 import { LabelDirective } from "@utils/directives/label.directive";
 import { ErrorMessageDirective } from "@utils/directives/error-message.directive";
 import { Select } from "primeng/select";
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
 const FORM_STATE_KEY = "personalData"
 
 @Component({
     selector: 'app-personal-data-form',
-    imports: [FormField, Checkbox, DatePickerModule, InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select, FormsModule, ReactiveFormsModule],
+    imports: [FormField, Checkbox, DatePickerModule, InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select],
     templateUrl: './personal-data-form.html',
 })
 export class PersonalDataForm {

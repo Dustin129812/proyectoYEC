@@ -2,38 +2,38 @@
 
     <div class="custom-form-field md:col-span-6">
         <label appLabel for="career" label="Carrera" [field]="formData.career"></label>
-        <p-select class="ml-3" [options]="careers()" [(ngModel)]="formData.career().value" name="career"
-            (onChange)="onCurriculumChange($event)" optionLabel="name" pTooltip="Carreras" filterBy="name"
+        <p-select class="ml-3" [options]="careers()" [formField]="$any(formData.career)" name="career"
+            (onChange)="onCurriculumChange($event)" optionLabel="name" pTooltip="Carreras" filterBy="name" dataKey="id"
             placeholder="Seleccione una carrera...">
         </p-select>
 
     </div>
     <div class="custom-form-field md:col-span-6">
         <label appLabel for="schoolPeriod" label="Malla" [field]="formData.schoolPeriod"></label>
-        <p-select [options]="curriculums()" [(ngModel)]="formData.schoolPeriod().value" name="schoolPeriod"
-            optionLabel="name" pTooltip="Mallas Curriculares" [filter]="true" filterBy="name"
+        <p-select [options]="curriculums()" [formField]="$any(formData.schoolPeriod)" name="schoolPeriod"
+            optionLabel="name" pTooltip="Mallas Curriculares" [filter]="true" filterBy="name" dataKey="id"
             placeholder="Seleccione una malla curricular...">
         </p-select>
 
     </div>
     <div class="custom-form-field md:col-span-6">
         <label appLabel for="academicPeriod" label="Periodo academico" [field]="formData.academicPeriod"></label>
-        <p-select [options]="academicPeriods()" [(ngModel)]="formData.academicPeriod().value" name="academicPeriod"
-            optionLabel="name" pTooltip="Semestre" filterBy="name" placeholder="Seleccione un semestre...">
+        <p-select [options]="academicPeriods()" [formField]="$any(formData.academicPeriod)" name="academicPeriod"
+            optionLabel="name" pTooltip="Semestre" filterBy="name" dataKey="id" placeholder="Seleccione un semestre...">
         </p-select>
         <!-- [ngModelOptions]="{standalone: true}" se puede cambiar por name   cambiar por name y probar -->
     </div>
     <div class="custom-form-field md:col-span-6">
         <label appLabel for="workday" label="Horario" [field]="formData.workday"></label>
-        <p-select [options]="workdays()" [(ngModel)]="formData.workday().value" name="workday" optionLabel="name"
-            pTooltip="Horario" filterBy="name" [filter]="true" placeholder="Seleccione un horario...">
+        <p-select [options]="workdays()" [formField]="$any(formData.workday)" name="workday" optionLabel="name"
+            pTooltip="Horario" filterBy="name" dataKey="id" [filter]="true" placeholder="Seleccione un horario...">
         </p-select>
 
     </div>
     <div class="custom-form-field md:col-span-6">
         <label appLabel for="parallel" label="Paralelo" [field]="formData.parallel"></label>
-        <p-select [options]="parallels()" [(ngModel)]="formData.parallel().value" name="parallel" optionLabel="name"
-            pTooltip="Paralelo" filterBy="name" [filter]="true" placeholder="Seleccione un paralelo...">
+        <p-select [options]="parallels()" [formField]="$any(formData.parallel)" name="parallel" optionLabel="name"
+            pTooltip="Paralelo" filterBy="name" dataKey="id" [filter]="true" placeholder="Seleccione un paralelo...">
         </p-select>
 
     </div>

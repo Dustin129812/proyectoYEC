@@ -8,8 +8,8 @@
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="identificationType" label="Tipo de Identificación"
                 [field]="formData.identificationType"></label>
-            <p-select class="ml-3" [options]="identificationTypes()" [(ngModel)]="formData.identificationType().value"
-                name="identificationTaype" optionLabel="name" pTooltip="Tipo de Identificación" filterBy="name"
+            <p-select class="ml-3" [options]="identificationTypes()" [formField]="$any(formData.identificationType)"
+                name="identificationTaype" optionLabel="name" pTooltip="Tipo de Identificación" filterBy="name" dataKey="id"
                 placeholder="Seleccione Tipo de Identificación...">
             </p-select>
             <small [appErrorMessage]="$any(formData.identificationType)"></small>
@@ -35,15 +35,15 @@
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="birthdate" label="Fecha de Nacimiento" [field]="formData.birthdate"></label>
-            <p-datepicker [(ngModel)]="formData.birthdate().value" [iconDisplay]="'input'" [showIcon]="true"
+            <p-datepicker [formField]="$any(formData.birthdate)" [iconDisplay]="'input'" [showIcon]="true"
                 inputId="bithdate" name="birthday" dataType="string" dateFormat="yy-mm-dd" />
             <small [appErrorMessage]="$any(formData.birthdate)"></small>
         </div>
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="maritalStatus" label="Estado Civil" [field]="formData.maritalStatus"></label>
-            <p-select class="ml-3" [options]="maritalStatuses()" [(ngModel)]="formData.maritalStatus().value"
-                name="maritalStatus" optionLabel="name" pTooltip="Estado Civil" filterBy="name"
+            <p-select class="ml-3" [options]="maritalStatuses()" [formField]="$any(formData.maritalStatus)"
+                name="maritalStatus" optionLabel="name" pTooltip="Estado Civil" filterBy="name" dataKey="id"
                 placeholder="Seleccione Estado Civil...">
             </p-select>
             <small [appErrorMessage]="$any(formData.maritalStatus)"></small>
@@ -51,24 +51,24 @@
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="gender" label="Género" [field]="formData.gender"></label>
-            <p-select class="ml-3" [options]="genders()" [(ngModel)]="formData.gender().value" name="gender"
-                optionLabel="name" pTooltip="Género" filterBy="name" placeholder="Seleccione Género...">
+            <p-select class="ml-3" [options]="genders()" [formField]="$any(formData.gender)" name="gender"
+                optionLabel="name" pTooltip="Género" filterBy="name" dataKey="id" placeholder="Seleccione Género...">
             </p-select>
             <small [appErrorMessage]="$any(formData.gender)"></small>
         </div>
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="sex" label="Sexo" [field]="formData.sex"></label>
-            <p-select class="ml-3" [options]="sexes()" [(ngModel)]="formData.sex().value" name="sex" optionLabel="name"
-                pTooltip="Sexo" filterBy="name" placeholder="Seleccione Sexo...">
+            <p-select class="ml-3" [options]="sexes()" [formField]="$any(formData.sex)" name="sex" optionLabel="name"
+                pTooltip="Sexo" filterBy="name" dataKey="id" placeholder="Seleccione Sexo...">
             </p-select>
             <small [appErrorMessage]="$any(formData.sex)"></small>
         </div>
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="ethnicOrigin" label="Origen Étnico" [field]="formData.ethnicOrigin"></label>
-            <p-select class="ml-3" [options]="ethnicOrigins()" [(ngModel)]="formData.ethnicOrigin().value"
-                name="ethnicOrigin" optionLabel="name" pTooltip="Origen Étnico" filterBy="name"
+            <p-select class="ml-3" [options]="ethnicOrigins()" [formField]="$any(formData.ethnicOrigin)"
+                name="ethnicOrigin" optionLabel="name" pTooltip="Origen Étnico" filterBy="name" dataKey="id"
                 placeholder="Seleccione Origen Étnico...">
             </p-select>
             <small [appErrorMessage]="$any(formData.ethnicOrigin)"></small>
@@ -76,8 +76,8 @@
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="nationality" label="Nacionalidad" [field]="formData.nationality"></label>
-            <p-select class="ml-3" [options]="nationalities()" [(ngModel)]="formData.nationality().value"
-                name="nationality" optionLabel="name" pTooltip="Nacionalidad" filterBy="name"
+            <p-select class="ml-3" [options]="nationalities()" [formField]="$any(formData.nationality)"
+                name="nationality" optionLabel="name" pTooltip="Nacionalidad" filterBy="name" dataKey="id"
                 placeholder="Seleccione Nacionalidad...">
             </p-select>
             <small [appErrorMessage]="$any(formData.nationality)"></small>
