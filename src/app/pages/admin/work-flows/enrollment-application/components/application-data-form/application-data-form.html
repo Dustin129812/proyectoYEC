@@ -10,7 +10,7 @@
     </div>
     <div class="custom-form-field md:col-span-6">
         <label appLabel for="schoolPeriod" label="Malla" [field]="formData.schoolPeriod"></label>
-        <p-select [options]="curriculums()" [formField]="$any(formData.schoolPeriod)" name="schoolPeriod"
+        <p-select [options]="schoolPeriods()" [formField]="$any(formData.schoolPeriod)" name="schoolPeriod"
             optionLabel="name" pTooltip="Mallas Curriculares" [filter]="true" filterBy="name" dataKey="id"
             placeholder="Seleccione una malla curricular...">
         </p-select>

@@ -1,5 +1,5 @@
 import { Component, computed, effect, inject, signal, WritableSignal } from '@angular/core';
-import { ApplicationData, CatalogInterface } from '../../enrollment-application.state';
+import { ApplicationData, Career } from '../../enrollment-application.state';
 import { validateApplicationData } from '../../validators/application-data-form.validation';
 import { FieldTree, form, FormField } from '@angular/forms/signals';
 import { FormRegistryService } from '@utils/services/form-registry.service';
@@ -8,6 +8,9 @@ import { TableModule } from "primeng/table";
 import { Select } from "primeng/select";
 import { LabelDirective } from "@utils/directives/label.directive";
 import { CustomIcons } from '@utils/icons/custom-icons';
+import { CatalogueInterface } from '@utils/interfaces';
+import { CatalogueService } from '@utils/services';
+import { CatalogueTypeEnum } from '@utils/enums';
 
 const FORM_STATE_KEY = "application"
 
@@ -19,21 +22,22 @@ const FORM_STATE_KEY = "application"
 export class ApplicationDataForm {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
+    protected readonly catalogueService = inject(CatalogueService);
 
     protected readonly CustomIcons = CustomIcons;
 
 
-    protected academicPeriods: WritableSignal<CatalogInterface[]> = signal([]);
-    protected careers: WritableSignal<CatalogInterface[]> = signal([]);
-    protected curriculums: WritableSignal<CatalogInterface[]> = signal([]);
-    protected items: WritableSignal<CatalogInterface[]> = signal([]);
+    protected academicPeriods: WritableSignal<CatalogueInterface[]> = signal([]);
+    protected careers: WritableSignal<Career[]> = signal([]);
+    protected schoolPeriods: WritableSignal<CatalogueInterface[]> = signal([]);
+    protected items: WritableSignal<CatalogueInterface[]> = signal([]);
     protected selectedItems = signal<any[] | null>(null);
     protected careerParallels: {
         academicPeriodId: string;
         workday: { id: string, name: string };
         parallel: { id: string, name: string };
     }[] = [];
-    //todas las variables protected o privade
+    //todas las variables protected o private
 
     protected selectedCurriculum = signal<any>(null);
 
@@ -112,28 +116,7 @@ export class ApplicationDataForm {
         //cargar los datos reales desde los servicios
         const data = this.enrollmentApplicationStore.application();
         this.selectedItems.set(data.enrollmentDetails?.length ? [...data.enrollmentDetails] : null);
-        this.academicPeriods.set([
-            { id: '1', parentId: '', code: 'PER-2026-1', name: 'Primer Periodo Académico 2026', required: true, sort: 1, type: 'ACADEMIC_PERIOD', isVisible: true },
-            { id: '2', parentId: '', code: 'PER-2026-2', name: 'Segundo Periodo Académico 2026', required: true, sort: 2, type: 'ACADEMIC_PERIOD', isVisible: true }
-        ]);
-
-        this.careers.set([
-            { id: 'c1', parentId: '', code: 'SFW', name: 'Ingeniería en Software', required: true, sort: 1, type: 'CAREER', isVisible: true },
-            { id: 'c2', parentId: '', code: 'IND', name: 'Ingeniería Industrial', required: true, sort: 2, type: 'CAREER', isVisible: true },
-            { id: 'c3', parentId: '', code: 'ADM', name: 'Administración de Empresas', required: true, sort: 3, type: 'CAREER', isVisible: true }
-        ]);
-
-        this.curriculums.set([
-            { id: 'm1', parentId: 'c1', code: 'M-SFW-2022', name: 'Malla Rediseño Software 2022', required: true, sort: 1, type: 'CURRICULUM', isVisible: true },
-            { id: 'm2', parentId: 'c2', code: 'M-IND-2020', name: 'Malla Ajuste Industrial 2020', required: true, sort: 2, type: 'CURRICULUM', isVisible: true }
-        ]);
-
-        this.items.set([
-            { id: 's1', parentId: 'm1', code: 'PROG-I', name: 'Programación Orientada a Objetos', required: true, sort: 1, type: 'SUBJECT', isVisible: true },
-            { id: 's2', parentId: 'm1', code: 'BD-I', name: 'Bases de Datos Relacionales', required: true, sort: 2, type: 'SUBJECT', isVisible: true },
-            { id: 's3', parentId: 'm2', code: 'IND-PROC', name: 'Gestión de Procesos', required: true, sort: 3, type: 'SUBJECT', isVisible: true }
-        ]);
-
+        this.loadAllCatalogues()
         this.careerParallels = [
             {
                 academicPeriodId: '1',
@@ -185,6 +168,23 @@ export class ApplicationDataForm {
 
     previous() {
         this.enrollmentApplicationStore.setStep(1);
+    }
+    private loadAllCatalogues(): void {
+        this.academicPeriods.set(
+            this.catalogueService.findByType(CatalogueTypeEnum.users_academic_period)
+        );
+        this.careers.set([
+            { name: 'Desarrollo de Software', id: '1' },
+            { name: 'Redes y Telecomunicaciones', id: '2' },
+            { name: 'Diseño Gráfico', id: '3' },
+            { name: 'Marketing Digital', id: '4' }
+        ])
+        this.schoolPeriods.set(
+            this.catalogueService.findByType(CatalogueTypeEnum.users_school_period)
+        );
+        this.items.set(
+            this.catalogueService.findByType(CatalogueTypeEnum.users_subject)
+        );
     }
 
 }

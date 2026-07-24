@@ -117,7 +117,14 @@ export class EnrollmentAplicationStore {
                 sex: serverData.studentInfo?.sex,
             });
         }
-
+        if (serverData.location) {
+            if (serverData.location.origin) {
+                this.updateSection('originPlace', serverData.location.origin);
+            }
+            if (serverData.location.residence) {
+                this.updateSection('residencePlace', serverData.location.residence);
+            }
+        }
         // 2. Mapear datos de matrícula (Paso 2) y determinar el estado
         if (serverData.enrollment) {
             this.updateSection('application', {

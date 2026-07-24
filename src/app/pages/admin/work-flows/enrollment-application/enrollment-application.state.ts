@@ -1,3 +1,5 @@
+import { CatalogueInterface } from "@utils/interfaces";
+
 //Interfaces
 export interface EnrollmentApplicationState {
     userData: UserData,
@@ -15,45 +17,45 @@ export interface UserDataDto {
     birthdate: string;
     cellPhone: string;
     email: string;
-    ethnicOriginId: CatalogInterface;
-    genderId: CatalogInterface;
+    ethnicOriginId: CatalogueInterface;
+    genderId: CatalogueInterface;
     identification: string;
-    identificationTypeId: CatalogInterface;
+    identificationTypeId: CatalogueInterface;
     lastname: string;
-    maritalStatusId: CatalogInterface;
+    maritalStatusId: CatalogueInterface;
     name: string;
-    nationalityId: CatalogInterface;
+    nationalityId: CatalogueInterface;
     personalEmail: string;
     phone: string;
-    sexId: CatalogInterface;
+    sexId: CatalogueInterface;
 }
 export interface PersonalDataDto {
-    career: Career,
-    semesterId: CatalogInterface,
-    contactEmergencyKinshipId: CatalogInterface,
+    career?: Career,
+    semesterId?: CatalogueInterface,
+    contactEmergencyKinshipId: CatalogueInterface,
     contactEmergencyName: string,
     contactEmergencyPhone: string,
     isDisability: boolean,
-    disabilityPercentage: string,
-    disabilityTypeId: CatalogInterface,
+    disabilityPercentage?: string,
+    disabilityTypeId?: CatalogueInterface,
     isAncestralLanguage: boolean,
-    ancestralLanguageNameId: CatalogInterface,
+    ancestralLanguageNameId?: CatalogueInterface,
     isCatastrophicIllness: boolean,
-    catastrophicIllness: string,
+    catastrophicIllness?: string,
     isForeignLanguage: boolean,
-    foreignLanguageNameId: CatalogInterface,
+    foreignLanguageNameId?: CatalogueInterface,
     isHasChildren: boolean,
-    childrenTotal: string,
+    childrenTotal?: string,
     isHouseHead: boolean,
     isPrivateSecurity: boolean,
     isSocialSecurity: boolean,
     isWork: boolean,
-    monthlySalaryId: CatalogInterface,
-    workAddress: string,
-    workingHoursId: CatalogInterface,
-    workPosition: string,
-    town: CatalogInterface,
-    indigenousNationalityId: CatalogInterface,
+    monthlySalaryId?: CatalogueInterface,
+    workAddress?: string,
+    workingHoursId?: CatalogueInterface,
+    workPosition?: string,
+    town: CatalogueInterface,
+    indigenousNationalityId: CatalogueInterface,
 }
 export interface LocationDto {
     locationData: LocationData,
@@ -74,31 +76,31 @@ export interface LocationDataDto {
 
 export interface PersonalData {
     career: Career | null,
-    semester: Semester | null,
-    contactEmergencyKinship: CatalogInterface | null,
+    semester: CatalogueInterface | null,
+    contactEmergencyKinship: CatalogueInterface | null,
     contactEmergencyName: string,
     contactEmergencyPhone: string,
     isDisability: boolean,
     disabilityPercentage: string,
-    disabilityType: CatalogInterface | null,
+    disabilityType: CatalogueInterface | null,
     isAncestralLanguage: boolean,
-    ancestralLanguageName: CatalogInterface | null,
+    ancestralLanguageName: CatalogueInterface | null,
     isCatastrophicIllness: boolean,
     catastrophicIllness: string,
     isForeignLanguage: boolean,
-    foreignLanguageName: CatalogInterface | null,
+    foreignLanguageName: CatalogueInterface | null,
     isHasChildren: boolean,
     childrenTotal: string,
     isHouseHead: boolean,
     isPrivateSecurity: boolean,
     isSocialSecurity: boolean,
     isWork: boolean,
-    monthlySalary: CatalogInterface | null,
+    monthlySalary: CatalogueInterface | null,
     workAddress: string,
-    workingHours: CatalogInterface | null,
+    workingHours: CatalogueInterface | null,
     workPosition: string,
-    town: CatalogInterface | null,
-    indigenousNationality: CatalogInterface | null,
+    town: CatalogueInterface | null,
+    indigenousNationality: CatalogueInterface | null,
 }
 
 export interface LocationInterface {
@@ -139,7 +141,7 @@ export interface FileData {
     extension: string;
     directory: string;
     originalName: string;
-    type: CatalogInterface | null;
+    type: CatalogueInterface | null;
 }
 
 export interface ApplicationData {
@@ -152,10 +154,6 @@ export interface ApplicationData {
     workday: Workday | null,
 }
 export interface Career {
-    id: string,
-    name: string,
-}
-export interface Semester {
     id: string,
     name: string,
 }
@@ -188,29 +186,18 @@ export interface UserData {
     birthdate: string;
     cellPhone: string;
     email: string;
-    ethnicOrigin: CatalogInterface | null;
-    gender: CatalogInterface | null;
+    ethnicOrigin: CatalogueInterface | null;
+    gender: CatalogueInterface | null;
     identification: string;
-    identificationType: CatalogInterface | null;
+    identificationType: CatalogueInterface | null;
     lastname: string;
-    maritalStatus: CatalogInterface | null;
+    maritalStatus: CatalogueInterface | null;
     name: string;
-    nationality: CatalogInterface | null;
+    nationality: CatalogueInterface | null;
     personalEmail: string;
     phone: string;
-    sex: CatalogInterface | null;
+    sex: CatalogueInterface | null;
 }
-export interface CatalogInterface {
-    id: string;
-    parentId: string;
-    code: string;
-    name: string;
-    required: boolean;
-    sort: number;
-    type: string;
-    isVisible: boolean;
-}
-
 export interface StudentInterface {
     id: string;
     createAt: string;
@@ -244,17 +231,6 @@ const initialStudent: StudentInterface = {
     user: null
 
 }
-
-const initialCatalogue: CatalogInterface = {
-    id: '',
-    parentId: '',
-    code: '',
-    name: '',
-    required: false,
-    sort: 0,
-    type: '',
-    isVisible: false,
-};
 
 const initialLocation: LocationInterface = {
     id: '',

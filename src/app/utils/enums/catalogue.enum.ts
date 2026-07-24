@@ -49,7 +49,19 @@ export enum CatalogueTypeEnum {
     processes_driver_license = 'processes_driver_license',
     process_guides_professional_type = 'process_guides_professional_type',
     external_inactivation_causes = 'external_inactivation_causes',
-    guide_inactivation_causes = 'guide_inactivation_causes'
+    guide_inactivation_causes = 'guide_inactivation_causes',
+    //enum faltate para personal-data-form y application-data-form
+    users_working_hours_type = 'users_working_hours_type',
+    users_monthly_salary = 'users_monthly_salary',
+    users_foreign_language_name = 'users_foreign_language_name',
+    users_ancestral_language_name = 'users_ancestral_language_name',
+    users_indigenous_nationality = 'users_indigenous_nationality',
+    users_town = 'users_town',
+    users_disability_type = 'users_disability_type',
+    users_contact_emergency_kinship = 'users_contact_emergency_kinship',
+    users_academic_period = 'users_academic_period',
+    users_school_period = 'users_school_period',
+    users_subject = 'users_subject',
 }
 
 export enum CatalogueStateEnum {
