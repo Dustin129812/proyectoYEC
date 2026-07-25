@@ -1,21 +1,15 @@
-import { inject, Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { environment } from '@env/environment';
+import {environment} from '@env/environment';
 
-import { AuthInterface } from '@modules/auth/interfaces/auth.interface';
-import { RoleInterface } from '@modules/auth/interfaces/role.interface';
-import { Router } from '@angular/router';
-import { CustomMessageService } from '@utils/services/custom-message.service';
-import { CoreService } from '@utils/services/core.service';
+import {AuthInterface} from '@modules/auth/interfaces/auth.interface';
+import {RoleInterface} from '@modules/auth/interfaces/role.interface';
+import {CatalogueInterface} from "@utils/interfaces";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    private readonly coreService = inject(CoreService);
-    private readonly router = inject(Router);
-    private readonly customMessageService = inject(CustomMessageService);
-
     get accessToken(): string | null {
         let accessToken = sessionStorage.getItem('accessToken');
 
@@ -95,5 +89,9 @@ export class AuthService {
     removeLogin() {
         sessionStorage.clear();
         localStorage.clear();
+    }
+
+    set securityQuestions(value: CatalogueInterface[]) {
+        sessionStorage.setItem('security', JSON.stringify(value));
     }
 }

@@ -1,94 +1,43 @@
-import { inject, Injectable } from '@angular/core';
-import { HttpResponseInterface, PasswordChangedInterface, SignInInterface, UserInterface } from './interfaces';
-import { environment } from '@env/environment';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { concatMap, map, switchMap, tap } from 'rxjs/operators';
-import { AuthService } from '@modules/auth/auth.service';
-import { SignInResponseInterface } from '@modules/auth/interfaces';
-import { from, Observable, of } from 'rxjs';
-import { CatalogueHttpService, CoreSessionStorageService, DpaHttpService } from '@utils/services';
-import { CoreEnum } from '@utils/enums';
-import { Router } from '@angular/router';
-import { MY_ROUTES } from '@routes';
-import { CatalogueInterface } from '@utils/interfaces';
-import { ActivityHttpService } from '@/pages/core/shared/services';
+import {inject, Injectable} from '@angular/core';
+import {HttpResponseInterface, PasswordChangedInterface, SignInInterface, UserInterface} from './interfaces';
+import {environment} from '@env/environment';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {concatMap, map, switchMap, tap} from 'rxjs/operators';
+import {AuthService} from '@modules/auth/auth.service';
+import {SignInResponseInterface} from '@modules/auth/interfaces';
+import {from, Observable, of} from 'rxjs';
+import {CatalogueHttpService, CatalogueService, DpaHttpService} from '@utils/services';
+import {CoreEnum} from '@utils/enums';
+import {Router} from '@angular/router';
+import {MY_ROUTES} from '@routes';
+import {CatalogueInterface} from '@utils/interfaces';
+import {DpaService} from "@utils/services/dpa.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthHttpService {
     protected readonly catalogueHttpService = inject(CatalogueHttpService);
+    protected readonly catalogueService = inject(CatalogueService);
+    protected readonly dpaService = inject(DpaService);
     private readonly authService = inject(AuthService);
     private readonly httpClient = inject(HttpClient);
     private readonly apiUrl = `${environment.API_URL}/auth`;
     private readonly dpaHttpService = inject(DpaHttpService);
     private readonly router = inject(Router);
-    private readonly activityHttpService = inject(ActivityHttpService);
-    private readonly coreSessionStorageService = inject(CoreSessionStorageService);
 
     refreshToken() {
         const url = `${this.apiUrl}/refresh-token`;
 
-        const headers = new HttpHeaders({ Authorization: this.authService.refreshToken! });
+        const headers = new HttpHeaders({Authorization: this.authService.refreshToken!});
 
-        return this.httpClient.post<SignInResponseInterface>(url, null, { headers }).pipe(
+        return this.httpClient.post<SignInResponseInterface>(url, null, {headers}).pipe(
             map((response) => {
                 return response.data;
             })
         );
     }
 
-    signIn(payload: SignInInterface) {
-        const url = `${this.apiUrl}/sign-in`;
-
-        return this.catalogueHttpService.findCache().pipe(
-            // 1. Guardar catálogos principales
-            concatMap((catalogues) => from(this.coreSessionStorageService.setEncryptedValue(CoreEnum.catalogues, catalogues))),
-
-            // 2. Obtener y guardar Model Catalogues (Agrupado)
-            switchMap(() => this.catalogueHttpService.findCacheModelCatalogues().pipe(concatMap((response) => from(this.coreSessionStorageService.setEncryptedValue(CoreEnum.modelCatalogues, response))))),
-
-            // 3. Obtener y guardar DPA (Agrupado)
-            switchMap(() => this.dpaHttpService.findCache().pipe(concatMap((dpa) => from(this.coreSessionStorageService.setEncryptedValue(CoreEnum.dpa, dpa))))),
-
-            // 4. Obtener y guardar Actividades, clasificaciones y categorías (Agrupado)
-            switchMap(() =>
-                this.activityHttpService
-                    .findCache()
-                    .pipe(
-                        concatMap((response) =>
-                            from(
-                                Promise.all([
-                                    this.coreSessionStorageService.setEncryptedValue(CoreEnum.activities, response.data.activities),
-                                    this.coreSessionStorageService.setEncryptedValue(CoreEnum.classifications, response.data.classifications),
-                                    this.coreSessionStorageService.setEncryptedValue(CoreEnum.categories, response.data.categories)
-                                ])
-                            )
-                        )
-                    )
-            ),
-
-            // 5. Petición HTTP final del Login
-            switchMap(() => this.httpClient.post<SignInResponseInterface>(url, payload)),
-
-            // 6. Asignación de variables de sesión
-            tap((response: SignInResponseInterface) => {
-                const { data } = response;
-
-                this.authService.accessToken = data.accessToken;
-                this.authService.refreshToken = data.refreshToken;
-                this.authService.auth = data.auth;
-                this.authService.roles = data.roles;
-
-                if (data.roles.length === 1) {
-                    this.authService.role = data.roles[0];
-                }
-            }),
-
-            // 7. Retorno de la data final
-            map((response: SignInResponseInterface) => response.data)
-        );
-    }
 
     signOut() {
         if (!this.authService.accessToken) {
@@ -172,7 +121,7 @@ export class AuthHttpService {
 
     verifyTransactionalCode(token: string, requester: string): Observable<HttpResponseInterface> {
         const url = `${this.apiUrl}/transactional-codes/${token}/verify`;
-        return this.httpClient.patch<HttpResponseInterface>(url, { requester }).pipe(
+        return this.httpClient.patch<HttpResponseInterface>(url, {requester}).pipe(
             map((response) => {
                 return response.data;
             })
@@ -204,7 +153,7 @@ export class AuthHttpService {
 
         const params = new HttpParams().append('userId', userId);
 
-        return this.httpClient.get<HttpResponseInterface>(url, { params }).pipe(
+        return this.httpClient.get<HttpResponseInterface>(url, {params}).pipe(
             map((response) => {
                 return response.data;
             })
@@ -221,15 +170,7 @@ export class AuthHttpService {
         );
     }
 
-    verifySecurityQuestionsAndResetEmail(userId: string, payload: any): Observable<HttpResponseInterface> {
-        const url = `${this.apiUrl}/${userId}/security-questions/verify`;
 
-        return this.httpClient.patch<HttpResponseInterface>(url, payload).pipe(
-            map((response) => {
-                return response.data;
-            })
-        );
-    }
 
     verifyRucPendingPayment(ruc: string) {
         const url = `${this.apiUrl}/verify-ruc-pending-payment/${ruc}`;
@@ -264,7 +205,7 @@ export class AuthHttpService {
     verifyEmail(token: string) {
         const url = `${this.apiUrl}/verify-email`;
 
-        return this.httpClient.post<HttpResponseInterface>(url, { token }).pipe(
+        return this.httpClient.post<HttpResponseInterface>(url, {token}).pipe(
             map((response) => {
                 return response.data;
             })
@@ -274,7 +215,7 @@ export class AuthHttpService {
     requestVerifyEmail(username: string) {
         const url = `${this.apiUrl}/request-verify-email`;
 
-        return this.httpClient.post<HttpResponseInterface>(url, { username }).pipe(
+        return this.httpClient.post<HttpResponseInterface>(url, {username}).pipe(
             map((response) => {
                 return response.data;
             })
@@ -294,9 +235,9 @@ export class AuthHttpService {
     acceptTermsConditions(termsAcceptedAt: boolean) {
         const url = `${this.apiUrl}/terms-conditions/accept`;
 
-        return this.httpClient.patch<HttpResponseInterface>(url, { termsAcceptedAt }).pipe(
+        return this.httpClient.patch<HttpResponseInterface>(url, {termsAcceptedAt}).pipe(
             map((response) => {
-                this.authService.auth = { ...this.authService.auth, termsAcceptedAt: new Date() };
+                this.authService.auth = {...this.authService.auth, termsAcceptedAt: new Date()};
                 return response.data;
             })
         );

@@ -12,6 +12,14 @@ export class CatalogueService {
         return catalogues ? JSON.parse(catalogues) as CatalogueInterface[] : [];
     }
 
+    setCatalogues(value: CatalogueInterface[]): void {
+        sessionStorage.setItem(CoreEnum.catalogues, JSON.stringify(value));
+    }
+
+    setModelCatalogues(value: ModelCatalogueInterface[]): void {
+        sessionStorage.setItem(CoreEnum.modelCatalogues, JSON.stringify(value));
+    }
+
     private getModelCatalogues(): ModelCatalogueInterface[] {
         const modelCatalogues = sessionStorage.getItem(CoreEnum.modelCatalogues);
 

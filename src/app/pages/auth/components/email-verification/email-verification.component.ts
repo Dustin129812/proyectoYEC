@@ -1,21 +1,21 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnInit, signal } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { NgClass } from '@angular/common';
-import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnInit, signal} from '@angular/core';
+import {Router, RouterModule} from '@angular/router';
+import {NgClass} from '@angular/common';
+import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 
 // PrimeNG & UI
-import { ButtonModule } from 'primeng/button';
-import { Dialog } from 'primeng/dialog';
-import { InputText } from 'primeng/inputtext';
+import {ButtonModule} from 'primeng/button';
+import {Dialog} from 'primeng/dialog';
+import {InputText} from 'primeng/inputtext';
 
 // Custom / Local
-import { environment } from '@env/environment';
-import { MY_ROUTES } from '@routes';
-import { FontAwesome } from '@modules/public/icons/font-awesome';
-import { AuthHttpService } from '@/pages/auth/auth-http.service';
-import { CustomMessageService } from '@utils/services';
-import { ErrorMessageDirective } from '@utils/directives/error-message.directive';
-import { LabelDirective } from '@utils/directives/label.directive';
+import {environment} from '@env/environment';
+import {MY_ROUTES} from '@routes';
+import {FontAwesome} from '@modules/public/icons/font-awesome';
+
+import {CustomMessageService} from '@utils/services';
+import {LabelDirective} from '@utils/directives/label.directive';
+import {AuthHttpService} from "@modules/auth/auth-http.service";
 
 // Tipos para el estado de la UI
 type VerificationStatus = 'LOADING' | 'SUCCESS' | 'INVALID' | 'USED' | 'EXPIRED' | 'ACCOUNT_VERIFIED';
@@ -32,7 +32,7 @@ interface UIState {
     selector: 'app-email-verification',
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [RouterModule, ButtonModule, NgClass, Dialog, ErrorMessageDirective, LabelDirective, InputText, ReactiveFormsModule, FormsModule],
+    imports: [RouterModule, ButtonModule, NgClass, Dialog, LabelDirective, InputText, ReactiveFormsModule, FormsModule],
     templateUrl: './email-verification.component.html',
     styles: [
         `

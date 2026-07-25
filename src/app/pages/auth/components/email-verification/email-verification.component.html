@@ -86,7 +86,6 @@
                 <label
                     appLabel
                     for="transactionalCode"
-                    [required]="usernameControl"
                     label="Ingresa tu identificación para recibir un nuevo enlace"></label>
 
                 <input
@@ -95,10 +94,7 @@
                     type="email"
                     [formControl]="usernameControl" />
 
-                <small appErrorMessage
-                       [errors]="usernameControl.errors"
-                       [touched]="usernameControl.touched"
-                       [dirty]="usernameControl.dirty"></small>
+                <small></small>
             </div>
 
             <div class="custom-form-field md:col-span-12 mt-4">

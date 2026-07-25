@@ -5,7 +5,7 @@ import { environment } from '@env/environment';
 import { map } from 'rxjs/operators';
 
 import { Observable } from 'rxjs';
-import {HttpResponseInterface} from "@utils/interfaces";
+import {DpaInterface, HttpResponseInterface} from "@utils/interfaces";
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +14,7 @@ export class DpaHttpService {
     private readonly httpClient = inject(HttpClient);
     private readonly apiUrl = `${environment.API_URL}/common/dpa`;
 
-    findCache(): Observable<HttpResponseInterface> {
+    findCache(): Observable<DpaInterface[]> {
         const url = `${this.apiUrl}/cache`;
 
         return this.httpClient.get<HttpResponseInterface>(url).pipe(
