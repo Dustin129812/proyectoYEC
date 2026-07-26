@@ -19,17 +19,19 @@ export default [
         title: 'Icons',
         loadComponent: () => import('./icons/font-awesome-icons')
     },
-    {
-        path: MY_ROUTES.publicPages.passwordChanged.base,
-        title: 'Cambio de Contraseña',
-        loadComponent: () => import('@modules/auth/components/password-changed/password-changed.component'),
-        canActivate: [tokenGuard]
-    },
-
-    {
-        path: MY_ROUTES.publicPages.securityQuestions.base,
-        title: 'Preguntas de Seguridad',
-        loadComponent: () => import('@modules/auth/components/security-question/security-question.component'),
-        canActivate: [tokenGuard]
-    },
 ] as Routes;
+/*
+{
+    path: MY_ROUTES.publicPages.passwordChanged.base,
+        title: 'Cambio de Contraseña',
+    loadComponent: () => import('@modules/auth/components/password-changed/password-changed.component'),
+    canActivate: [tokenGuard]
+},
+
+{
+    path: MY_ROUTES.publicPages.securityQuestions.base,
+        title: 'Preguntas de Seguridad',
+    loadComponent: () => import('@modules/auth/components/security-question/security-question.component'),
+    canActivate: [tokenGuard]
+},
+*/

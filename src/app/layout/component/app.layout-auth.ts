@@ -63,7 +63,7 @@ import {CustomIcons} from "@utils/icons/custom-icons";
                 <div class="lg:col-span-3 p-6 lg:p-10 flex flex-col justify-center">
                     <!-- Logo / Header -->
                     <div class="flex justify-center">
-                        <img [src]="environment.APP_PATH_ASSETS + '/auth/images/logo.png'" alt="" class="mx-auto"/>
+                        <img [src]="environment.APP_PATH_ASSETS + '/logo.png'" alt="" class="mx-auto"/>
                     </div>
 
                     <!-- Contenido dinámico -->
@@ -87,26 +87,23 @@ import {CustomIcons} from "@utils/icons/custom-icons";
                             <p-message severity="info">
                                 <p>
                                     <i [class]="CustomIcons.TRIANGLE_EXCLAMATION_SOLID"></i>
-                                    <b>Importante:</b> Estimado Usuario, si su establecimiento se encuentra ubicado en
-                                    el cantón Quito, por favor acérquese a las oficinas de "Quito Turismo" para
-                                    solicitar su Certificado de Registro Turístico.
+                                    <b>Importante:</b> Estimado Usuario...
                                 </p>
                                 <p>
                                     <i [class]="CustomIcons.LOCATION_DOT_SOLID"></i>
                                     <b>Dirección:</b>
-                                    Parque Bicentenario, terminales del antiguo Aeropuerto de Quito.
+                                    XXXXXX.
                                 </p>
 
                                 <p>
                                     <i [class]="CustomIcons.PHONE_SOLID"></i>
                                     <b>Teléfono:</b>
-                                    (02) 2993 300 <b>extensiones</b> 1003, 1035 y 1068
+                                    XXXXXX
                                 </p>
 
                                 <p>
                                     <i [class]="CustomIcons.ENVELOPE_SOLID"></i>
-                                    <b>Correo electrónico:</b> <a href="mailto:info@quito-turismo.gob.ec"> info@quito
-                                    -turismo.gob.ec</a>
+                                    <b>Correo electrónico:</b> <a href="mailto:info@quito-turismo.gob.ec"> XXXX</a>
                                 </p>
                             </p-message>
                         </ng-content>
@@ -124,11 +121,10 @@ import {CustomIcons} from "@utils/icons/custom-icons";
                                                   (onClick)="goToSimulator()"/>
                                     </div>
                                     <div class="md:col-span-11 flex flex-col gap-2">
-                                        <h6 class="mb-5" style="color:var(--text-color-secondary)">Simulador de
-                                            Normativa</h6>
-                                        <small style="color:var(--text-color-secondary)">Permite validar si se cumple o
-                                            no con los requisitos para acceder a una clasificación y categoría
-                                            específica.</small>
+                                        <h6 class="mb-5" style="color:var(--text-color-secondary)">
+                                            Opcion 1
+                                        </h6>
+                                        <small style="color:var(--text-color-secondary)">Permite...</small>
                                     </div>
                                 </div>
                                 <p-divider/>
@@ -140,8 +136,9 @@ import {CustomIcons} from "@utils/icons/custom-icons";
                                                   (onClick)="downloadPDF('steps')"/>
                                     </div>
                                     <div class="md:col-span-11 flex flex-col gap-2">
-                                        <h6 class="mb-5" style="color:var(--text-color-secondary)">5 Pasos para obtener
-                                            un Registro de Turismo</h6>
+                                        <h6 class="mb-5" style="color:var(--text-color-secondary)">
+                                            Opción 2
+                                        </h6>
                                     </div>
                                 </div>
                                 <p-divider/>
@@ -153,8 +150,9 @@ import {CustomIcons} from "@utils/icons/custom-icons";
                                                   (onClick)="downloadPDF('manual')"/>
                                     </div>
                                     <div class="md:col-span-11 flex flex-col gap-2">
-                                        <h6 class="mb-5" style="color:var(--text-color-secondary)">Manual de
-                                            usuario</h6>
+                                        <h6 class="mb-5" style="color:var(--text-color-secondary)">
+                                            Opción 3
+                                        </h6>
                                     </div>
                                 </div>
                                 <p-divider/>
@@ -166,8 +164,9 @@ import {CustomIcons} from "@utils/icons/custom-icons";
                                                   (onClick)="downloadPDF('legal')"/>
                                     </div>
                                     <div class="md:col-span-11 flex flex-col gap-2">
-                                        <h6 class="mb-5" style="color:var(--text-color-secondary)">Términos Y
-                                            Condiciones</h6>
+                                        <h6 class="mb-5" style="color:var(--text-color-secondary)">
+                                            Términos Y Condiciones
+                                        </h6>
                                     </div>
                                 </div>
                             </div>

@@ -7,6 +7,7 @@ import {SignInResponseInterface} from '@modules/auth/interfaces';
 import {CatalogueHttpService, CatalogueService, DpaHttpService} from '@utils/services';
 import {DpaService} from "@utils/services/dpa.service";
 import {SignInData, SignInState} from "@modules/auth/components/sign-in/sign-in.state";
+import {forkJoin} from "rxjs";
 
 @Injectable(
     {providedIn: 'root'}
@@ -22,36 +23,24 @@ export class SignInService {
     private readonly dpaService = inject(DpaService);
 
     signIn(payload: SignInState) {
+        console.log('singin Service');
         const url = `${this.apiUrl}/auth/sign-in`;
 
-        return this.catalogueHttpService.findCache().pipe(
-            // 1. Guardar catálogos principales
-            concatMap((catalogues) => {
+        return forkJoin({
+            catalogues: this.catalogueHttpService.findCache(),
+            modelCatalogues: this.catalogueHttpService.findCacheModelCatalogues(),
+            dpa: this.dpaHttpService.findCache()
+        }).pipe(
+            tap(({ catalogues, modelCatalogues, dpa }) => {
                 this.catalogueService.setCatalogues(catalogues);
-                return catalogues;
+                this.catalogueService.setModelCatalogues(modelCatalogues);
+                this.dpaService.setDpa(dpa);
             }),
-
-            // 2. Obtener y guardar Model Catalogues (Agrupado)
-            switchMap(() => this.catalogueHttpService.findCacheModelCatalogues().pipe(
-                concatMap((response) => {
-                    this.catalogueService.setModelCatalogues(response);
-                    return response;
-                }))),
-
-            // 3. Obtener y guardar DPA (Agrupado)
-            switchMap(() => this.dpaHttpService.findCache().pipe(
-                concatMap((dpa) => {
-                    this.dpaService.setDpa(dpa);
-                    return dpa;
-                }))),
-
-            // 4. Petición HTTP final del Login
-            switchMap(() => this.httpClient.post<SignInResponseInterface>(url, payload.signInData)),
-
-            // 5. Asignación de variables de sesión
-            tap((response: SignInResponseInterface) => {
-                const {data} = response;
-
+            switchMap(() =>
+                this.httpClient.post<SignInResponseInterface>(url, payload.signInData)
+            ),
+            tap(response => {
+                const { data } = response;
                 this.authService.accessToken = data.accessToken;
                 this.authService.refreshToken = data.refreshToken;
                 this.authService.auth = data.auth;
@@ -61,9 +50,7 @@ export class SignInService {
                     this.authService.role = data.roles[0];
                 }
             }),
-
-            // 6. Retorno de la data final
-            map((response: SignInResponseInterface) => response.data)
+            map(response => response.data)
         );
     }
 

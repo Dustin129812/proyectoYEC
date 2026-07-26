@@ -15,6 +15,7 @@ export class CatalogueHttpService {
     private readonly _customMessageService = inject(CustomMessageService);
 
     findCache(): Observable<CatalogueInterface[]> {
+        console.log('findCache Catalogue');
         const url = `${this._apiUrl}/cache`;
 
         return this._httpClient.get<HttpResponseInterface>(url).pipe(
@@ -25,6 +26,7 @@ export class CatalogueHttpService {
     }
 
     findCacheModelCatalogues(): Observable<ModelCatalogueInterface[]> {
+        console.log('findCache Model Catalogue');
         const url = `${this._apiUrl}/model-catalogues/cache`;
 
         return this._httpClient.get<HttpResponseInterface>(url).pipe(

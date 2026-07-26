@@ -9,12 +9,12 @@
         <div class="custom-form-field md:col-span-12">
             <label
                 appLabel for="username"
-                label="Correo Electrónico"
+                label="Nombre de usuario"
                 [field]="formData.username"></label>
 
             <p-inputgroup>
                 <p-inputgroup-addon>
-                    <i [class]="CustomIcons.ENVELOPE_SOLID"></i>
+                    <i [class]="CustomIcons.USER_LOCK_SOLID"></i>
                 </p-inputgroup-addon>
 
                 <input
@@ -43,7 +43,7 @@
 
                 <p-password
                     id="password"
-                    [formField]="formData.password"
+                    [formField]="$any(formData.password)"
                     inputStyleClass="w-full"
                     [toggleMask]="true"
                     [feedback]="false"/>
@@ -51,10 +51,5 @@
 
             <small [appErrorMessage]="$any(formData.password)"></small>
         </div>
-
-        <!-- buttonActions -->
-
-
-
     </form>
 </div>

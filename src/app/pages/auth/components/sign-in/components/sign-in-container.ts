@@ -138,7 +138,7 @@ import {AuthHttpService} from "@modules/auth/auth-http.service";
             </p-dialog>
         `
 })
-export class CareerFormComponent implements OnInit {
+export default class SignInContainer implements OnInit {
     private readonly router = inject(Router);
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly customMessageService = inject(CustomMessageService);
@@ -177,6 +177,7 @@ export class CareerFormComponent implements OnInit {
     }
 
     private signIn(payload: SignInState) {
+        console.log('singin form')
         this.service.signIn(payload).subscribe({
             next: (data) => {
                 if (data.roles.length === 1) {
