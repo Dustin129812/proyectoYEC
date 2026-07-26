@@ -5,7 +5,7 @@ export default [
     {
         path: MY_ROUTES.authPages.signIn.base,
         title: 'Login',
-        loadComponent: () => import('./components/sign-in/./SignInFormComponent')
+        loadComponent: () => import('./components/sign-in/components/sign-in-form')
     },
     {
         path: MY_ROUTES.authPages.passwordReset.base,

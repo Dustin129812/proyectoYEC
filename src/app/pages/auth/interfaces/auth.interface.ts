@@ -1,5 +1,5 @@
-import { RoleInterface } from '@modules/auth/interfaces';
-import { CatalogueInterface } from '@utils/interfaces';
+import {RoleInterface} from '@modules/auth/interfaces';
+import {CatalogueInterface} from '@utils/interfaces';
 
 export interface AuthInterface {
     id: string;
@@ -20,4 +20,14 @@ export interface AuthInterface {
     birthdate: Date;
     hasDisability: boolean;
     phone: string;
+    student: StudentInterface;
+    teacher: TeacherInterface;
+}
+
+interface StudentInterface {
+    id: string;
+}
+
+interface TeacherInterface {
+    id: string;
 }
