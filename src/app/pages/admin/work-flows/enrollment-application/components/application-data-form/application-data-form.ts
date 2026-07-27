@@ -1,5 +1,5 @@
 import { Component, computed, effect, inject, signal, WritableSignal } from '@angular/core';
-import { ApplicationData, Career } from '../../enrollment-application.state';
+import { ApplicationData, AvailableSubjectResponse, AvailableSubjectsResponse, Career } from '../../enrollment-application.state';
 import { validateApplicationData } from '../../validators/application-data-form.validation';
 import { FieldTree, form, FormField } from '@angular/forms/signals';
 import { FormRegistryService } from '@utils/services/form-registry.service';
@@ -11,40 +11,45 @@ import { CustomIcons } from '@utils/icons/custom-icons';
 import { CatalogueInterface } from '@utils/interfaces';
 import { CatalogueService } from '@utils/services';
 import { CatalogueTypeEnum } from '@utils/enums';
+import { EnrollmentsService } from '../../services/enrollments.service';
+import { CareerService } from '@modules/admin/work-flows/career/career.service';
+import { Loading } from "../loading/loading";
 
 const FORM_STATE_KEY = "application"
 
 @Component({
     selector: 'app-application-data-form',
-    imports: [TableModule, Select, LabelDirective, FormField],
+    imports: [TableModule, Select, LabelDirective, FormField, Loading],
     templateUrl: './application-data-form.html',
 })
 export class ApplicationDataForm {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
     protected readonly catalogueService = inject(CatalogueService);
+    protected readonly careerService = inject(CareerService);
+    private readonly enrollmentService = inject(EnrollmentsService);
+
 
     protected readonly CustomIcons = CustomIcons;
+    protected loading = signal(false)
 
-
-    protected academicPeriods: WritableSignal<CatalogueInterface[]> = signal([]);
-    protected careers: WritableSignal<Career[]> = signal([]);
-    protected schoolPeriods: WritableSignal<CatalogueInterface[]> = signal([]);
-    protected items: WritableSignal<CatalogueInterface[]> = signal([]);
-    protected selectedItems = signal<any[] | null>(null);
-    protected careerParallels: {
-        academicPeriodId: string;
-        workday: { id: string, name: string };
-        parallel: { id: string, name: string };
-    }[] = [];
     //todas las variables protected o private
 
-    protected selectedCurriculum = signal<any>(null);
+    protected academicPeriods: WritableSignal<CatalogueInterface[]> = signal([]);
+    protected schoolPeriods: WritableSignal<CatalogueInterface[]> = signal([]);
+    protected workdays: WritableSignal<CatalogueInterface[]> = signal([]);
+    protected parallels: WritableSignal<CatalogueInterface[]> = signal([]);
+
+    // TODO: institutionId - Determinar de dónde se debe obtener para inyectarlo en la consulta de carreras (si el backend lo requiere)
+    protected careers: WritableSignal<Career[]> = signal([]);
+
+    protected items: WritableSignal<AvailableSubjectResponse[]> = signal([]);
+    protected selectedItems = signal<any[] | null>(null);
+
 
     protected form$: WritableSignal<ApplicationData> = signal(this.enrollmentApplicationStore.application());
-
     protected formData: FieldTree<ApplicationData> = this.buildForm();
-    //los getter gregar sufijo Field para el nombre del metodo ej:careerField
+
     constructor() {
         effect(() => {
             this.enrollmentApplicationStore.updateSection(FORM_STATE_KEY, this.form$());
@@ -52,57 +57,50 @@ export class ApplicationDataForm {
         effect(() => {
             this.form$.update(form => ({
                 ...form,
-                enrollmentDetails: this.selectedItems()
+                enrollmentDetails: this.selectedItems()?.length ? this.selectedItems() : null
             }));
 
         });
-        effect(() => {
-            if (this.formData.enrollmentDetails().value()?.length === 0) {
-                this.form$.update(form => ({
-                    ...form,
-                    enrollmentDetails: null
-                }));
-
-            }
-        })
+        //Reseteo en cascada si cambia algo arriba
         effect(() => {
             const academicPeriod = this.formData.academicPeriod().value();
             if (!academicPeriod) return;
-            this.formData.workday().reset();
-            this.formData.parallel().reset();
+            this.formData.workday().reset(null);
+            this.formData.parallel().reset(null);
+            this.selectedItems.set([])
         });
 
+        //Buscar materias cuando los 5 filtros tengan valor
         effect(() => {
+            const career = this.formData.career().value();
+            const schoolPeriod = this.formData.schoolPeriod().value();
+            const academicPeriod = this.formData.academicPeriod().value();
             const workday = this.formData.workday().value();
-            if (!workday) return;
-            this.formData.parallel().reset();
+            const parallel = this.formData.parallel().value();
+
+            if (career && schoolPeriod && academicPeriod && workday && parallel) {
+                this.loadSubjectsForEnrollment(
+                    career.id,
+                    '68f67684-71b1-4df6-ad61-d2214dacc05e',
+                    academicPeriod.id,
+                    workday.id,
+                    parallel.id
+                );//scool period traaer de la tabla school period
+                // this.loadSubjectsForEnrollment(
+                //     career.id,
+                //     schoolPeriod.id,
+                //     academicPeriod.id,
+                //     workday.id,
+                //     parallel.id
+                // );
+            } else {
+                this.items.set([]);
+            }
         });
     }
     private buildForm(): FieldTree<ApplicationData> {
         return form(this.form$, (schema) => validateApplicationData(schema));
     }
-
-    protected workdays = computed(() => {
-        const academicPeriod = this.formData.academicPeriod().value();
-        if (!academicPeriod) return [];
-        //puede cambiar de donde se obtiene
-        //todos los id son string
-        return this.careerParallels.filter(careerParallel => careerParallel.academicPeriodId === academicPeriod.id)
-            .map(careerParallel => careerParallel.workday);
-    });
-
-    protected parallels = computed(() => {
-        const academicPeriod = this.formData.academicPeriod().value();
-        const workday = this.formData.workday().value();
-        if (!academicPeriod || !workday) return [];
-
-        return this.careerParallels
-            .filter(cp =>
-                cp.academicPeriodId === academicPeriod.id &&
-                cp.workday.id === workday.id
-            )
-            .map(cp => cp.parallel);
-    });
 
     ngOnInit(): void {
         this.formRegistryService.register(
@@ -111,55 +109,16 @@ export class ApplicationDataForm {
             this.formData,
             this.form$()
         );
-
         //student por defecto logueado
         //cargar los datos reales desde los servicios
         const data = this.enrollmentApplicationStore.application();
         this.selectedItems.set(data.enrollmentDetails?.length ? [...data.enrollmentDetails] : null);
-        this.loadAllCatalogues()
-        this.careerParallels = [
-            {
-                academicPeriodId: '1',
-                workday: { id: 'MAT', name: 'Matutina' },
-                parallel: { id: 'A', name: 'Paralelo A' }
-            },
-            {
-                academicPeriodId: '1',
-                workday: { id: 'MAT', name: 'Matutina' },
-                parallel: { id: 'B', name: 'Paralelo B' }
-            },
-            {
-                academicPeriodId: '1',
-                workday: { id: 'NOC', name: 'Nocturna' },
-                parallel: { id: 'A', name: 'Paralelo A' }
-            },
-            {
-                academicPeriodId: '2',
-                workday: { id: 'VES', name: 'Vespertina' },
-                parallel: { id: 'A', name: 'Paralelo A' }
-            },
-            {
-                academicPeriodId: '2',
-                workday: { id: 'VES', name: 'Vespertina' },
-                parallel: { id: 'B', name: 'Paralelo B' }
-            }
-        ];
+
+        this.loadAllCatalogues();
     }
 
     ngOnDestroy(): void {
         this.formRegistryService.unregister('application');
-    }
-
-
-    onCurriculumChange(curriculum: any) {
-        // se llamaria desde careers desaparece curriculum
-        this.selectedCurriculum.set(curriculum);
-        this.loadCareerParallels();
-    }
-
-    loadCareerParallels(): void {
-        // peticion para traer las carrerpararllels dependiendo la carrer
-        return;
     }
 
     onSelectionChange(selected: any[]) {
@@ -169,22 +128,55 @@ export class ApplicationDataForm {
     previous() {
         this.enrollmentApplicationStore.setStep(1);
     }
-    private loadAllCatalogues(): void {
-        this.academicPeriods.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_academic_period)
-        );
-        this.careers.set([
-            { name: 'Desarrollo de Software', id: '1' },
-            { name: 'Redes y Telecomunicaciones', id: '2' },
-            { name: 'Diseño Gráfico', id: '3' },
-            { name: 'Marketing Digital', id: '4' }
-        ])
-        this.schoolPeriods.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_school_period)
-        );
-        this.items.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_subject)
-        );
+
+    private async loadAllCatalogues(): Promise<void> {
+        this.loading.set(true)
+        try {
+            this.academicPeriods.set(await this.catalogueService.findByTypeTest(CatalogueTypeEnum.users_academic_period));
+            this.schoolPeriods.set(await this.catalogueService.findByTypeTest(CatalogueTypeEnum.users_school_period));
+            this.workdays.set(await this.catalogueService.findByTypeTest(CatalogueTypeEnum.users_workdays));
+            this.parallels.set(await this.catalogueService.findByTypeTest(CatalogueTypeEnum.users_parallel));
+
+            // TODO: institutionId - Cuando se conecte al servicio real, inyectar el institutionId si es necesario.
+            this.careerService.findCareers(1, '').subscribe({
+                next: (response) => {
+                    console.log('esta aqui 2')
+                    this.careers.set(response.data);
+                }
+            });
+
+        } catch (error) {
+        } finally {
+            this.loading.set(false)
+        }
+
+    }
+    private async loadSubjectsForEnrollment(careerId: string, schoolPeriodId: string, academicPeriodId: string, workdayId: string, parallelId: string): Promise<void> {
+        // TODO: institutionId - Revisar si el backend requerirá el institutionId aquí también para mayor seguridad
+
+        const payload = {
+            careerId,
+            schoolPeriodId,
+            academicPeriodId,
+            workdayId,
+            parallelId
+        };
+
+        console.log('Disparando consulta de materias con:', payload);
+
+        this.enrollmentService.getAvailableSubjects(payload).subscribe({
+            next: ({ data }) => { this.items.set(data); console.log('respuesta: ', data); },
+            error: (error) => {
+                console.error(error);
+                this.items.set([]);
+            },
+        });
+
+        // Mock temporal para que no se rompa la vista mientras se armama el backend
+        // this.items.set([
+        //     { code: 'DS-101', name: 'Programación Orientada a Objetos', id: '1' },
+        //     { code: 'DS-102', name: 'Bases de Datos', id: '2' }
+        // ]);
     }
 
 }

@@ -338,3 +338,20 @@ export const INITIAL_ENROLLMENT_APPLICATION_STATE: EnrollmentApplicationState = 
         type: null
     }
 }
+//dto
+export interface GetAvailableSubjectsDto {
+    careerId: string;
+    schoolPeriodId: string;
+    workdayId: string;
+    parallelId?: string;
+}
+export interface AvailableSubjectResponse {
+    id: string;
+    code: string;
+    name: string;
+    credits: number;
+}
+export interface AvailableSubjectsResponse {
+    data: AvailableSubjectResponse[];
+    message: string;
+}

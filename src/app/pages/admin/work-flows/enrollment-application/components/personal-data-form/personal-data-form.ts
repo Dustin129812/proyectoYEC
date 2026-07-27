@@ -107,34 +107,35 @@ export class PersonalDataForm {
         });
     }
 
-    private loadAllCatalogues(): void {
+    private async loadAllCatalogues(): Promise<void> {
         this.workingHourstype.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_working_hours_type)
+            await this.catalogueService.findByTypeTest(CatalogueTypeEnum.users_working_hours_type)
         );
         this.monthlySalarys.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_monthly_salary)
+            await this.catalogueService.findByTypeTest(CatalogueTypeEnum.users_monthly_salary)
         );
         this.foreignLanguageNames.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_foreign_language_name)
+            await this.catalogueService.findByTypeTest(CatalogueTypeEnum.users_foreign_language_name)
         );
         this.ancestralLanguageNames.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_ancestral_language_name)
+            await this.catalogueService.findByTypeTest(CatalogueTypeEnum.users_ancestral_language_name)
         );
         this.indigenousNationalitys.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_indigenous_nationality)
+            await this.catalogueService.findByTypeTest(CatalogueTypeEnum.users_indigenous_nationality)
         );
         this.towns.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_town)
+            await this.catalogueService.findByTypeTest(CatalogueTypeEnum.users_town)
         );
         this.disabilityTypes.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_disability_type)
+            await this.catalogueService.findByTypeTest(CatalogueTypeEnum.users_disability_type)
         );
         this.contactEmergencyKinships.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_contact_emergency_kinship)
+            await this.catalogueService.findByTypeTest(CatalogueTypeEnum.users_contact_emergency_kinship)
         );
         this.semesters.set(
             this.catalogueService.findByType(CatalogueTypeEnum.users_academic_period)
         );
+        //la carrera viene de catalogo
         this.careers.set([
             { name: 'Desarrollo de Software', id: '1' },
             { name: 'Redes y Telecomunicaciones', id: '2' },

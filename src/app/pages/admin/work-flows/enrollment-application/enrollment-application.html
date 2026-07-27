@@ -1,5 +1,6 @@
 <div>
     <p-stepper [value]="pageActual()" [linear]="true">
+        <!-- [linear]="true" -->
         <p-step-list>
             <p-step [value]="1">Datos Personales</p-step>
             <p-step [value]="2">Solicitud de Matricula</p-step>
@@ -15,7 +16,7 @@
             </p-step-panel>
             <p-step-panel [value]="2">
                 <ng-template #content let-activateCallback="activateCallback" let-value="value">
-                    @if(pageActual() ==2){
+                    @if(pageActual() == 2){
 
                         <app-application />
                     }
@@ -23,7 +24,7 @@
             </p-step-panel>
             <p-step-panel [value]="3">
                 <ng-template #content let-activateCallback="activateCallback"let-value="value">
-                    @if(pageActual() ==3){
+                    @if(pageActual() == 3){
                         <app-enrollment-attachment />
 
                     }

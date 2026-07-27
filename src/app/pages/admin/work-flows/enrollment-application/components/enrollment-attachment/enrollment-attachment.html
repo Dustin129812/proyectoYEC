@@ -1,5 +1,5 @@
 
-@for(item of catalog ; track item.id){
+@for(item of catalog() ; track item.id){
     <h4>{{item.name}}</h4>
     <p-fileupload
         mode="advanced"

@@ -1,4 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { CatalogueTypeEnum } from '@utils/enums';
+import { CatalogueInterface } from '@utils/interfaces';
+import { CatalogueService } from '@utils/services';
 import { FileUpload, FileSelectEvent } from 'primeng/fileupload';
 
 @Component({
@@ -7,7 +10,8 @@ import { FileUpload, FileSelectEvent } from 'primeng/fileupload';
     templateUrl: './enrollment-attachment.html',
 })
 export class EnrollmentAttachment {
-    protected catalog:any[]=[]
+    private readonly catalogueService = inject(CatalogueService)
+    protected catalog: WritableSignal<CatalogueInterface[]> = signal([]);
     files = signal<File[]>([]);
 
     onSelect(event: FileSelectEvent) {
@@ -15,10 +19,12 @@ export class EnrollmentAttachment {
         console.log(this.files());
     }
 
-    ngOnInit(){
-        this.catalog=[
-            {id:'1',name:'CI'},
-            {id:'2',name:'Certificado'},
-        ]
+    ngOnInit() {
+        this.loadCatalogue()
+    }
+    
+    async loadCatalogue() {
+        this.catalog.set(await this.catalogueService.findByTypeTest(CatalogueTypeEnum.users_enrollment_file_type))
+
     }
 }

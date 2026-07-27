@@ -1,10 +1,11 @@
-<form class="custom-form-grid md:grid-cols-12">
+@if(loading()){
+<app-loading message="Cargando catálogos..." />
+}@else{<form class="custom-form-grid md:grid-cols-12">
 
     <div class="custom-form-field md:col-span-6">
         <label appLabel for="career" label="Carrera" [field]="formData.career"></label>
-        <p-select class="ml-3" [options]="careers()" [formField]="$any(formData.career)" name="career"
-            (onChange)="onCurriculumChange($event)" optionLabel="name" pTooltip="Carreras" filterBy="name" dataKey="id"
-            placeholder="Seleccione una carrera...">
+        <p-select [options]="careers()" [formField]="$any(formData.career)" name="career" optionLabel="name"
+            pTooltip="Carreras" filterBy="name" dataKey="id" placeholder="Seleccione una carrera...">
         </p-select>
 
     </div>
@@ -43,30 +44,6 @@
     </div>
 
 </form>
-<!-- colocar el nombre items a la variable que carga la tabla, eso esta por revisar para ver si es contexto o en genral  -->
-<!-- <p-table #dt1 dataKey="id" [value]="subjects()" [selection]="selectedItems()"
-    (selectionChange)="onSelectionChange($event)">
-
-    <ng-template pTemplate="header">
-        <tr>
-            <th style="width:4rem">
-                <p-tableHeaderCheckbox />
-            </th>
-            <th>Código</th>
-            <th>Asignatura</th>
-        </tr>
-    </ng-template>
-
-    <ng-template pTemplate="body" let-subject>
-        <tr>
-            <td>
-                <p-tableCheckbox [value]="subject" />
-            </td>
-            <td>{{ subject.code }}</td>
-            <td>{{ subject.name }}</td>
-        </tr>
-    </ng-template>
-</p-table> -->
 <p-table #dt [value]="items()" [tableStyle]="{ 'min-width': '50rem' }" stripedRows [selection]="selectedItems()"
     (selectionChange)="onSelectionChange($event)">
     <ng-template #caption>
@@ -96,7 +73,7 @@
                 <p-tableCheckbox [value]="item" />
             </td>
             <td>{{ item.code }}</td>
-            <td>{{ item.shortName }}</td>
+            <td>{{ item.name }}</td>
         </tr>
     </ng-template>
 
@@ -106,3 +83,4 @@
         </tr>
     </ng-template>
 </p-table>
+}

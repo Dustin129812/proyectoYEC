@@ -3,33 +3,18 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-//  import {
-//     CreateStudentDto,
-//     EnrollmentDetailModel,
-//     EnrollmentModel,
-//     FileModel, SchoolPeriodModel,
-//     StudentModel,
-//     UpdateStudentDto
-// } from '@models/core';
-//import { ServerResponse } from '@models/http-response';
-//import { CareersService, CoreService,MessageService } from '@services/core';
-import { format } from "date-fns";
 import { HttpResponseInterface } from '@utils/interfaces';
 import { LocationDto, PersonalInformationDto, StudentInterface } from '../enrollment-application.state';
-import { EnrollmentApplicationMapper } from '../mappers/personal-data.mapper';
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class StudentsService {
-    API_URL = `${environment.API_URL}/students`;
-    //  protected readonly careersService = inject(CareersService);
+    API_URL = `${environment.API_URL}/core/student/students`;
 
     constructor(
-        // private coreService: CoreService,
         private httpClient: HttpClient,
-        //private messageService: MessageService,
     ) {
     }
     getCurrentDraft(): Observable<HttpResponseInterface> {
@@ -59,54 +44,6 @@ export class StudentsService {
             })
         );
     }
-
-    /*
-        reactivate(id: string): Observable<StudentModel> {
-            const url = `${this.API_URL}/${id}/reactivate`;
-
-            return this.httpClient.put<HttpResponseInterface>(url, null).pipe(
-                map((response) => {
-                    this.messageService.success(response).then();
-                    return response.data;
-                })
-            );
-        }
-
-
-
-        remove(id: string): Observable<StudentModel> {
-            const url = `${this.API_URL}/${id}`;
-
-            return this.httpClient.delete<HttpResponseInterface>(url).pipe(
-                map((response) => {
-                    this.messageService.success(response).then();
-                    return response.data;
-                })
-            );
-        }
-
-        removeAll(users: StudentModel[]): Observable<StudentModel[]> {
-            const url = `${this.API_URL}/remove-all`;
-
-            return this.httpClient.patch<HttpResponseInterface>(url, users).pipe(
-                map((response) => {
-                    this.messageService.success(response).then();
-                    return response.data;
-                })
-            );
-        }
-
-        hide(id: string): Observable<StudentModel> {
-            const url = `${this.API_URL}/${id}/hide`;
-
-            return this.httpClient.patch<HttpResponseInterface>(url, null).pipe(
-                map((response) => {
-                    this.messageService.success(response).then();
-                    return response.data;
-                })
-            );
-        }
-    */
 
     update(
         id: string,

@@ -54,7 +54,7 @@ export class EnrollmentApplicationMapper {
 
             isDisability: pd.isDisability,
             disabilityType: pd.disabilityType,
-            disabilityPercentage: pd.disabilityPercentage ? Number(pd.disabilityPercentage) : undefined,
+            disabilityPercentage: pd.disabilityPercentage ? Number(pd.disabilityPercentage) : null,
 
             isAncestralLanguage: pd.isAncestralLanguage,
             ancestralLanguageName: pd.ancestralLanguageName,
@@ -66,7 +66,7 @@ export class EnrollmentApplicationMapper {
             foreignLanguageName: pd.foreignLanguageName,
 
             isHasChildren: pd.isHasChildren,
-            childrenTotal: pd.childrenTotal ? Number(pd.childrenTotal) : undefined,
+            childrenTotal: pd.childrenTotal ? Number(pd.childrenTotal) : null,
 
             isHouseHead: pd.isHouseHead,
             isPrivateSecurity: pd.isPrivateSecurity,
@@ -89,8 +89,8 @@ export class EnrollmentApplicationMapper {
             province: loc.province,
             canton: loc.canton,
             parish: loc.parish,
-            latitude: loc.latitude ? Number(loc.latitude) : undefined,
-            longitude: loc.longitude ? Number(loc.longitude) : undefined,
+            latitude: loc.latitude ? Number(loc.latitude) : null,
+            longitude: loc.longitude ? Number(loc.longitude) : null,
             mainStreet: loc.mainStreet,
             number: loc.number,
             secondaryStreet: loc.secondaryStreet,

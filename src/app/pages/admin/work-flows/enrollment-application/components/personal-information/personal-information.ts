@@ -10,6 +10,7 @@ import { FormRegistryService } from '@utils/services/form-registry.service';
 import { UserDataForm } from "../user-data-form/user-data-form";
 import { EnrollmentApplicationMapper } from '../../mappers/personal-data.mapper';
 import { StudentsService } from '../../services/students.srvices';
+import { LocationsService } from '../../services/locations.services';
 
 
 @Component({
@@ -90,9 +91,12 @@ export class PersonalInformation {
                     }
                 });
             },
+
             error: (err) => {
                 console.error('❌ Error al guardar datos personales:', err);
+                this.enrollmentApplicationStore.setStep(2);
             }
         });
+        this.enrollmentApplicationStore.setStep(2);
     }
 }
