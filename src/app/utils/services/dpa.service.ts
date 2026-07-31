@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {DpaInterface} from '@utils/interfaces';
-import {CoreEnum} from '@utils/enums';
+import { Injectable } from '@angular/core';
+import { DpaInterface } from '@utils/interfaces';
+import { CoreEnum } from '@utils/enums';
 
 @Injectable({
     providedIn: 'root'
@@ -9,27 +9,15 @@ export class DpaService {
     private getDpa(): DpaInterface[] {
         const dpa = sessionStorage.getItem(CoreEnum.dpa);
 
-        return dpa ? JSON.parse(dpa) as DpaInterface[] : [];
+        return dpa ? (JSON.parse(dpa) as DpaInterface[]) : [];
     }
 
-    async findProvinces(): Promise<DpaInterface[]> {
-        const dpa = sessionStorage.getItem(CoreEnum.dpa);
-
-        const dpaParse = dpa ? JSON.parse(dpa) as DpaInterface[] : [];
-
-        return dpaParse.filter((item) => {
-            return item.parentId === null;
-        });
+    findProvinces(): DpaInterface[] {
+        return this.getDpa().filter(item => item.parentId === null);
     }
 
-    async findDpaByParentId(parentId: string): Promise<DpaInterface[]> {
-        const dpa = sessionStorage.getItem(CoreEnum.dpa);
-
-        const dpaParse = dpa ? JSON.parse(dpa) as DpaInterface[] : [];
-
-        return dpaParse.filter((item) => {
-            return item.parentId === parentId;
-        });
+    findDpaByParentId(parentId: string): DpaInterface[] {
+        return this.getDpa().filter(item => item.parentId === parentId);
     }
 
     setDpa(value: DpaInterface[]): void {

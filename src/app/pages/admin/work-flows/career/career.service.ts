@@ -14,7 +14,7 @@ import {
 )
 export class CareerService {
     private readonly httpClient = inject(HttpClient);
-    private readonly apiUrl = `${environment.API_URL}/careers`;
+    private readonly apiUrl = `${environment.API_URL}/core/career-coordinator/careers`;
 
     createCareer(payload: CareerState) {
         const url = this.apiUrl;
@@ -46,12 +46,12 @@ export class CareerService {
         );
     }
 
-    findCareers(page: number, search: string, institutionId: string): Observable<HttpResponseInterface> {
+    findCareers(page: number, search: string): Observable<HttpResponseInterface> {
         const url = this.apiUrl;
 
         let params = new HttpParams()
             .append('page', page)
-            .append('institutionId', institutionId);
+            // .append('institutionId', institutionId);
 
         if (search) {
             params = params.append('search', search);

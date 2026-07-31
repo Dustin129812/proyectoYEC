@@ -1,11 +1,11 @@
 export enum CatalogueTypeEnum {
-    users_identification_type = 'users_identification_type',
+    users_identification_type = 'IDENTIFICATION_TYPE',
     users_blood_type = 'users_blood_type',
-    users_ethnic_origin = 'users_ethnic_origin',
-    users_gender = 'users_gender',
-    users_marital_status = 'users_marital_status',
-    users_nationality = 'users_nationality',
-    users_sex = 'users_sex',
+    users_ethnic_origin = 'ETHNIC_ORIGIN',
+    users_gender = 'GENDER',
+    users_marital_status = 'MARITAL_STATUS',
+    users_nationality = 'NATIONALITY',
+    users_sex = 'SEX',
     users_security_question = 'users_security_question',
     processes_state = 'processes_state',
     cadastres_state = 'cadastres_state',
@@ -49,7 +49,24 @@ export enum CatalogueTypeEnum {
     processes_driver_license = 'processes_driver_license',
     process_guides_professional_type = 'process_guides_professional_type',
     external_inactivation_causes = 'external_inactivation_causes',
-    guide_inactivation_causes = 'guide_inactivation_causes'
+    guide_inactivation_causes = 'guide_inactivation_causes',
+    //enum faltate para personal-data-form y application-data-form
+    users_working_hours_type = 'WORKING_HOURS',
+    users_monthly_salary = 'MONTHLY_SALARY',
+    users_foreign_language_name = 'FOREIGN_LANGUAGE_NAME',
+    users_ancestral_language_name = 'ANCESTRAL_LANGUAGE_NAME',
+    users_indigenous_nationality = 'INDIGENOUS_NATIONALITY',
+    users_town = 'TOWN',
+    users_disability_type = 'DISABILITY_TYPE',
+    users_contact_emergency_kinship = 'CONTACT_EMERGENCY_KINSHIP',
+    users_academic_period = 'ACADEMIC_PERIOD',
+    users_school_period = 'SCHOOL_PERIODS_STATE',
+    users_career = 'CAREERS_TYPE',
+    // users_subject = 'users_subject', esto vendria de un servicio
+    users_workdays = 'ENROLLMENTS_WORKDAY',
+    users_parallel = 'PARALLEL',
+    users_enrollment_file_type = 'ENROLLMENT_FILE_TYPE_NEW_STUDENT',
+    country = 'country'
 }
 
 export enum CatalogueStateEnum {

@@ -24,7 +24,7 @@ export interface AuthInterface {
     teacher: TeacherInterface;
 }
 
-interface StudentInterface {
+export interface StudentInterface {
     id: string;
 }
 

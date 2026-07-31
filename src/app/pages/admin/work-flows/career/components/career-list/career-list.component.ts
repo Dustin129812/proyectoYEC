@@ -141,7 +141,7 @@ export class CareerListComponent implements OnInit {
     }
 
     private findCareers(page = 1, search = '') {
-        this.careerService.findCareers(page, search, '126ec046-d63d-4b04-8161-3a49a4802cb9').subscribe({
+        this.careerService.findCareers(page, search).subscribe({
             next: (response) => {
                 this.items.set(response.data);
                 this.pagination.set(response.pagination!);
