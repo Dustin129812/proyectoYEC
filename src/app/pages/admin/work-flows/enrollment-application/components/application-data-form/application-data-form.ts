@@ -81,7 +81,7 @@ export class ApplicationDataForm {
             const academicPeriod = this.formData.academicPeriod().value();
             const workday = this.formData.workday().value();
             const parallel = this.formData.parallel().value();
-            console.log('student: ',this.formData.student().value())
+            console.log('student: ', this.formData.student().value())
 
             if (career && schoolPeriod?.id && academicPeriod?.id && workday?.id && parallel?.id) {
                 this.loadSubjectsForEnrollment(
@@ -114,7 +114,7 @@ export class ApplicationDataForm {
             this.formData,
             this.form$()
         );
-        this.formData.student().reset(this.authService.auth.student);
+        this.formData.student().reset(this.enrollmentApplicationStore.student);
         //student por defecto logueado
         //cargar los datos reales desde los servicios
         const data = this.enrollmentApplicationStore.application();
@@ -159,7 +159,14 @@ export class ApplicationDataForm {
     }
 
     private async fetchSchoolPeriods() {
-        this.schoolPeriodsService.catalogue().subscribe((response => this.schoolPeriods.set(response.data)))
+        this.schoolPeriodsService.findOpen().subscribe((response => {
+            this.schoolPeriods.set([response.data]);
+            console.log('response.data', JSON.stringify(response.data, null, 2));
+            console.log('name', response.data.name);
+            console.log('id', response.data.id);
+            console.log('signal school', this.schoolPeriods());
+            console.log('fetch school', response)
+        }))
     }
 
     private async loadSubjectsForEnrollment(careerId: string, schoolPeriodId: string, academicPeriodId: string, workdayId: string, parallelId: string): Promise<void> {

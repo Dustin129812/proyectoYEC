@@ -1,7 +1,7 @@
 import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { CatalogueTypeEnum } from '@utils/enums';
 import { CatalogueInterface } from '@utils/interfaces';
-import { CatalogueService, CustomMessageService } from '@utils/services';
+import { CatalogueService, CustomMessageService, FileHttpService } from '@utils/services';
 import { FileUpload, FileSelectEvent } from 'primeng/fileupload';
 import { Button } from "primeng/button";
 import { CustomIcons } from '@utils/icons/custom-icons';
@@ -15,10 +15,12 @@ import { EnrollmentAplicationStore } from '../../enrollment-application.store';
 export class EnrollmentAttachment {
     private readonly customMessageService = inject(CustomMessageService);
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
-    protected readonly CustomIcons = CustomIcons;
     private readonly catalogueService = inject(CatalogueService)
+    private readonly fileHttpService = inject(FileHttpService)
+    protected readonly CustomIcons = CustomIcons;
     protected catalog: WritableSignal<CatalogueInterface[]> = signal([]);
     files = signal<File[]>([]);
+    protected modelId = this.enrollmentApplicationStore.student.id
 
     onSelect(event: FileSelectEvent) {
         this.files.set(event.files);
@@ -33,6 +35,9 @@ export class EnrollmentAttachment {
 
     loadCatalogue() {
         this.catalog.set(this.catalogueService.findByType(CatalogueTypeEnum.users_enrollment_file_type))
-
+        console.log('catalogo files: ', this.catalog)
+    }
+    upload(payload: any, typeId: any) {
+        this.fileHttpService.upload(payload, this.modelId, typeId).subscribe(response=>console.log(response))
     }
 }

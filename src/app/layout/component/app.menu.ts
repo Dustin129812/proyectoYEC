@@ -80,6 +80,11 @@ export class AppMenu {
                         ]
                     },
                     {
+                        label: 'Solicitud de Matricula',
+                        icon: 'pi pi-fw pi-pencil',
+                        routerLink: ['/main/admin/enrollment/application']
+                    },
+                    {
                         label: 'Crud',
                         icon: 'pi pi-fw pi-pencil',
                         routerLink: ['/pages/crud']

@@ -7,7 +7,9 @@
         chooseLabel="Seleccionar documentos"
         cancelLabel="Limpiar"
         chooseIcon="pi pi-upload"
-        (onSelect)="onSelect($event)">
+        (onSelect)="onSelect($event)"
+        (onUpload)="upload($event,'pdf')"
+        >
     </p-fileupload>
 }
 <div class="custom-form-field md:col-span-6 md:col-start-4">
